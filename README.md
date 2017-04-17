@@ -1,2 +1,0 @@
-# zoumiaojiang.github.io
-blogs
