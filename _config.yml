@@ -71,3 +71,5 @@ deploy:
   type: git
   repository: https://github.com/zoumiaojiang/zoumiaojiang.github.io.git
   branch: master
+
+disqus_shortname: zoumiaojiang

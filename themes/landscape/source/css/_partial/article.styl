@@ -30,11 +30,13 @@
 
 .article-title
   text-decoration: none
+  text-align: center
   font-size: 2em
   font-weight: bold
   color: color-default
   line-height: line-height-title
   transition: color 0.2s
+  padding: 10px 0
   a&:hover
     color: color-link
 
@@ -48,9 +50,13 @@
     margin: line-height 0
   h1, h2, h3, h4, h5, h6
     font-weight: bold
+    border-left: 3px solid #337ab7
+    padding-left: 10px
   h1, h2, h3, h4, h5, h6
     line-height: line-height-title
     margin: line-height-title 0
+  figure
+    margin: 0 40px
   a
     color: color-link
     text-decoration: none
@@ -79,9 +85,13 @@
     padding: 10px 0
   blockquote
     font-family: font-serif
-    font-size: 1.4em
+    font-style: italic
+    font-size: 1.0em
     margin: line-height 20px
-    text-align: center
+    text-align: left
+    background: #f2f2f2
+    border-left: 4px solid #ccc;
+    padding: 5px 20px
     footer
       font-size: font-size
       margin: line-height 0

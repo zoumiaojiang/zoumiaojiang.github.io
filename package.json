@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "hexo s -g",
+    "dev": "hexo s -g --draft",
     "deploy": "hexo d -g"
   },
   "hexo": {
