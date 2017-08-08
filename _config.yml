@@ -13,7 +13,6 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://zoumiaojiang.win       # Note: don't forget to modify the CNAME file to your url
 url_host: zoumiaojiang.win
-service_worker: true
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -167,3 +166,26 @@ deploy:
   type: git
   repository: https://github.com/zoumiaojiang/zoumiaojiang.github.io.git
   branch: master
+
+
+
+# service worker
+offline:
+  maximumFileSizeToCacheInBytes: 5242880
+  staticFileGlobs:
+    - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+  stripPrefix: public
+  verbose: true
+  runtimeCaching:
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: cdn.staticfile.org
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: cdn.bootcss.com
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: buttons.github.io
