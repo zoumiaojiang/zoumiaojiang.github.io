@@ -31,7 +31,7 @@ signature-img:
 
 # SNS settings
 RSS: false
-weibo_username:     2184023523
+# weibo_username:     2184023523
 zhihu_username:     zou-miao-jiang
 github_username:    zoumiaojiang
 twitter_username:   zoumiaojiang
@@ -103,10 +103,10 @@ skip_render:
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
-titlecase: false # Transform title into titlecase
+titlecase: true # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
-render_drafts: false
+render_drafts: true
 post_asset_folder: true
 relative_link: false
 future: true
