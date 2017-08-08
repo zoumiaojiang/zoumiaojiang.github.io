@@ -8,11 +8,11 @@ tags:
 - PWA
 - Service Woker
 - Lavas
-catagories:
+categories:
 - PWA
 ---
 
-> 这是一个技术文，在开始阅读这篇文章之前，先了解以下内容更能加深您的理解：
+> 这是一篇技术文，在开始阅读这篇文章之前，先了解以下内容更能加深您的理解：
 >
 > - [PWA](https://lavas.baidu.com/doc)
 > - [Service worker 的工作原理](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction)

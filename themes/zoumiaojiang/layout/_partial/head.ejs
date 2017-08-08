@@ -7,6 +7,12 @@
     <meta name="keyword"  content="<%= config.keyword %>">
     <link rel="shortcut icon" href="<%= config.root %>img/zoumiaojiang.ico">
     <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === '<%= config.url_host%>') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         <% if (page.title) { %>

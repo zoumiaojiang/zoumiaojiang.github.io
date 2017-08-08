@@ -12,6 +12,7 @@ timezone:
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://zoumiaojiang.win       # Note: don't forget to modify the CNAME file to your url
+url_host: zoumiaojiang.win
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -25,7 +26,7 @@ description: "码农，技术宅，屌丝"
 keyword: "PWA, 百度, 前端, Web"
 header-img: img/header_img/shanghai_night.jpg
 signature: false #show signature
-signature-img: img/signature/BeanTechSign-white.png 
+signature-img:
 
 
 # SNS settings
@@ -63,12 +64,12 @@ sidebar: true                       # whether or not using Sidebar.
 sidebar-about-description: "Hi, i'm ZouMiaojiang"
 sidebar-avatar: img/zoumiaojiang.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
-- featured-tags
-- short-about
-- recent-posts
-- friends-blog
-- archive
-- category
+  - featured-tags
+  - short-about
+  - recent-posts
+  - friends-blog
+  - archive
+  - category
 
 # widget behavior
 ## Archive
