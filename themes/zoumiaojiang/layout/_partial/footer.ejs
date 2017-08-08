@@ -190,4 +190,19 @@
 </script>
 <% } %>
 
+<% if (config.service_worker && config.url_host) {%>
+<script>
+    if (location.host === '<%= config.url_host%>' && location.protocol === 'https:') {
+        window.onload = function () {
+            var script = document.createElement('script');
+            var firstScript = document.getElementsByTagName('script')[0];
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = '/sw-register.js?v=' + Date.now();
+            firstScript.parentNode.insertBefore(script, firstScript);
+        }
+    }
+</script>
+<% } %>
+
 
