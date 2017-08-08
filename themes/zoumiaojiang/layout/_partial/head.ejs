@@ -14,6 +14,9 @@
             location.href = targetProtocol + location.href.substring(location.protocol.length);
         }
     </script>
+    <% if (is_post() && config.generator_amp){ %>
+        <link rel="amphtml" href="<%= config.url %>/<%= page.path %>/amp/index.html">
+    <% } %>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         <% if (page.title) { %>
