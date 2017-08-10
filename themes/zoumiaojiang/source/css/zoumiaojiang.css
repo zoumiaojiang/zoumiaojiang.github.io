@@ -98,8 +98,8 @@ article {
   overflow-x: hidden;
 }
 blockquote {
-  color: #808080;
-  font-style: italic;
+  color: #666;
+  /* font-style: italic; */
   font-size: 0.95em;
   margin: 20px 0 20px;
 }
@@ -162,10 +162,10 @@ pre code {
 .post-container a {
   color: #337ab7;
 }
-.post-container a:hover,
+ /* .post-container a:hover,
 .post-container a:focus {
   color: #317ef3;
-}
+}  */
 .post-container h1,
 .post-container h2,
 .post-container h3,
@@ -509,11 +509,10 @@ pre code {
 .post-preview > a {
   color: #404040;
 }
-.post-preview > a:hover,
+ .post-preview > a:hover,
 .post-preview > a:focus {
   text-decoration: none;
-  color: #317ef3;
-}
+} 
 .post-preview > a > .post-title {
   font-size: 21px;
   line-height: 1.3;
@@ -561,7 +560,7 @@ pre code {
   /* font-style: italic; */
   color: #a3a3a3;
 }
-.post-content-preview:hover {
+.post-title:hover {
   color: #317ef3;
 }
 .section-heading {
