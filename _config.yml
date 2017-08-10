@@ -14,7 +14,8 @@ timezone:
 url: https://zoumiaojiang.win       # Note: don't forget to modify the CNAME file to your url
 url_host: zoumiaojiang.win
 root: /
-permalink: :year/:month/:day/:title/
+# permalink: :year/:month/:day/:title/
+permalink: article/:title/
 permalink_defaults:
 
 #Custom Setting Start
@@ -22,8 +23,8 @@ permalink_defaults:
 # Site settings
 SEOTitle: zoumiaojiang | 邹淼江
 email: zoumiaojiang@gmail.com
-description: "码农，技术宅，屌丝"
-keyword: "PWA, 百度, 前端, Web"
+description: "这里是邹淼江，坐标上海，屌丝一枚，人怂脸皮厚，个矮且人肥，铁杆 NBA 粉（本人不太会打篮球）。文化水平拖后腿，但极爱母校（毕业于黑龙江大学），游走于互联网 Web 开发圈子（大神都不认识的那种圈子），潜心专职写代码，目前在就职于百度"
+keyword: "PWA, 百度, 前端, Web, 邹淼江, 博客"
 header-img: img/header_img/shanghai_night.jpg
 signature: false #show signature
 signature-img:
