@@ -12,12 +12,12 @@ categories:
 - PWA
 ---
 
-> 这是一篇技术文，在开始阅读这篇文章之前，先了解以下内容更能加深您的理解：
->
-> - [PWA](https://lavas.baidu.com/doc)
-> - [Service worker 的工作原理](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction)
->
-> 这篇文章主要探讨的是如何让 PWA 优雅合理的注册一个 Service Worker，从而让站点拥有 Service Worker 所提供的能力，如果看到标题的第一想法是 “Service Worker 注册一个这么简单的话题有啥可讲的”，看到后面可以发现还是有一些坑的。本文少图较长，慎读。
+这是一篇技术文，在开始阅读这篇文章之前，先了解以下内容更能加深您的理解：
+
+- [PWA](https://lavas.baidu.com/doc)
+- [Service worker 的工作原理](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction)
+
+这篇文章主要探讨的是如何让 PWA 优雅合理的注册一个 Service Worker，从而让站点拥有 Service Worker 所提供的能力，如果看到标题的第一想法是 “Service Worker 注册一个这么简单的话题有啥可讲的”，看到后面可以发现还是有一些坑的。本文少图较长，慎读。
 
 通过对 PWA 文档的学习和理解，我们应该都知道了 PWA (Progressive Web Apps) 不是一项技术，不是一个框架，如果我们非要说 PWA 是个什么，可以把她理解为一种模式，一种通过应用一些技术将 Web App 在安全、性能和体验等方面带来渐进式的提升的一种 Web App 模式。如果对 PWA 进行一个简单粗粒度的拆解的话，她主要包含三个方面：
 

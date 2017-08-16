@@ -194,6 +194,10 @@ service_worker:
       handler: cacheFirst
       options:
         origin: buttons.github.io
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: zoumiaojiang.disqus.com
 
 # The following settings is the quick start options.
 generator_amp:

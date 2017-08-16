@@ -12,28 +12,31 @@ categories:
 - PWA
 ---
 
-> 本人不是很喜欢写博客，也不是很喜欢鼓捣博客，原因有三：`懒（有空就想睡觉）`， `穷（没钱买主机，没钱买域名）`，`Low（没啥水平没啥干货）`，但是新博客还是开张了，说来也是极其惭愧，这么多年居然一点存货都没有。
->
->不能免俗，今天就低调开坛讲一讲怎么样快速低成本（薅社会主义羊毛）的搭建一个马马虎虎的（像 [https://zoumiaojiang.win](https://zoumiaojiang.win)这样的）博客，并且让更多像我这样的人也逐渐对写博客感兴趣。神马？这样的文章烂大街了？可以先看看大纲先，反正文章在这里，看不看在你咯。
->
+本人不是很喜欢写博客，也不是很喜欢鼓捣博客，原因有三：
 
-我们最近的主要工作就是在倡导国内开发者认识、熟悉 PWA，并且将自己的站点改造成 PWA，或者说服产品设计师将产品逐步升级为 PWA，其实就目前的严峻形势来看，自由度较高，复杂度较低，并且内容更新较少利于缓存的博客是一个非常好的 PWA 应用场景。没错，今天的内容肯定会讲到 PWA 的啦。现在只是想说，我也不是心血来潮想起搞一个博客的，只是想看看，PWA 到底能做成什么样的程度。想一想 PWA 是不是值得大家去探索。
+- 懒：本人超爱睡觉
+- 抠：不想买主机，买域名
+- Low：没水平没干货
+
+但是新博客还是开张了，说来也是极其惭愧，这么多年居然一点存货都没有。不能免俗，今天就低调开坛讲一讲怎么样快速低成本的搭建一个马马虎虎的（像 [https://zoumiaojiang.win](https://zoumiaojiang.win) 这样）博客。这是篇基础的教程类的文章，可以先看看大纲，反正文章在这里，觉得有兴趣就可以看看。
+
+我们最近的主要工作就是在倡导国内开发者认识、熟悉 PWA，并且将自己的站点改造成 PWA，或者引导产品设计师将产品逐步升级为 PWA。就目前国内 PWA 的严峻形势来看，自由度较高，复杂度较低，并且内容更新较少利于缓存的博客是一个非常好的 PWA 应用场景。没错，今天的内容肯定会讲到 PWA 的。我也不是心血来潮想起搞一个博客的，一来确实是想记录分享些东西，二来是想看看，PWA 到底能把一个博客站点的体验做成什么样的程度。
 
 ## 静态化站点
 
-`静态化站点` 大家肯定都有所了解了，就是站点内的内容都是由服务端直接输出 HTML 的那种站点，没有任何的异步请求数据，可以理解为 Web 1.0 时代的那种充满了文字和超链接的页面组合而成的站点。说这个干嘛呢？
+`静态化站点` 大家肯定都有所了解，就是站点的内容都是由服务端直接输出 HTML 的那种站点，没有任何的异步请求数据，可以理解为 Web 1.0 时代的那种充满了文字和超链接的页面组合而成的站点。
 
-博客毕竟定位是写文章的，主要的是产出内容，最早期网页的产生也是因为某些科学家们早期有管理文档的需求。所以回想一下，我们真没必要将博客搞一套很复杂的架构，比如 PHP + MySQL + ...？想到这些瞬间又不想搞博客了。比较直观的感受是，今天的自媒体如此疯狂，主要就是因为写作的人只用关心写作而已。那么写博客也是一样，我们仅仅只是想 TMD 写点东西而已啊！
+博客毕竟定位是写文章的，主要的是产出内容，最早期网页的产生也是因为某些科学家们早期有管理文档的需求。所以回想一下，我们真没必要将博客搞一套很复杂的架构，比如 PHP + MySQL + ...？想到这些瞬间又不想搞博客了。比较直观的感受是，今天的自媒体如此疯狂，主要就是因为写作的人只用关心写作而已。那么写博客也是一样，我们仅仅只是想写点东西而已！
 
 所以，博客采用 `静态化站点` 的方式搭建就顺理成章了。一篇文章一个 html，为这个 html 搞点样式，用 js 写点屌炸天的动画就可以丢给别人看了，一个博客就是一堆 html。然后用各种超链接联系管理起来。看起来还是蛮简单的。
 
-你也许会说：“可是劳资写 html 写样式什么的好费劲啊！”， 没事，咱们有利器帮助咱们搞这个事情。
+你也许会说：「可是劳资写 html 写样式什么的好费劲啊！」， 没事，有利器帮助咱们搞这个事情。
 
 ## Hexo
 
 > **自豪**的说明一下：[本博客](https://zoumiaojiang.win) 是采用 Hexo 搭建的博客。
 
-[Hexo](https://hexo.io) 是一个基于 Node.js 的搭建静态页面博客的工具。我斗胆通俗的给 Hexo 下个定义：“快速自由的开发一个套博客系统，然后让博主专心写博客就好了的一个工具”。我简单的介绍一下 Hexo, 具体的内容可以到 [Hexo 的官网](https://hexo.io) 查找。
+[Hexo](https://hexo.io) 是一个基于 Node.js 的搭建静态页面博客的工具。我斗胆通俗的给 Hexo 下个定义：「快速自由的开发一个套博客系统，然后让博主专心写博客就好了的一个工具」。下面我简单的介绍一下 Hexo, 具体的内容可以到 [Hexo 的官网](https://hexo.io) 查找。
 
 ### 安装 Hexo
 
@@ -49,7 +52,7 @@ npm install -g hexo
 
 ### Hexo 用法
 
-简单的讲讲怎么使用 Hexo，这块不是今天这篇文章的重点哈，就简单的介绍一下，具体内容和教程，可以查看 [Hexo 官网](https://hexo.io) 。
+简单的讲讲怎么使用 Hexo，具体内容和教程，可以查看 [Hexo 官网](https://hexo.io) 。
 
 #### 初始化一个博客
 
@@ -95,7 +98,7 @@ npm install
 hexo server
 ```
 
-稍等一下之后，跟着提示走，访问 `http://localhost:4000` 就能预览到啦，里面有个 `Hello World` 站点，这个站点就放在 `/source/_posts` 下面的，可以发现是一个 markdown 的文件，也就是说 Hexo 是通过 markdown 写文章的，这样就不用写复杂的 html 啦。
+服务启动成功之后，访问 `http://localhost:4000` 就能预览到博客的首页，里面有个 `Hello World` 的文章，这个文章就放在 `/source/_posts` 下面的，可以发现是一个 markdown 的文件，也就是说 Hexo 是通过 markdown 写文章的，这样就不用写复杂的 html。
 
 #### 开开心心的写篇文章吧
 
@@ -107,13 +110,13 @@ hexo new 'you-post-title'
 
 > 启动 Hexo Server 的时候，会有一个 `hot-reload` 机制的，也就是说，当写文章，新增文章的时候，都不用重新启动 Hexo 的预览服务了。
 
-这时候呢，在 `/source/_posts` 文件夹下就会有一个 `your-post-title.md` 的文件了，这样，就能直接编辑这个 markdown 文件进行写博客啦，神马？不会 markdown 的写法？我友善的丢一个 [markdown 教程](http://wowubuntu.com/markdown/) 给你吧。
+这时候在 `/source/_posts` 文件夹下就会有一个 `your-post-title.md` 的文件，这样，就能直接编辑这个 markdown 文件进行写博客，神马？不会 markdown 的写法？我友善的丢一个 [markdown 教程](http://wowubuntu.com/markdown/) 给你吧。
 
-现在发现了，原来写博客能这么简单，爽飞。维护一个 Hexo 博客系统只需要关注四部分: source，themes，plugins 还有 `_config.yml`。source 就是文章啦，接下来讲讲 themes 和 plugins。
+维护一个 Hexo 博客系统只需要关注四部分: source，themes，plugins 还有 `_config.yml`。source 主要就是文章，当然还可以放一些其他的直接要部署的东西。接下来讲讲 themes 和 plugins。
 
 ### Hexo 主题
 
-注意到 `/themes/landspace` 文件夹没有？`landspace` 就是默认的 Hexo 的主题，主题不是简单的样式，是一系列的模版加样式的组合，从而实现将主题从博客书写中抽离出来。神马？嫌弃 `landspace` 丑爆了？没事不要怕，可以 [选一个主题](https://hexo.io/themes/), 放到 `/themes` 文件夹，有精力的可以二次开发改改 layout、样式什么的。等到挑选好了主题后，将主题文件夹放到 `/themes` 下，配置 `_config.yml` 内的 `theme: landscape` 改成你选择主题文件夹名就可以了。这样，你就拥有新主题了，`/themes` 文件夹和其他文件夹是完全独立的，不会因为改变而影响博客的内容的。
+注意到 `/themes/landspace` 文件夹没有？`landspace` 就是默认的 Hexo 的主题，主题不是简单的样式，是一系列的模版加样式的组合，从而实现将主题从博客书写中抽离出来。如果你嫌弃 `landspace` 丑爆了，可以 [选一个主题](https://hexo.io/themes/), 放到 `/themes` 文件夹，有精力的可以二次开发改改 layout、样式，交互逻辑等。等到挑选好了主题后，将主题文件夹放到 `/themes` 下，配置 `_config.yml` 内的 `theme: landscape` 改成你选择主题文件夹名就可以了。这样，你就拥有新主题了，`/themes` 文件夹和其他文件夹是完全独立的，不会因为改变而影响博客的内容的。
 
 > 你也许注意到了，Hexo 采用的是 ejs 前端模版来组织渲染的，如果你想二次开发某个 theme， 就需要对 ejs 有一定的了解，这路就不展开介绍了，不然内容太多了。
 
@@ -123,17 +126,17 @@ hexo new 'you-post-title'
 
 Hexo 可以理解为一个框架，会做一些基本的编译工作，就是把 markdown 文件编译成 html 文件，然后会生成一个用来部署的 public 文件夹，执行 `hexo generate` 命令就是完成这编译一步的。在这个编译的过程中，我们可能需要有一些特定的需求，比如生成 tags 页面啦，生成 categories 页面等等，这些并不是 Hexo 主框架本身干的事情，这个时候，需要介绍一下 Hexo 的 plugin 机制了。
 
-看一下 Hexo init 后的 `package.json` 文件，`dependencies` 里面的 `hexo-` 前缀的 package 都是 Hexo 的插件，每一个插件都有自己特殊的功能，详见 [Hexo Plugin](https://hexo.io/plugins) 了解每个插件的用法。当然啦，Hexo 作为一个开源的项目，也允许开发者自己开发一些自己的 plugin 提供给其他人使用。对于怎么开发 Hexo 插件，这这里就不详细讲了，内容还是比较多的，后面争取再单独写篇文章详细介绍。
+看一下 Hexo init 后的博客项目中的 `package.json` 文件，`dependencies` 里面的 `hexo-` 前缀的 package 都是 Hexo 的插件，每一个插件都有自己特殊的功能，详见 [Hexo Plugin](https://hexo.io/plugins) 了解每个插件的用法。当然 Hexo 作为一个开源的项目，也允许开发者自己开发一些自己的 plugin 提供给其他人使用。对于怎么开发 Hexo 插件，这这里就不详细讲了，内容还是比较多的，后面争取再单独写篇文章详细介绍。
 
 ## 部署
 
-Hexo 写文章、换主题什么的应该都交代清楚了，这时候写完文章之后，是要准备部署给别人看了。我们首先来罗列一下，部署一个站点需要哪些东西呢？
+Hexo 写文章、换主题应该都交代清楚了，这时候写完文章之后，是要准备部署给别人看了。我们首先来罗列一下，部署一个站点需要哪些东西呢？
 
 - 一个主机【要钱】
 - 一个域名【要钱】
 - 要部署的纯静态化页面内容【免费】
 
-“可是劳资穷，一分钱都不想花怎么办！”
+「可是劳资穷，一分钱都不想花怎么办」
 
 对于穷这件事情，我本人是深有体会的，我也穷，所以在这个时候就想方设法的薅羊毛了。好在 [github](https://github.com) 提供了一个服务叫做 [GitPage](https://pages.github.com/) 可以帮我们解决主机和域名的事情。
 
@@ -168,8 +171,6 @@ deploy:
   type: git
   repository: https://github.com/zoumiaojiang/zoumiaojiang.github.io.git
   branch: master
-
-
 ```
 
 #### Hexo 命令操作部署
@@ -185,13 +186,15 @@ hexo deploy
 # 打完收工
 ```
 
+> 注意：Hexo 在 deploy 之前必须进行编译，也就是执行 `hexo generate` 命令。
+
 操作完了以上所有操作后，如果不出意外的话，就可以通过访问 `https://zoumiaojiang.github.io` 访问到博客的首页的，应该和 `hexo server` 命令预览的时候一样的。这时候，一个简简单单的博客就上线了，别人可以通过 URL 访问到你的博客。此时只是个穷人版的博客而已，算不上马马虎虎。
 
 ### 指定域名
 
-神马？https://zoumiaojiang.github.io 域名太 low？一看就是薅羊毛的，感觉不是很好？凭良心讲，我也是这么觉得的，所以这时候我还是想找一个域名掩盖一下我薅 GitPage 羊毛的事实，所以我决定买一个域名（土豪可以不用做这种心理斗争，甚至可以直接把 Hexo 生成的 public 文件夹直接部署到土豪专用主机哈）。
+觉得 https://zoumiaojiang.github.io 域名太 low？一看就是薅羊毛的，感觉不是很好？凭良心讲，我也是这么觉得的，所以这时候我还是想找一个域名掩盖一下我薅 GitPage 羊毛的事实，所以我决定买一个域名（土豪可以不用做这种心理斗争，甚至可以直接把 Hexo 生成的 public 文件夹直接部署到土豪专用主机）。
 
-好吧，我买了一个 `zoumiaojiang.win`，为什么是 `.win`？不是 `.com`, `.me` 什么的？这个我只能告诉你是个人喜好，如果你要是深究的话，我会告诉你：“因为穷，这个冷门的域名 10 年只要 55 RMB”。谁会和毛爷爷过不去呢？
+我买了一个 `zoumiaojiang.win`，为什么是 `.win`？不是 `.com`, `.me` 什么的？这个我只能告诉你是个人喜好，如果你要是深究的话，我会告诉你：「因为穷，这个冷门的域名 10 年只要 55 RMB」。谁会和毛爷爷过不去呢？
 
 那好，我们现在的需求是，通过访问 [https://zoumiaojiang.win](https://zoumiaojiang.win) 也能访问到博客首页。GitPage 提供了一种可以绑定自定义域名的机制（GitPage 这种好人已经不多了）。在 `zoumiaojiang.github.io` 仓库的根目录下新建一个 `CNAME` 的文件，里面的内容为：
 
@@ -199,13 +202,17 @@ hexo deploy
 zoumiaojiang.win
 ```
 
-这样 push 到仓库中，不一会，你就会发现，访问 [https://zoumiaojiang.github.io](https://zoumiaojiang.github.io) 的时候直接就会跳转到 [http://zoumiaojiang.win](http://zoumiaojiang.win) 了。可是，这时候由于 `zoumiaojiang.win` 域名 DNS 解析没有配 A 记录， 所以是不会有响应的。
+> 由于 GitPage 的仓库的内容都是由 Hexo 部署的，所以筒仓将 CNAME 放置在 Hexo 工程的 `/source` 目录下。
 
-这时候，`ping zoumiaojiang.github.io` ping 一下，拿到 IP, 把域名 DNS 解析新增一个 A 记录指向这个 IP 就行了。等一会，就能访问 [http://zoumiaojiang.win](http://zoumiaojiang.win) 了。
+如果在 `/source` 目录下添加了 CNAME 文件，当重新部署之后，稍等一会之后，访问 [https://zoumiaojiang.github.io](https://zoumiaojiang.github.io) 的时候直接就会跳转到 [http://zoumiaojiang.win](http://zoumiaojiang.win)。可是，这时候由于 `zoumiaojiang.win` 域名 DNS 解析没有配 A 记录， 所以是不会有响应的。
+
+这时候，`ping zoumiaojiang.github.io` ping 一下，拿到 IP, 在域名运营商配置后台把域名 DNS 解析新增一个 A 记录指向这个 IP 就行。等一会，就能访问 [http://zoumiaojiang.win](http://zoumiaojiang.win) 了。
 
 ### HTTPS & HTTP/2
 
-现在是 2017 年了，网站不是 HTTPS 和 HTTP/2 的感觉脱离时代了。为了让博客更加的完美，必须要搞一个 HTTPS 环境。可是，我并没有主机啊，没有服务器，怎么配证书？有主机的土豪的 HTTPS 证书可以通过 [Let's Encrypt](https://letsencrypt.org/) 获取免费的，这个地方不深入讲了，可以参考 [HTTPS 环境部署](https://lavas.baidu.com/guide/vue/doc/vue/advanced/https-deploy)。
+现在是 2017 年了，网站不是 HTTPS 和 HTTP/2 的感觉脱离时代了。HTTPS 已经不是因为安全方面的问题来考虑的了，而是后面所讲到的 PWA 里面很多最新的 HTML5 API 都是要求在 HTTPS 环境下才能正常工作的，所以要想让我们的博客更加的完美，必须要提供 HTTPS 环境。
+
+可是，我并没有主机啊，没有服务器，怎么配证书？有主机的土豪的 HTTPS 证书可以通过 [Let's Encrypt](https://letsencrypt.org/) 获取免费的，这个地方不深入讲了，可以参考 [HTTPS 环境部署](https://lavas.baidu.com/guide/vue/doc/vue/advanced/https-deploy)。
 
 我们今天介绍另一个免费的东西，不用服务器配置证书，通过 DNS 代理的形式，直接可以做到 HTTPS & HTTP/2 接入，这个东西叫 [cloudflare](https://www.cloudflare.com/)
 
@@ -222,28 +229,30 @@ zoumiaojiang.win
 
 由于 DNS 服务全球更新速度较慢，可能得等个一天两天的服务才能稳定访问。总之，这时候，你的站点已经是 HTTPS & HTTP/2 的站点了。
 
+> cloudflare 的配置有很多，可以在后台进行配置，SSL 需要选择 `FULL`, 并且设置 `HTTP REWRITE` 让站点能自动从 HTTP 重定向到 HTTPS。还有很多有用的配置，大家可以自己把玩。
+
 ## 构建 AMP
 
 [AMP](https://www.ampproject.org/zh_cn/learn/overview/) 是 Google 推出的一种网页加速的标准，通过这种标准，可以使你的站点在 Google 搜索结果页（这里是一个忧伤的故事，但是这并不影响我们折腾博客的激情）之后的跳转变得速度超快，具体可以详情见 AMP 的官网，Google 还会对 AMP 的站点有一定的调权，也就是说，如果你的博客提供了 AMP 的页面，将会被 Google 更容易抓取和优先展现，并且能够在 Google 的搜索结果页秒开。
 
-还是很懵逼？什么是 AMP？其实就是一个 HTML 页面，知识遵守 AMP 规范的页面，就想你现在在看的这篇博文，就有 AMP 的版本 [AMP 版本](./amp)。
+并且由于 AMP 页面的无 block 的处理，让用户在单独访问你的 AMP 页面的时候也有秒开的体验。还是很懵逼？什么是 AMP？其实就是一个 HTML 页面，知识遵守 AMP 规范的页面，就想你现在在看的这篇博文，就有 [AMP 版本](./amp)。
 
-如何让我们的博客能支持 AMP 呢？
+那么如何让我们的博客能支持 AMP 呢？Hexo 社区有一个叫做 `hexo-generator-amp` 的插件可以干这个事情。
 
 ### 引入 hexo-generator-amp 插件
 
-可以使用 hexo-generator-amp 插件来帮助我们构建出 amp 的页面
+可以使用 Hexo 的  `hexo-generator-amp` 插件来帮助我们构建出 AMP 的页面
 
 ```yaml
 # 在 hexo 博客项目的根目录执行下面的命令
 npm install --save hexo-generator-amp
 ```
 
-此时，博客已经具备生成 AMP 页面的基础了，由于 AMP 是一套独立的页面，hexo-generator-amp 插件只会对 post 的文章生成 AMP 页面，要想验证，只需要在原本 post 的页面的 URL 的基础上在后面加上 `/amp` 即可。
+此时，博客已经具备生成 AMP 页面的基础了，由于 AMP 是一套独立的页面，`hexo-generator-amp` 插件只会对文章页面生成 AMP 页面，要想验证，只需要在原本文章的 URL 的基础上在后面加上 `/amp` 即可。
 
 ### 配置 _config.yml
 
-hexo-generator-amp 插件是需要从 `_config.yml` 中读取配置才行，配置如下：
+`hexo-generator-amp` 插件是需要从 `_config.yml` 中读取配置才行，配置如下：
 
 ```yaml
 # amp config
@@ -271,9 +280,10 @@ generator_amp:
 
 ## 添加 PWA 特性
 
-PWA 是一种渐进式的 Web App, 我们的博客就是一个 Web App, 渐进式的，就是慢慢来，一步一步的将我们的站点的用户体验做到极致。
+PWA 是一种渐进式的 Web App, 我们的博客其实就是一个 Web App, 渐进式的，就是慢慢来，一步一步的用一些 HTML5 的最新 API 的实现将我们的站点的用户体验做到极致。
 
-### 为啥要搞 PWA
+### 为什么要 PWA
+
 博客站点是最适合改造成 PWA 的站点了，博客具有这么几个特点：
 
 - 内容更新不频繁，静态资源可能很久很久很久都不会更新（特别适合做离线缓存）
@@ -286,9 +296,14 @@ PWA 是一种渐进式的 Web App, 我们的博客就是一个 Web App, 渐进�
 
 ### 怎么为博客加 PWA 特性
 
+目前我们可以轻松做到为博客加入两点 PWA 特性
+
+- 添加到主屏：Manifest
+- 离线缓存：Service Worker
+
 #### manifest.json
 
-如果为了让博客能够添加到桌面，可以在 Hexo 的博客项目下的 source 目录下增加 manifest.json
+为了让博客能够添加到桌面，可以在 Hexo 的博客项目下的 `/source` 目录下增加 `manifest.json` 文件
 
 ```json
 {
@@ -313,11 +328,11 @@ PWA 是一种渐进式的 Web App, 我们的博客就是一个 Web App, 渐进�
 }
 ```
 
-这样，你的博客就可以在很多安卓机上被添加到桌面了（当然这个是需要在用户在系统设置里打开开关）。
+这样，你的博客就可以在很多**安卓**机上被添加到桌面了（这个功能目前是需要在用户在系统设置里打开开关的）。iOS safari 目前对 Manifest 的标准支持的比较糟糕。
 
-#### 想 iOS Safari 也稍微好看点的添加到桌面
+#### 想 iOS Safari 也能体验更好的添加到桌面
 
-这时候需要改动 theme 文件夹下的内容了，为了让每个博客页面在 iOS 的 Safari 浏览器下都能被添加到桌面，需要找到 `themes/yourTheme/layout/_partial/head.ejs`，然后在 `<head>` 的里面找个地方塞入如下 html 片段：
+由于 iOS 上没有对 manifest 标准支持的很好，并且只有 safari 浏览器有添加到主屏（快捷图标）的入口，那我们想 iOS 的添加到桌面的体验更好的话，需要改动 `/themes/yourTheme` 文件夹下的内容了，为了让每个博客页面在 iOS 的 Safari 浏览器下都能被添加到桌面，需要找到 `themes/yourTheme/layout/_partial/head.ejs`，然后在 `<head>` 的里面找个地方塞入如下 html 片段：
 
 ```html
    <!-- Add to home screen for Safari on iOS -->
@@ -328,15 +343,15 @@ PWA 是一种渐进式的 Web App, 我们的博客就是一个 Web App, 渐进�
     <link rel="shortcut icon" href="<%= config.root %>img/zoumiaojiang.ico">
 ```
 
-当然啦，图片路径名称换成自己的就好了。
+当然，图片路径名称换成自己的就好了。
 
 #### Service Worker
 
-上一篇文章 [如何优雅的为 PWA 注册 Service Woker](https://zoumiaojiang.win/2017/07/30/how-regist-service-worker-for-pwa/) 提到了 Service Worker 的坑，在 Webpack 构建环境下，有 sw-register-webpack-plugin 来帮助解决 Service Worker 的注册问题。那么在 Hexo 的开发环境中，我们也可以借助 `hexo-service-worker` 插件来解决博客的 Service Worker 的注册问题。
+上一篇文章 [如何优雅的为 PWA 注册 Service Woker](https://zoumiaojiang.win/2017/07/30/how-regist-service-worker-for-pwa/) 提到了 Service Worker 的坑，在 Webpack 构建环境下，有 `sw-register-webpack-plugin` 来帮助解决 Service Worker 的注册问题。那么在 Hexo 的开发环境中，我们也可以借助一个叫做 `hexo-service-worker` 插件来解决博客的 Service Worker 的注册问题。
 
 #### hexo-servcie-worker
 
-在弄博客的时候，找到了一个 `hexo-offline` 的 hexo 插件，特别好用，Service Worker 能够正常注册，但是这个插件只是考虑到了基本的 Service Worker 的文件生成和注册，没有关系实时性，用户友好等方面的问题，所以我就自己写了个 [hexo-service-worker](https://github.com/lavas-project/hexo-service-worker) 的插件。
+在弄博客的时候，找到了一个 `hexo-offline` 的 hexo 插件，特别好用，Service Worker 能够正常注册，但是这个插件只是考虑到了基本的 Service Worker 的文件生成和注册，没有考虑到更新的实时性、多个页面注册 Service Worker 等问题，所以我就自己写了个 [hexo-service-worker](https://github.com/lavas-project/hexo-service-worker) 的插件。
 
 > 其中有部分 sw-precache 相关的内容是参考 `hexo-offline` 插件的，表示感谢🙏。
 
@@ -346,7 +361,7 @@ PWA 是一种渐进式的 Web App, 我们的博客就是一个 Web App, 渐进�
 npm install --save hexo-service-worker
 ```
 
-然后就是修改 `_config.yml` 让插件生效，通常我们的配置如下：
+然后修改 `_config.yml` 让插件生效，通常我们的配置如下：
 
 ```yaml
 # service worker
@@ -370,6 +385,10 @@ service_worker:
 其中 `runtimeCaching` 的配置是专门针对第三方 CDN 资源的缓存的配置。
 
 Service Worker 的生效必须依赖 HTTPS 的，想要对 Service Worker 有具体的了解可以 [戳这](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction) 。
+
+这里丢一张本博客的 Lighthouse 跑分结果：PWA 是 100 分！
+
+![lighthouse 跑分结果](https://user-images.githubusercontent.com/3365978/29200085-03970528-7e85-11e7-924a-a231ad36726c.png)
 
 ## 提供高质量的内容
 

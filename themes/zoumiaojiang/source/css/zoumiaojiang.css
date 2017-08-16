@@ -400,6 +400,7 @@ pre code {
   background: no-repeat center center;
   background-color: #666;
   background-attachment: scroll;
+  text-shadow: 3px 3px 10px #000;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
