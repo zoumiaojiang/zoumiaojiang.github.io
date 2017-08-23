@@ -10,7 +10,7 @@
   }
 }
 .sidebar-container {
-  color: #bfbfbf;
+  color: #888;
   font-size: 14px;
 }
 .sidebar-container h5 {
@@ -23,14 +23,14 @@
   text-decoration: none;
 }
 .sidebar-container a {
-  color: #bfbfbf !important;
+  color: #888 !important;
 }
 .sidebar-container a:hover,
 .sidebar-container a:active {
   color: #317ef3 !important;
 }
 .sidebar-container .tags a {
-  border-color: #bfbfbf;
+  border-color: #888;
 }
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
@@ -557,9 +557,9 @@ pre code {
   }
 }
 .post-content-preview {
-  font-size: 13px;
+  font-size: 14px;
   /* font-style: italic; */
-  color: #a3a3a3;
+  color: #888;
 }
 .post-title:hover {
   color: #317ef3;

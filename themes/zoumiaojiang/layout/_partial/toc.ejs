@@ -4,8 +4,8 @@
       <aside id="sidebar">
         <div id="toc" class="toc-article">
         <strong class="toc-title"><%= __('Contents') %></strong>
-        <% if (toc(page.content) != ""){ %>
-          <%- toc(page.content, { "class": "toc-nav" }) %>
+        <% if (toc(page.content) !== ""){ %>
+          <%- toc(page.content, { "class": "toc-nav", list_number: false}) %>
         <% } else { %>
           <ol class="nav"><%= __('none') %></ol>
         <% } %>

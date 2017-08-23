@@ -13,12 +13,6 @@ layout: layout
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
-
-                <blockquote>
-                本文由 <a href="<%- config.url%>" rel="noopener"><%- config.author%></a> 发布在 <a href="<%- config.url%>" rel="noopener"><%- config.url%></a><br/>
-                转载请注明来源：<a href="<%- page.permalink%>" rel="noopener" title="<%- page.permalink%>"><%- page.permalink%></a>
-                </blockquote>
-                
                 <%- page.content %>
 
                 <blockquote>
@@ -127,7 +121,7 @@ layout: layout
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
     // dynamic User by Hux
-    var _user = '<%= config['duoshuo_username'] %>';
+    var _user = '<%= config.duoshuo_username %>';
 
     // duoshuo comment query.
     var duoshuoQuery = {short_name: _user };
@@ -179,10 +173,17 @@ layout: layout
         anchors.options = {
           visible: 'hover',
           placement: 'left',
-          icon: 'ℬ'
+          icon: ''
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
 </script>
 <style>
     /* place left on bigger screen */
