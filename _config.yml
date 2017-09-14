@@ -44,7 +44,7 @@ anchorjs: true                          # if you want to customize anchor. check
 
 
 # Disqus settings
-disqus_username: zoumiaojiang
+# disqus_username: zoumiaojiang
 
 # Duoshuo settings
 # duoshuo_username: kaijun
@@ -104,6 +104,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+ - demo
 
 # Writing
 new_post_name: :title.md # File name of new posts

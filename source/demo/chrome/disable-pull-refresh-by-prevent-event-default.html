@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        scroll content
+    </div>
+</body>
+<script>
+    var lastY = 0;
+
+    window.addEventListener('touchmove', function (e) {
+        var scrolly = window.pageYOffset || window.scrollTop || 0;
+        var direction = e.changedTouches[0].pageY > lastY ? 1 : -1;
+
+        if (direction > 0 && scrolly === 0) {
+            e.preventDefault();
+        }
+        lastY = e.changedTouches[0].pageY;
+    }, {passive: false});
+</script>
+</html>
