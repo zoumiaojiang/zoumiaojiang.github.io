@@ -14,20 +14,20 @@
             touch-action: none;
         }
         #wrap {
-            overflow: auto;
+            /* overflow: auto; */
         }
         #content {
             height: 2000px;
         }
         #content div {
-            height: 500px;
+            /* height: 500px; */
         }
     </style>
 </head>
 <body>
     <div id="wrap">
         <div id="content">
-            <div></div>
+            <div><a href="http://www.baidu.com">www.baidu.com</a></div>
              - 使用 touch-action: none 的时候，必须要设置在 html 标签上，也就是 root 元素
              <br>
              - 如果页面中含有 overflow 属性，touch-action: none 失效

@@ -876,6 +876,7 @@ body {
   max-width: 100%;
   height: auto;
   margin: 1.5em auto 1.6em auto;
+  border: 1px solid #d3d3d3;
 }
 /* Hux Optimize UserExperience */
 .navbar-default .navbar-toggle:focus,

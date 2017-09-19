@@ -3,11 +3,10 @@ title: 如果这个世界没有偏见
 catalog: true
 header-img: thomas.jpg
 tags:
-  - NBA
   - 吐槽
   - 人生感悟
 categories:
-  - NBA
+  - 吐槽
 date: 2017-08-26 00:19:33
 subtitle:
 ---
@@ -43,8 +42,7 @@ subtitle:
 
 
 说到这我要泪奔了，就像蜗牛一样一次又一次的努力往上爬，却一次次被无形的大手直接拍回道地面。
-
-![timg](https://user-images.githubusercontent.com/3365978/29720861-cce9c8a2-89ed-11e7-80d2-7f51b2bc165b.jpeg)
+<img src="https://user-images.githubusercontent.com/3365978/29720861-cce9c8a2-89ed-11e7-80d2-7f51b2bc165b.jpeg" width="50%" alt="蜗牛" style="border:none;">
 
 ## 谈谈偏见
 
