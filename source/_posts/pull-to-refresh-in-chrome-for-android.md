@@ -21,7 +21,7 @@ subtitle:
 
 如何实现类似于 Chrome 的下拉刷新呢？我们这里就不讲具体实现了，我们只是单纯的来讨论一下这个看起来很简单的功能的实现原理。
 
-为啥不讨论 iOS 的 Chrome 下拉刷新？因为 iOS 还没支持 PWA 特性，Lavas App 就没搞 iOS 版了，所以就没有研究 iOS 下的 Chrome 下拉刷新的功能，但从表现上来看，Android 和 iOS 的 Chrome 下拉刷新实现应该是一样的，但是禁用下拉刷新的方式还是有点不一样的，后续有机会再研究研究吧 iOS 的下拉刷新 _**@TODO**_。
+为啥不讨论 iOS 的 Chrome 下拉刷新？因为 iOS 还没支持 PWA 特性，Lavas App 就没搞 iOS 版了，所以就没有研究 iOS 下的 Chrome 下拉刷新的功能，但从表现上来看，Android 和 iOS 的 Chrome 下拉刷新实现应该是一样的，但是禁用下拉刷新的方式还是有点不一样的，后续有机会再研究研究吧 iOS 的下拉刷新。
 
 ## 下拉刷新
 
@@ -75,7 +75,7 @@ html {
 }
 ```
 
-可以在 Android Chrome 上看看这个 [touch-event Demo](https://zoumiaojiang.win/demo/chrome/disable-pull-refresh-by-touch-action-none.html)，这种禁用方式有个弊端，就是必须要设置在页面的 Root Element（也就是 html 元素）上，我们来总结一下这种方式：
+可以在 Android Chrome 上看看这个 [touch-event Demo](https://zoumiaojiang.com/demo/chrome/disable-pull-refresh-by-touch-action-none.html)，这种禁用方式有个弊端，就是必须要设置在页面的 Root Element（也就是 html 元素）上，我们来总结一下这种方式：
 
 * 如果在 html 元素上设置了 `touch-action: none`，整个页面的 touch 事件失效，也就是说不仅禁用掉了下拉刷新功能，连整个页面都不能滚动。
 * 当页面中元素含有 `overflow` 属性的时候，`touch-action: none` 禁用刷新失效（不知道算不算 Chrome 的一个 bug）
@@ -114,7 +114,7 @@ html {
 
 还有个最简单的方式在 Android Chrome 上禁用下拉刷新的功能，只需要对 body 元素设置 `overflow-y: hidden;` 就搞定了。
 
-具体效果可以用 Android Chrome 访问 [overflow-y: hidden Demo](https://zoumiaojiang.win/demo/chrome/disable-pull-refresh-by-overflow-y-hidden.html)
+具体效果可以用 Android Chrome 访问 [overflow-y: hidden Demo](https://zoumiaojiang.com/demo/chrome/disable-pull-refresh-by-overflow-y-hidden.html)
 
 ```css
 body {
@@ -166,7 +166,7 @@ window.addEventListener('touchmove', function (e) {
 }, {passive: false})
 ```
 
-这样就能够使 `e.preventDefault()` 方法生效了，然后就可以实现禁用 Android Chrome 的下拉刷新的功能了，这里有一个 [preventDefault Demo](https://zoumiaojiang.win/demo/chrome/disable-pull-refresh-by-prevent-event-default.html)。
+这样就能够使 `e.preventDefault()` 方法生效了，然后就可以实现禁用 Android Chrome 的下拉刷新的功能了，这里有一个 [preventDefault Demo](https://zoumiaojiang.com/demo/chrome/disable-pull-refresh-by-prevent-event-default.html)。
 
 ### 设置浏览器
 
@@ -187,7 +187,7 @@ Lavas App 导出的 App 争取和 Android Chrome 在体验和网页开发上保�
 
 ## 参考资料
 
-本文参考了一些文章，大家可以深入阅读，深入探索
+本文参考了一些文章，大家可以深入阅读，深入探索 (有些需要科学上网)
 
 * https://docs.google.com/document/d/12Ay4s3NWake8Qd6xQeGiYimGJ_gCe0UMDZKwP9Ni4m8
 * https://stackoverflow.com/questions/36212722/how-to-prevent-pull-down-to-refresh-of-mobile-chrome

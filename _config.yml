@@ -57,7 +57,7 @@ duoshuo_share: false                     # set to false if you want to use Comme
 ba_track_id: ae67586e8cdb510a82a880c6681b8d22 #563c25a2888b474f73e1cbaa61e559b4
 # Google Analytics
 # ga_track_id: 'UA-XXXXXXXX-X'          # Format: UA-xxxxxx-xx
-# ga_domain: zoumiaojiang.win
+# ga_domain: zoumiaojiang.com
 
 
 # Sidebar settings
