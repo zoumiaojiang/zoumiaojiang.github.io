@@ -3,11 +3,11 @@ title: 聊一聊 Andorid Chrome 的下拉刷新
 catalog: true
 header-img: chrome.jpg
 tags:
-  - 前端
+  - Lavas
   - PWA
   - Chrome
 categories:
-  - 前端
+  - 知识点
 date: 2017-09-20 01:16:14
 subtitle:
 ---

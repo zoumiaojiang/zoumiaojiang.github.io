@@ -11,8 +11,8 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://zoumiaojiang.win       # Note: don't forget to modify the CNAME file to your url
-url_host: zoumiaojiang.win
+url: https://zoumiaojiang.com       # Note: don't forget to modify the CNAME file to your url
+url_host: zoumiaojiang.com
 root: /
 # permalink: :year/:month/:day/:title/
 permalink: article/:title/
@@ -33,7 +33,7 @@ signature-img:
 # SNS settings
 RSS: false
 # weibo_username:     2184023523
-zhihu_username:     zou-miao-jiang
+zhihu_username:     zoumiaojiang
 github_username:    zoumiaojiang
 twitter_username:   zoumiaojiang
 facebook_username:  miaojiang.zou
@@ -54,7 +54,7 @@ duoshuo_share: false                     # set to false if you want to use Comme
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: 563c25a2888b474f73e1cbaa61e559b4
+ba_track_id: ae67586e8cdb510a82a880c6681b8d22 #563c25a2888b474f73e1cbaa61e559b4
 # Google Analytics
 # ga_track_id: 'UA-XXXXXXXX-X'          # Format: UA-xxxxxx-xx
 # ga_domain: zoumiaojiang.win
