@@ -1,7 +1,6 @@
 ---
 layout: layout
 ---
-<!-- Modify by Yu-Hsuan Yen -->
 
 <!-- Post Content -->
 <article>
@@ -33,42 +32,6 @@ layout: layout
                         </li>
                     <% } %>
                 </ul>
-
-                <!-- duoshuo Share start -->
-                <% if(config['duoshuo_share'] && config['duoshuo_username']) { %>
-                    <div class="ds-share"
-                        style="text-align: right"
-                        data-thread-key="<%= page.path %>"
-                        data-title="<%= page.title %>"
-                        data-url="<%= page.permalink %>"
-                        data-images="<%= page["header-img"] ? page.permalink + page["header-img"] : '' %>"
-                        data-content="<%- truncate(strip_html(page.content), {length: 50, omission: '...'}) %> | <%= config.SEOTitle %> " >
-                        <div class="ds-share-inline">
-                          <ul  class="ds-share-icons-16">
-                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
-                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
-                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
-                          </ul>
-                          <div class="ds-share-icons-more">
-                          </div>
-                        </div>
-                    <hr>
-                    </div>
-                <% } %>
-                <!-- 多说 Share end-->
-
-                <!-- 多说评论框 start -->
-                <% if(config['duoshuo_username']) { %>
-                    <div class="comment">
-                        <div class="ds-thread"
-                            data-thread-key="<%= page.path %>"
-                            data-title="<%= page.title %>"
-                            data-url="<%= page.permalink %>" >
-                        </div>
-                    </div>
-                <% } %>
-                <!-- 多说评论框 end -->
 
                 <!-- disqus comment start -->
                 <% if(config['disqus_username']) { %>
@@ -112,30 +75,16 @@ layout: layout
                     <% }); %>
                 </ul>
                 <% }%>
+
+                <!-- github isuue comment container-->
+                <% if (config.github_issue_comments) {%>
+                    <hr>
+                    <div id="comments-container"></div>
+                <% } %>
             </div>
         </div>
     </div>
 </article>
-
-<% if(config['duoshuo_username']) { %>
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '<%= config.duoshuo_username %>';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
-<% } %>
 
 <% if(config['disqus_username']) { %>
 <!-- disqus embedded js code start (one page only need to embed once) -->
@@ -152,6 +101,25 @@ layout: layout
     })();
 </script>
 <!-- disqus embedded js code start end -->
+<% } %>
+
+<% if (config.github_issue_comments) {%>
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '<%= page.permalink %>', // 可选。默认为 location.href
+        owner: '<%= config.github_issue_comments %>',
+        repo: '<%= config.github_issue_comments %>.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
 <% } %>
 
 

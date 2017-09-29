@@ -21,7 +21,7 @@ permalink_defaults:
 #Custom Setting Start
 
 # Site settings
-SEOTitle: zoumiaojiang | 邹淼江
+SEOTitle: zoumiaojiang
 email: zoumiaojiang@gmail.com
 description: "这里是邹淼江，坐标上海，屌丝一枚，人怂脸皮厚，个矮且人肥，铁杆 NBA 粉（本人不太会打篮球）。文化水平拖后腿，但极爱母校（毕业于黑龙江大学），游走于互联网 Web 开发圈子（大神都不认识的那种圈子），潜心专职写代码，目前在就职于百度"
 keyword: "PWA, 百度, 前端, Web, 邹淼江, 博客"
@@ -44,13 +44,9 @@ anchorjs: true                          # if you want to customize anchor. check
 
 
 # Disqus settings
-disqus_username: zoumiaojiang-com
+# disqus_username: zoumiaojiang-com
 
-# Duoshuo settings
-# duoshuo_username: kaijun
-# Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: false                     # set to false if you want to use Comment without Sharing
-
+github_issue_comments: 'zoumiaojiang'
 
 # Analytics settings
 # Baidu Analytics
@@ -199,17 +195,3 @@ service_worker:
       handler: cacheFirst
       options:
         origin: zoumiaojiang.disqus.com
-
-# The following settings is the quick start options.
-generator_amp:
-  templateDir:  amp-template
-  assetDistDir: amp-dist
-  logo:
-    path:   sample/sample-logo.png
-    width:  600
-    height: 60
-  substituteTitleImage: 
-    path:   sample/sample-substituteTitleImage.png
-    width:  1024
-    height: 800
-  warningLog: false   # To display warning, please set true.

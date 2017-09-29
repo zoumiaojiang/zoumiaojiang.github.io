@@ -4,15 +4,15 @@
     <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<%= config.description %>">
-    <meta name="keyword"  content="<%= config.keyword %>">
+    <meta name="description" content="<%- truncate(strip_html((page.content) || config.description), {length: 200, omission: '...'}) %>">
+    <meta name="keyword"  content="<% if (page.tags && page.tags.length > 0) { %> <% page.tags.forEach(function (tag, index) { %><%= tag.name %><% if (index !== page.tags.length - 1) { %>, <% } %><% }) %><% } else {%><%=config.keyword%><%}%>">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Peace">
-    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" href="<%= config.root %>img/icons/icon-152x152.png">
     <link rel="shortcut icon" href="<%= config.root %>img/zoumiaojiang.ico">
     <!-- Place this tag in your head or just before your close body tag. -->
     <script>

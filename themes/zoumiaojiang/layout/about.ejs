@@ -9,45 +9,19 @@ layout: page
 <!-- Chinese Version -->
 <div class="zh post-container">
     <%- page.content %>
+
+    <!-- github isuue comment container-->
+    <% if (config.github_issue_comments) {%>
+        <hr>
+        <div id="comments-container"></div>
+    <% } %>
 </div>
-
-<% if(config['duoshuo_username']) { %>
-
-<!-- 多说评论框 start -->
-<div class="comment">
-    <div class="ds-thread"
-        data-thread-key="<%= page.path %>"
-        data-title="<%= page.title %>"
-        data-url="<%= page.permalink %>" >
-    </div>
-</div>
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '<%= config['duoshuo_username'] %>';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-
-<!-- 多说公共JS代码 end -->
-<% } %>
-
 
 <% if(config['disqus_username']) { %>
 <div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
-
-    </div>
+    <div id="disqus_thread" class="disqus-thread"></div>
 </div>
+
 <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
@@ -62,5 +36,25 @@ layout: page
     })();
 </script>
 <!-- disqus 公共JS代码 end -->
+<% } %>
+
+
+<% if (config.github_issue_comments) {%>
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '<%= page.permalink %>', // 可选。默认为 location.href
+        owner: '<%= config.github_issue_comments %>',
+        repo: '<%= config.github_issue_comments %>.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
 <% } %>
 

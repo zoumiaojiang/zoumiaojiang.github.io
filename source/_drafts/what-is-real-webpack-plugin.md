@@ -11,7 +11,7 @@ categories:
 - 工程化
 ---
 
-## 什么是 Webpack 插件
+## 什么是 Webpack?
 
 什么是 Webpack？ Webpack 能干什么？ Webpack 怎么用？ 太多的入门教程了，一搜一大把，不打算再说了，而且 Webpack 的文档应该是文档届的标杆了，太详细了，由浅入深，从初级玩具 Level，到深度优化的真实产品级别的高级 Level 都讲的特别细致易懂，在这里就不细说了，丢一个 [Webpack 的文档链接吧](https://webpack.js.org)。
 
