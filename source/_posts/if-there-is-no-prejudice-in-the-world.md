@@ -4,7 +4,6 @@ catalog: true
 header-img: thomas.jpg
 tags:
   - 吐槽
-  - 人生感悟
 categories:
   - 吐槽
 date: 2017-08-26 00:19:33

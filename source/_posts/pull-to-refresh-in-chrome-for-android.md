@@ -7,7 +7,7 @@ tags:
   - PWA
   - Chrome
 categories:
-  - 知识点
+  - Chrome
 date: 2017-09-20 01:16:14
 subtitle:
 ---

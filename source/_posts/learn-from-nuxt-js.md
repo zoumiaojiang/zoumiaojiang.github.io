@@ -5,7 +5,6 @@ catalog: true
 header-img: lego-header.jpg
 tags:
   - 架构
-  - 开源
   - Nuxt.js
 categories:
   - 架构
@@ -61,7 +60,7 @@ date: 2017-08-23 20:49:04
 
 无论是代码架构，还是产品设计，最基础的准则是将设计模块化，早期的 js 代码直接堆在某个文件中，充满着全局变量的代码是没有办法谈论任何架构设计的。一般模块化的粒度为 **专门实现具体某一个功能**，模块可能有自己的输入，也可能有自己的输出，但是模块内部肯定是完成了某一项特定的功能。面向对象的软件工程中模块通常是一个对象或 Class。可以大致的理解为，一个模块如下图所示：
 
-![5](https://user-images.githubusercontent.com/3365978/29608494-e0e042d2-8826-11e7-9c20-e542da89869a.png)
+<img src="https://user-images.githubusercontent.com/3365978/29608494-e0e042d2-8826-11e7-9c20-e542da89869a.png" alt="module" style="border:none;">
 
 Web 前端 JS 方面的模块化也不例外，随着 ES6 的普及，JS 几乎就是个完整的面向对象的语言了。所以我们在前端架构方面，模块化首先是我们要做的最基础的设计。对于 AMD, CMD, UMD 这些模块化的概念，就不在这里赘言了，可以自行了解。
 
@@ -73,7 +72,7 @@ Web 前端 JS 方面的模块化也不例外，随着 ES6 的普及，JS 几乎�
 
 如下图所示，三个大的模块的内部高度内聚：
 
-![4](https://user-images.githubusercontent.com/3365978/29604901-8c56ca66-881b-11e7-9250-496b8b6108b4.png)
+<img src="https://user-images.githubusercontent.com/3365978/29604901-8c56ca66-881b-11e7-9250-496b8b6108b4.png" slt="high cohesion" style="border:none;">
 
 在架构设计中，解决某一个问题的最佳方案就是只提供一个模块，这个模块的内部可以针对解决这个问题进行协作关联，但是对外来讲，不要出现两个或者多个模块才能解决一个问题的情况。Nuxt.js 的前端工程化方案中，比如 Babel 只专注解决 ES6 编译的问题，Webpack 专注解决构建的问题，vue 专注解决 UI 渲染的问题。而 Nuxt.js 做为一个模块本身也是专注解决 UI 渲染的问题。
 
@@ -81,13 +80,13 @@ Web 前端 JS 方面的模块化也不例外，随着 ES6 的普及，JS 几乎�
 
 耦合（Coupling）是模块之间依赖程度的度量。耦合是对于模块和模块之间的依赖关系而言的。由于模块都是有维护成本的，当 A 模块依赖 B 模块的时候，B 模块的修改势必会影响到 A 模块，如果模块之间依赖关系复杂点的话，产品的后期维护的成本不可想象，如下图所示：
 
-![3](https://user-images.githubusercontent.com/3365978/29605735-95e29850-881e-11e7-9028-72591942ffef.png)
+<img src="https://user-images.githubusercontent.com/3365978/29605735-95e29850-881e-11e7-9028-72591942ffef.png" alt="low coupling" style="border:none;">
 
 在如上图的架构中，如果随意有某个模块需要修改升级，那对于整个系统而言就是灾难性的。当然，在正常的架构中还是不至于出现这么糟糕的设计，通常一些解决方案的设计者都能考虑到降低耦合度的问题，所以都会进行一些分层设计，将业务模块和非业务的底层模块拆分开，现在由于众多优秀的第三方库或者框架也在促使着我们进行架构分层。但是即使是这样，也还是会存在一些问题。
 
 如下图就是一个非常糟糕的分层设计，右侧的业务模块严重依赖左侧的底层模块，业务模块的改动很有可能涉及到整体的底层模块的改动。
 
-![一个耦合的模型](https://user-images.githubusercontent.com/3365978/29525185-6f50e3fa-86c4-11e7-9108-8cdd9358f356.png)
+<img src="https://user-images.githubusercontent.com/3365978/29525185-6f50e3fa-86c4-11e7-9108-8cdd9358f356.png" alt="一个耦合的模型" style="border: none;">
 
 开发者需要同时维护业务模块，有时还要维护一堆「底层模块」或者「底层模块的二次开发」，虽然这种架构不至于牵一发而动全身，至少底层模块没有依赖业务模块，但是试想一下这样的场景：
 
@@ -109,7 +108,7 @@ Web 前端 JS 方面的模块化也不例外，随着 ES6 的普及，JS 几乎�
 
 单向依赖，顾名思义就是减少双向的依赖，某一层调用另外一层的 API, 或者接收事件。这样设计的好处在于调用层的改动，不会影响到被调用层，而被调用层在设计中肯定是比调用层修改的概率要小，这样也是非常有助于整个架构的解耦。如下图所示，就是一个比较典型的分层设计和单向依赖的模型：
 
-![7](https://user-images.githubusercontent.com/3365978/29607591-45c32e7e-8824-11e7-90b8-45085333ae1e.png)
+<img src="https://user-images.githubusercontent.com/3365978/29607591-45c32e7e-8824-11e7-90b8-45085333ae1e.png" alt="解耦设计" style="border:none;">
 
 Basic 层相对 Service 层的改动较少，Service 层相对于 Bussiness 层改动较少，这样的单项依赖可以减少模块之间相互的影响，通常作为第三方的底层模块，API 改动的概率非常低，但是我们的 Service 层由于是直接面向 UI 或 开发者的，可能会偶尔有改变，但是我们不期望没改一个 Service 就需要大部分业务模块跟着修改，这个时候，我们需要考虑顶层抽象的方式来进行解耦。
 
@@ -117,7 +116,7 @@ Basic 层相对 Service 层的改动较少，Service 层相对于 Bussiness 层�
 
 基于以上的讨论就会产生如下图所示的架构模型：
 
-![2](https://user-images.githubusercontent.com/3365978/29611859-c422835c-8831-11e7-8820-b3ea802f62f4.png)
+<img src="https://user-images.githubusercontent.com/3365978/29611859-c422835c-8831-11e7-8820-b3ea802f62f4.png" alt="good part of project" style="border:none;">
 
 抽象的 Service 内部引用具体的 Service 模块，通过配置的方式作为和业务模块的关联入口，这样开发者只需要关注业务模块和配置模块，这样具体的 Framework 内部的具体实现就对开发者透明了。而 Nuxt.js 就是使用这种方式对其提供的解决方案进行解耦，开发者只需要关注自己的业务和 `nuxt.config.js` 配置就可以实现一个完整的 Vue 工程。
 
