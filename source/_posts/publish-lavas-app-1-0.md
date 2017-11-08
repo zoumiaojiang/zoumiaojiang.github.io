@@ -27,11 +27,16 @@ Lavas App 是一整套的将 PWA 站点打包成 App 的解决方案。可以由
 
 [Manifest.json](https://lavas.baidu.com/doc/engage-retain-users/add-to-home-screen/introduction) 机制是能够在支持该特性的浏览器上使得 Web 站点可以被添加到桌面，并在手机桌面上构造一个 App 图标入口，这样就能将 Web 站点的入口转移到桌面，降低用户的查找成本，直接提升了用户粘度。
 
-以下是 Android Chrome 浏览器添加到桌面的效果演示（gif 图片较大，请稍候）：
+以下是 Android Chrome 浏览器添加到桌面的效果演示（演示资源较大，加载中，请稍候...）：
 
-![Chrome 浏览器添加到桌面后的效果](./chrome-manifest.gif)
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./chrome-manifest.webm" type="video/webm">
+    <source src="./chrome-manifest.mp4" type="video/mp4">
+</video>
 
-虽然添加到桌面是一个非常吸引人的功能特性，可是在国内，有的 Android 手机的某些版本的系统或者某些浏览器却不支持或者不完全支持 Manifest.json 机制，导致用户添加到桌面的效果也是不忍直视。既然各浏览器不能形成统一的用户体验，那为什么不能有个替代的 Hack 方案呢？Lavas App 解决方案就是这种背景下产生的一套解决 PWA 添加到桌面体验不一致问题的解决方案。
+<!-- ![Chrome 浏览器添加到桌面后的效果]() -->
+
+虽然添加到桌面是一个非常吸引人的功能特性，可是在国内，有的 Android 手机的某些版本的系统或者某些浏览器却不支持或者不完全支持 Manifest.json 机制，导致用户添加到桌面的效果也是不忍直视。既然各浏览器不能形成统一的用户体验，那为什么不能有个替代的 Hack 方案呢？Lavas App 解决方案就是这种背景下产生的，是一套解决 PWA 添加到桌面体验不一致问题的解决方案。
 
 Lavas App 解决方案的发布，可以在生成的 App 中统一 PWA 体验，解决当前中国国内市场 Android 系统及浏览器对 PWA 相关特性支持程度参差不齐而导致的用户体验不一致的问题，Lavas App 解决方案面向的目标用户群是有意愿提升 Web App 的可用性和用户粘度的中小型站点的站长和开发者。
 
@@ -51,9 +56,13 @@ Lavas App 整个解决方案的参与这有三个方面：开发者、Lavas App 
 4. 保存密钥码用户后续 Apk 升级（通常来说，之后 Lavas Apk 升级才需要开发者自行更新升级）。
 5. 通过合适的应用场景发布 apk 给用户安装，将自己的站点添加到手机桌面上。
 
-通过打包后的 PWA 站点生成的 apk 已经集成了通用的 PWA 特性，比如 `离线缓存`、`启动画面`、`主题变更` 等，当 Apk 被用户安装之后，效果如下（gif 图片较大，请稍候）：
+通过打包后的 PWA 站点生成的 apk 已经集成了通用的 PWA 特性，比如 `离线缓存`、`启动画面`、`主题变更` 等，当 Apk 被用户安装之后，效果如下（演示资源较大，加载中，请稍候...）：
 
-![用户在 Android 手机下安装 Lavas Apk 的效果](./lavas-app-manifest.gif)
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./lavas-app-manifest.webm" type="video/webm">
+    <source src="./lavas-app-manifest.mp4" type="video/mp4">
+</video>
+<!-- ![用户在 Android 手机下安装 Lavas Apk 的效果](./lavas-app-manifest.gif) -->
 
 整个安装过程非常快，Lavas Apk 的大小约 `300KB` 左右，完全不用担心用户手机存储空间不够的问题，后面在介绍 Lavas Apk 相关的内容的时候，再深入的解析 Lavas Apk 是怎么工作的，看看她是如何能够做到极速下载安装的。
 
@@ -66,19 +75,19 @@ Lavas App 整个解决方案的参与这有三个方面：开发者、Lavas App 
 - 站点首屏渲染性能需要达标（Lavas App 解决方案在打包的过程中会有动态审核机制，性能不达标，打包可能会失败）
 - 需要开发者自行维护 Apk 版本（使用 `密钥码`）
 
-Lavas App 解决方案所设定的一切条件的目的是希望通过 Lavas App 解决方案所打出来的 Apk 包，在被用户安装体验后都是能够给用户带来良好的用户体验的。
+Lavas App 解决方案之所以设定的这些使用条件，是希望通过 Lavas App 解决方案所打出来的 Apk 安装包在被用户安装和体验后都是具有良好的用户体验的。
 
 ## Lavas Apk 介绍
 
 Lavas Apk 是 Lavas App 解决方案中的打包平台所产生的产物，可以被用户直接安装的 Apk 文件。Lavas Apk 的底层是使用了 Lavas PWA 定制 Webview 内核，可以统一的为各个 Lavas Apk 安装后的应用保证 PWA 体验。
 
-Lavas Apk 做为一个做为 Android 可安装的 Apk 包，是如何从一个 PWA 站点变成一个 App 的呢？又是如何保证只占用 `300 KB` 大小的存储空间呢？
+Lavas Apk 做为一个 Android 可安装的 Apk 包，是如何从一个 PWA 站点变成一个 App 的呢？又是如何保证只占用 `300 KB` 大小的存储空间呢？
 
 下面是将 PWA 站点打包成 App 的流程图：
 
 <img src="./lavas-apk-process.png" alt="Lavas Apk 打包流程图" style="width:100%;border: none;"/>
 
-在这里需要说明的是：为了是的 Apk 体积小从而下载速度快，并且因为内核模块是所有的 Lavas App 所依赖的模块，只需要下载一次就行，所以将 Apk 所依赖的内核模块被单独拆出。
+在这里需要说明的是：为了使 Apk 体积足够小从而下载安装速度快，并且因为内核模块是所有的 Lavas App 所依赖的模块，只需要下载一次就行，所以将 Apk 所依赖的内核模块被单独拆出，以独立的 zes 文件形式存储在云端，当本地文件系统没有此内核文件时，需要先从云端下载。
 
 如果系统中从来没有下载过内核文件，用户第一次安装 Lavas Apk 的时候并不受影响，但是用户打开安装好的 App 的时候会初始化下载内核。
 
@@ -104,15 +113,19 @@ Lavas App 的效果到底怎么样呢？在这里可以展示一下 **百度爱�
 
 由于未经 AliExpress 方面允许，在这里就不挂 AliExpress 的 Lavas Apk 二维码引导安装了，但是我们可以看一下下面 AliExpress 的 Lavas Demo 效果，可以看一下 PWA 能够让你的站点变得有多 cool：
 
-![AliExpress Lavas App DEMO 效果](./lavas-app-aliexpress.gif)
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./lavas-app-aliexpress.webm" type="video/webm">
+    <source src="./lavas-app-aliexpress.mp4" type="video/mp4">
+</video>
+<!-- ![AliExpress Lavas App DEMO 效果](./lavas-app-aliexpress.gif) -->
 
 ## 应用场景
 
-Lavas App 解决方案给出了如何将 PWA 站点打包成一个 App 的方案，从而能够从很大成都上来统一 PWA 的用户体验，但是具体的应用场景是什么的？在这里推荐两种应用场景：`在 PWA 站点引导用户下载` 和 `直接发布 Hybird App`。
+Lavas App 解决方案给出了如何将 PWA 站点打包成一个 App 的方案，从而能够从很大程度上来统一 PWA 的用户体验，但是具体的应用场景是什么的？在这里推荐两种应用场景：`在 PWA 站点引导用户下载` 和 `直接发布 Hybird App`。
 
 - 由于有的浏览器会有添加到桌面入口，有的没有添加到桌面入口，开发者可以在自己的 PWA 站点通过交互引导的方式引导用户下载并安装 Lavas Apk 从而达到 PWA 添加到桌面的效果，就像正式的从浏览器添加到桌面一样。
 
-- 开发者也可以直接通过 PWA 站点的适配将 Lavas Apk 精细化开发为一个 Hybird App，后续 Lavas App 会尝试设计一套完善的 native API，比如调起系统接口、调起第三方 App、内置登录支付等解决方案等，用以支持这个应用场景。
+- 开发者也可以直接通过 PWA 站点的适配将 Lavas Apk 精细化开发为一个 Hybird App，后续 Lavas App 2.0 会尝试设计一套完善的 native API，比如调起系统接口、调起第三方 App、内置登录支付等解决方案等，用以支持这个应用场景。
 
 ## 最后
 
