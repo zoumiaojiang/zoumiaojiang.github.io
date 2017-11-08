@@ -167,8 +167,6 @@ Chrome 62 的 DevTool 支持了 viewport 内的截图，或者特点 Dom 节点�
 
 ### 支持 queryObjects API
 
-Call queryObjects(Constructor) from the Console to return an array of objects that were created with the specified constructor. For example:
-
 在 Consoles 控制台里调用 `queryObjects(Constructors)` 会返回包含指定构造函数所构建的所有的对象的数据。比如：
 
 - `queryObjects(Promise)` 会返回所有 Pormise 对象
