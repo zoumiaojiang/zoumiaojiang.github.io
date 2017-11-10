@@ -10,10 +10,9 @@ date: 2017-11-09 00:49:13
 subtitle:
 ---
 
+2017/10/18 ，Google Chrome 又悄悄的发布了 Chrome 的新版本 - Chrome 62 稳定版，Mac、GNU/Linux、Windows 用户都可以立即升级（Chrome 也会提示没升级的用户升级）。这次我又没跟上步伐及时整理。。我只是想了解每个 Chrome 版本的新特性，毕竟 Chrome 现在是走在新时代的开路先锋。本系列的内容都是基本来自于 [Chrome developer 官方博客](https://developers.google.com/web/updates/) 的自我理解的一些整理。
 
-2017/10/18 ，Google Chrome 又悄悄的发布了 Chrome 的新版本 - Chrome 62 稳定版，Mac、GNU/Linux、Windows 用户都可以立即升级（Chrome 也会提示没升级的用户升级）。这次又我没跟上步伐及时整理。。我只是想了解每个 Chrome 版本的新特性，毕竟 Chrome 现在是走在新时代的开路先锋。本系列的内容都是基本来自于 [Chrome developer 官方博客](https://developers.google.com/web/updates/) 的自我理解的一些整理。
-
-闲话不多说，来看一下 Chrome 62 版本有哪些新鲜货吧。我们还是从 `新特性`、`DevTools`、 `废弃的部分` 三个部分来看看 Chrome 62 有哪些调整。
+闲言少叙，来看一下 Chrome 62 版本有哪些新鲜货吧。我们还是从 `新特性`、`DevTools`、 `废弃的部分` 三个部分来看看 Chrome 62 有哪些调整。
 
 ## 新特性
 
@@ -85,7 +84,7 @@ console.log(navigator.connection.effectiveType);
 
 在 HTMLMediaElement 上调用 `captureStream()` 方法之后，stream 内容就可以被操纵，处理，远程发送或记录。可以想象一下在 Web App 中使用 web 音频去创造自己的均衡器和声音合成机等，或者使用 WebRTC 将内容流式传输到远程站点，这种可以直接获取 stream 的方式可以衍生的产品设计可能性很多，想象空间很大。
 
-下面就是一个 WebRTC 的例子，可以远程操作 cavas 并映射到另一个 cavas，很酷吧？
+下面就是一个 WebRTC 的例子，可以远程操作 canvas 并映射到另一个 canvas，很酷吧？
 
 <video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;">
     <source src="./canvas-pc.webm" type="video/webm">
@@ -105,17 +104,17 @@ let theStream = document.getElementById("videotag").captureStream();
 let  videoSrc = URL.createObjectURL(theStream);
 ```
 
-### HTTP 站点都会被标 `不安全`
+### HTTP 站点都会被标 `不安全` 标志
 
 这个没有什么好说的，就是 Chrome 62 释放出一个信号 --- HTTP 站点都终将被 HTTPS 所全部替代
 
 不安全的样子：
 
-![不安全的 http](./unsafe.png)
+<img src="./unsafe.png" alt="不安全的 http" style="border:none;"/>
 
 安全的样子：
 
-![安全的 https](./safe.png)
+<img src="./safe.png" alt="安全的 http" style="border:none;"/>
 
 ### 其他的特性
 
@@ -154,7 +153,7 @@ Chrome 62 的 DevTool 支持了 viewport 内的截图，或者特点 Dom 节点�
 怎么触发 **截取 Dom 元素特定截图** 呢？
 
 1. 在 Elements 标签下选中所要截取的 DOM
-2. Command + Shift + P(Mac) 或者 Ctrl + Shift + P(Windows, Linux) 打开命令行工具。
+2. `Command + Shift + P(Mac)` 或者 `Ctrl + Shift + P(Windows, Linux)` 打开命令行工具。
 3. 输入 `node` 并选择 `Capture node screenshot`, 就直接可以下载了当前 Dom 的截图了。
 
 这个功能太赞了，截出来的图片非常独立干净，并自带系统窗口阴影，效果非常好。
@@ -173,7 +172,7 @@ Chrome 62 的 DevTool 支持了 viewport 内的截图，或者特点 Dom 节点�
 - `queryObjects(HTMLElement)` 会返回所有的 HTML 元素
 - `queryObjects(foo)` 会返回所有用 foo 构造函数构造出来的对象
 
-queryObjects API 的作用域就是当前 consoles 所运行的作用域，这个功能特性为后续 JS 排除问题提供了很有利的帮助。
+queryObjects API 的作用域就是当前 console 所运行的作用域，这个功能特性为后续 JS 排除问题提供了很有利的帮助。
 
 ### Console 控制台过滤
 
@@ -217,7 +216,6 @@ HAR（HTTP 档案规范），是一个用来储存 HTTP 请求/响应信息的�
 
 <img src="./coverage-after.png" alt="coverage-after" style="border:0;"/>
 
-
 ## 废弃的部分
 
 此次 Chrome 62 的发布也禁用或废弃了一些功能和特性：
@@ -227,3 +225,15 @@ HAR（HTTP 档案规范），是一个用来储存 HTTP 请求/响应信息的�
 - 移除 `SVGPathElement.getPathSegAtLength()`
 
 详情可以查看 [Google Chrome 官方文档](https://developers.google.com/web/updates/2017/09/chrome-62-deprecations)
+
+## 发现的坑
+
+补充一个小节，记录在 Chrome 62 中发现的一些开发中可能会踩的坑。
+
+**Chrome 从 62 版本开始自动给按钮类 DOM 添加 `border-radius: 4px`**
+
+该改动会导致之前预期为不带圆角的按钮（`button`, `input[type="button"]`, `input[type="submit"]` 等）的样式变成圆角，引起样式上的坑。【感谢 [@ielgnaw](https://ielgnaw.com/) 和 [@huanghuiquan](https://github.com/huanghuiquan) 的反馈 】
+
+![border-radius bug](./border-radius.png)
+
+待继续补充。。。

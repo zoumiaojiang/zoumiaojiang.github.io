@@ -12,7 +12,6 @@ categories:
 date: 2017-11-07 18:25:30
 ---
 
-
 近日，**百度 Lavas 团队正式发布了一套 Lavas App 解决方案 1.0**。
 
 为了跟上 Web App 用户体验至上的潮流，目前国外的站点都在 Google 的大力推动和倡导下如火如荼的进行着 Web 站点的 PWA 改造，收到了非常显著的效果。由于中国国内 Android 系统（由于目前 iOS 并未全面支持 PWA 特性，暂时先不讨论 iOS 的问题）和各大浏览器厂商的浏览器基于 Webkit 内核早期代码各自拉分支开发，随着时间的推移，导致现在支持的 PWA 特性情况不一致，并且各种浏览器所占的份额还不低，在国内目前还很难将 PWA 做到体验一致，所以目前中国国内的 PWA 改造进程推进的困难重重。
@@ -42,7 +41,7 @@ Lavas App 解决方案的发布，可以在生成的 App 中统一 PWA 体验，
 
 ### 如何运作
 
-Lavas App 整个解决方案的参与这有三个方面：开发者、Lavas App 打包平台、用户。
+Lavas App 整个解决方案的参与者有三个：开发者、Lavas App 打包平台、用户。
 
 - **开发者**开发自己的 PWA 站点，并且做好用户体验的优化和性能的调优，使站点性能良好，并支持基础的 PWA 特性。
 - **Lavas App 打包平台**接收开发者提供的 PWA 站点 URL，打包成 Lavas Apk 安装包。
@@ -56,7 +55,7 @@ Lavas App 整个解决方案的参与这有三个方面：开发者、Lavas App 
 4. 保存密钥码用户后续 Apk 升级（通常来说，之后 Lavas Apk 升级才需要开发者自行更新升级）。
 5. 通过合适的应用场景发布 apk 给用户安装，将自己的站点添加到手机桌面上。
 
-通过打包后的 PWA 站点生成的 apk 已经集成了通用的 PWA 特性，比如 `离线缓存`、`启动画面`、`主题变更` 等，当 Apk 被用户安装之后，效果如下（演示资源较大，加载中，请稍候...）：
+通过打包后的 PWA 站点生成的 apk 已经集成了通用的 PWA 特性，比如 `离线缓存`、`启动画面`、`主题变更` 等，当 Apk 被用户安装之后，效果如下：
 
 <video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
     <source src="./lavas-app-manifest.webm" type="video/webm">
@@ -105,7 +104,7 @@ Lavas App 的效果到底怎么样呢？在这里可以展示一下 **百度爱�
 
 <img src="./aiwan-apk.png" alt="百度爱玩的安装二维码" style="border:none;"/>
 
-安装之后就可以在点击桌面的 `百度爱玩` 的图标之后体验和 [百度爱玩](https://lavas.baidu.com/game) PWA 站点一样的功能效果，首页如下图所示：
+安装之后就可以在点击桌面的 `百度爱玩` 的图标之后体验和 [百度爱玩](https://lavas.baidu.com/game) PWA 站点一样的功能效果。
 
 ### AliExpress
 
@@ -129,6 +128,6 @@ Lavas App 解决方案给出了如何将 PWA 站点打包成一个 App 的方案
 
 ## 最后
 
-欢迎大家都来使用 Lavas App 解决方案打包平台（https://lavas.baidu.com/app） ，有任何问题或者建议欢迎通过 [Lavas 官网](https://lavas.baidu.com) 提供的任何渠道反馈
+欢迎大家都来使用 Lavas App 解决方案打包平台 [https://lavas.baidu.com/app](https://lavas.baidu.com/app)，有任何问题或者建议欢迎通过 [Lavas 官网](https://lavas.baidu.com) 提供的任何渠道反馈
 
 让我们一起为构建更 Open 更多姿多彩的 Web 生态努力！
