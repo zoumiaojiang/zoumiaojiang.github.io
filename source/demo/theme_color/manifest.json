@@ -1,0 +1,10 @@
+{
+    "name": "Theme_Color_Demo",
+    "short_name": "Theme",
+    "icons": [
+    ],
+    "start_url": "/demo/theme_color/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "theme_color": "#0f0"
+}

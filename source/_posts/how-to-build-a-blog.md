@@ -348,7 +348,7 @@ PWA 是一种渐进式的 Web App, 我们的博客其实就是一个 Web App, �
 
 #### hexo-servcie-worker
 
-在弄博客的时候，找到了一个 `hexo-offline` 的 hexo 插件，特别好用，Service Worker 能够正常注册，但是这个插件只是考虑到了基本的 Service Worker 的文件生成和注册，没有考虑到更新的实时性、多个页面注册 Service Worker 等问题，所以我就自己写了个 [hexo-service-worker](https://github.com/lavas-project/hexo-service-worker) 的插件。
+在弄博客的时候，找到了一个 `hexo-offline` 的 hexo 插件，特别好用，Service Worker 能够正常注册，但是这个插件只是考虑到了基本的 Service Worker 的文件生成和注册，没有考虑到更新的实时性、多个页面注册 Service Worker 等问题，所以我就自己写了个 [hexo-service-worker](https://github.com/zoumiaojiang/hexo-service-worker) 的插件。
 
 > 其中有部分 sw-precache 相关的内容是参考 `hexo-offline` 插件的，表示感谢🙏。
 
@@ -379,7 +379,9 @@ service_worker:
         origin: cdn.b.com
 ```
 
-其中 `runtimeCaching` 的配置是专门针对第三方 CDN 资源的缓存的配置。
+> 注意：
+>
+> 其中 `runtimeCaching` 的配置是专门针对 **第三方 CDN 资源(非 hexo 本地维护的静态资源)** 的缓存的配置。
 
 Service Worker 的生效必须依赖 HTTPS 的，想要对 Service Worker 有具体的了解可以 [戳这](https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction) 。
 

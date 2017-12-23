@@ -3,10 +3,11 @@ title: 看清楚真正的 webpack 插件
 catalog: true
 header-img: ./webpack.jpg
 tags:
-  - webpack
+  - Webpack
+  - Web 前端
   - 工程化
 categories:
-  - 工程化
+  - Web 前端
 date: 2017-10-12 00:02:07
 subtitle:
 ---

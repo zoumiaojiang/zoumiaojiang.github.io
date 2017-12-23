@@ -1,7 +1,7 @@
 ---
 title: Chrome 62 的新鲜货
 catalog: true
-header-img: chrome.jpg
+header-img: ../new-in-chrome-61/chrome.jpg
 tags:
   - Chrome
 categories:

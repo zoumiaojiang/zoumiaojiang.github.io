@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#f00"/>
+    <link rel="manifest" href="./manifest.json">
+    <title>theme_color test case</title>
+    <style>
+        input[type="button"] {
+            border: 1px solid #ccc;
+            height: 30px;
+            line-height: 30px;
+            outline: none;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <p>manifest.json 的 theme_color: <span id="manifest-lable" style="display:inline-block;width:20px;height:20px;background-color:#0f0;"></span></p>
+    <p>meta 标签的 theme_color: <span id="meta-lable" style="display:inline-block;width:20px;height:20px;background-color:#f00;"></span></p>
+    <input id="update_manifest" type="button" value="修改 manifest.json 链接地址"><br>
+    <input id="remove_meta_theme_color" type="button" value="删除 theme_color meta 标签">
+    <input id="add_meta_theme_color" type="button" value="添加 theme_color meta 标签" style="display:none;"><br/>
+    <input class="update" id="update_theme_color_hex" type="button" value="16 进制色值修改 meta 标签  theme_color"><br/>
+    <input class="update" id="update_theme_color_rgb" type="button" value="RGB 色值修改 meta 标签 theme_color"><br/>
+    <input class="update" id="update_theme_color_name" type="button" value="COLOR 名称色值修改 meta 标签  theme_color"><br/>
+</body>
+<script>
+    function blockLoading() {
+        var now = Date.now();
+        while (Date.now() - now < 5000) {}
+    }
+
+    blockLoading();
+
+    var metaThemeColorLable = $('#meta-lable');
+    var manifestLable = $('#manifest-lable');
+
+    $('#update_manifest').on('click', function () {
+        var manifestLink = $('link[rel="manifest"]');
+        var src = manifestLink.attr('href');
+        if (/tmp/.test(src)) {
+            manifestLink.attr('href', './manifest.json');
+            manifestLable.css({
+                background: '#0f0'
+            });
+        }
+        else {
+            manifestLink.attr('href', './tmp/manifest.json');
+            manifestLable.css({
+                background: '#f38'
+            });
+        }
+    });
+
+    $('#remove_meta_theme_color').on('click', function () {
+        var metaThemeColor = $('meta[name="theme-color"]');
+        metaThemeColor.remove();
+        metaThemeColorLable.css({
+            background: 'none'
+        });
+        $(this).hide();
+        $('#add_meta_theme_color').show();
+        $('.update').hide();
+    });
+
+    $('#add_meta_theme_color').on('click', function () {
+        $(this).hide();
+        $('#remove_meta_theme_color').show();
+        $('head').append('<meta name="theme-color" content="#f00">');
+        metaThemeColorLable.css({
+            background: '#f00'
+        });
+        $('.update').show();
+    });
+
+    $('#update_theme_color_hex').on('click', function () {
+        var metaThemeColor = $('meta[name="theme-color"]');
+        metaThemeColor.attr('content', '#00f');
+        metaThemeColorLable.css({
+            background: '#00f'
+        });
+    });
+
+    $('#update_theme_color_rgb').on('click', function () {
+        var metaThemeColor = $('meta[name="theme-color"]');
+        metaThemeColor.attr('content', 'rgb(0, 0, 0)');
+        metaThemeColorLable.css({
+            background: 'rgb(0, 0, 0)'
+        });
+    });
+
+    $('#update_theme_color_name').on('click', function () {
+        var metaThemeColor = $('meta[name="theme-color"]');
+        metaThemeColor.attr('content', 'yellow');
+        metaThemeColorLable.css({
+            background: 'yellow'
+        });
+    });
+
+</script>
+</html>
