@@ -5,7 +5,7 @@ header-img: thomas.jpg
 tags:
   - 吐槽
 categories:
-  - 吐槽
+  - 杂谈
 date: 2017-08-26 00:19:33
 subtitle:
 ---
