@@ -324,16 +324,17 @@ workbox.routing.registerRoute(
 
 下面介绍一下 Workbox 默认提供的几种缓存策略 API，这些 API 可以被当成 handler 使用。
 
-#### Stale While Revalidate
+**Stale While Revalidate**
 
+这种策略是
 
-#### Network First
+**Network First**
 
-#### Cache First
+**Cache First**
 
-#### Network Only
+**Network Only**
 
-#### Cache Only
+**Cache Only**
 
 ### 自定义处理请求返回内容
 

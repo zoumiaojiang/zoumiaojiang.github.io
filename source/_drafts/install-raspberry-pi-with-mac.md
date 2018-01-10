@@ -1,5 +1,5 @@
 ---
-title: 树莓派入门 - 通过 Mac 为树莓派3安装系统
+title: 通过 Mac 为树莓派3安装系统
 catalog: true
 subtitle:
 header-img: pi.jpg
