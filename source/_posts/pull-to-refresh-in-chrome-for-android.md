@@ -1,5 +1,5 @@
 ---
-title: 聊一聊 Andorid Chrome 的下拉刷新
+title: 聊一聊 Android Chrome 的下拉刷新
 catalog: true
 header-img: chrome.jpg
 tags:
@@ -12,10 +12,9 @@ date: 2017-09-20 01:16:14
 subtitle:
 ---
 
-
 ## 背景
 
-最近在做 Lavas App 相关的项目，Lavas App 是一个可以将 PWA 站点打包成 Andorid App 的 [在线打包工具](https://lavas.baidu.com/app)。当用户的安卓设备或者浏览器不支持 PWA 特性的时候，可以引导用户安装一个小的 Apk 文件，这个 Apk 文件安装后就是一个 PWA 在桌面上的入口，代替了 `manifest.json` 添加到桌面上的功能，Lavas App 导出的 App 内置了 Service Worker 等 PWA 特性，这在一定程度上缓解了了当前国内 PWA 在不同浏览器上支持情况的混乱局面，可以让一部分用户享受到 PWA 的便利。
+最近在做 Lavas App 相关的项目，Lavas App 是一个可以将 PWA 站点打包成 Android App 的 [在线打包工具](https://lavas.baidu.com/app)。当用户的安卓设备或者浏览器不支持 PWA 特性的时候，可以引导用户安装一个小的 Apk 文件，这个 Apk 文件安装后就是一个 PWA 在桌面上的入口，代替了 `manifest.json` 添加到桌面上的功能，Lavas App 导出的 App 内置了 Service Worker 等 PWA 特性，这在一定程度上缓解了了当前国内 PWA 在不同浏览器上支持情况的混乱局面，可以让一部分用户享受到 PWA 的便利。
 
 然而，由于 Lavas App 导出的 App 采用的是 `manifest.json` 标准中的 [standalone 模式](https://lavas.baidu.com/doc/engage-retain-users/add-to-home-screen/improved-webapp-experience#设置启动显示类型) 展现，也就是说 - **浏览器相关UI（如导航栏、工具栏等）将会被隐藏**。这样我们就找不到入口放置 `返回`, `刷新` 等本来在浏览器导航栏的功能按钮，`返回` 可以直接用 Android 的系统返回按键来操作，但是 刷新我们并没有想到什么好办法来解决，而用户对刷新的需求又是强依赖的。在这点上，Chrome 对于 PWA 添加到桌面上的实现体验还是很棒的，Chrome 将 PWA 站点添加到桌面后，可以通过下拉刷新的隐性方式解决没有显性刷新按钮的问题。所以我们决定在 Android 的 Lavas App 下也要实现一个类似于 Chrome 的下拉刷新的功能。然后的然后，就出现了今天这篇文章。
 
@@ -41,7 +40,7 @@ Android Chrome 的下拉刷新的效果图如下：
 
 <img src="https://user-images.githubusercontent.com/3365978/30600883-2898d16c-9d93-11e7-9e56-bbebc4aefa5c.png" width=60%  alt="滚动过界闪烁提示"/>
 
-这个效果还是挺常见的把？在 Andorid Chrome 中，当页面在可滚动的最顶端的时候，你往下猛拉页面就会出现这种效果，那么当时在 Android Chrome 下需要满足什么条件可以触发滚动过界闪烁效果呢？
+这个效果还是挺常见的把？在 Android Chrome 中，当页面在可滚动的最顶端的时候，你往下猛拉页面就会出现这种效果，那么当时在 Android Chrome 下需要满足什么条件可以触发滚动过界闪烁效果呢？
 
 其实只要满足以下条件，就可以触发出滚动过界闪烁的效果。
 
@@ -63,7 +62,7 @@ Android Chrome 的下拉刷新的效果图如下：
 
 ## 网页中禁用下拉刷新
 
-虽然 Chrome 提供了下拉刷新的功能，但现在的 Web App 也会有很多的自己自定义的手势操作，用户很容易造成误伤，所以并不是每个产品设计师都喜欢在自己的 Web App 上有这个下拉刷新的功能，如果有的 PM 就是不希望自己的网页被刷新怎么办？遇到这样的需求作为苦逼的 Web App 开发者也是很无奈啊，好在 Andorid Chrome 还是提供了几种方式来禁用下拉刷新这个功能。其中有的可以是开发者在自己的网页中做些什么就可以禁用，有的是用户可以通过浏览器设置可以禁用。
+虽然 Chrome 提供了下拉刷新的功能，但现在的 Web App 也会有很多的自己自定义的手势操作，用户很容易造成误伤，所以并不是每个产品设计师都喜欢在自己的 Web App 上有这个下拉刷新的功能，如果有的 PM 就是不希望自己的网页被刷新怎么办？遇到这样的需求作为苦逼的 Web App 开发者也是很无奈啊，好在 Android Chrome 还是提供了几种方式来禁用下拉刷新这个功能。其中有的可以是开发者在自己的网页中做些什么就可以禁用，有的是用户可以通过浏览器设置可以禁用。
 
 ### touch-action: none
 
@@ -108,7 +107,7 @@ html {
 </html>
 ```
 
-从 `touch-action: none;` 在 Andorid Chrome 上表现的特性看来，这种方式只是比较适用于禁止单页全屏并且无交互的静态页面下拉刷新了，一般情况下都不使用这种方式禁用 Android Chrome 的下拉刷新功能。
+从 `touch-action: none;` 在 Android Chrome 上表现的特性看来，这种方式只是比较适用于禁止单页全屏并且无交互的静态页面下拉刷新了，一般情况下都不使用这种方式禁用 Android Chrome 的下拉刷新功能。
 
 ### overflow-y: hidden
 
@@ -151,7 +150,7 @@ window.addEventListener('touchmove', function (e) {
 });
 ```
 
-这段代码确实是能够解决问题的，但是在 Android Chrome v56 版本以后却无法达到我们的预期，并没有禁用掉下拉刷新。通过调研发现了个有趣的事情，Andorid Chrome 为了实现更快速的滚动效果，做了一些特殊的处理，这里有一些文档可以参考
+这段代码确实是能够解决问题的，但是在 Android Chrome v56 版本以后却无法达到我们的预期，并没有禁用掉下拉刷新。通过调研发现了个有趣的事情，Android Chrome 为了实现更快速的滚动效果，做了一些特殊的处理，这里有一些文档可以参考
 
 * [https://developers.google.com/web/updates/2017/01/scrolling-intervention](https://developers.google.com/web/updates/2017/01/scrolling-intervention)
 * [https://www.chromestatus.com/features/5093566007214080](https://www.chromestatus.com/features/5093566007214080)

@@ -12,7 +12,6 @@ date: 2017-10-12 00:02:07
 subtitle:
 ---
 
-
 什么是 webpack？ webpack 能干什么？ webpack 怎么用？ 太多的入门教程了，一搜一大把，不再说了，而且 webpack 的官方文档应该是文档届的标杆了，太详细了，由浅入深，从玩具类型的初级 Level，到深度优化的生产环境下产品级别的高级 Level 都讲的特别细致易懂，在这里就不细说了，丢一个 [webpack 的文档链接吧](https://webpack.js.org)，可以根据教程先把玩一番。
 
 在上手把玩了 webpack 之后或者对 webpack 有一定了解之后，这里重点来看一下比较有意思的 webpack 插件，这有助于在项目中更灵活的运用 webpack 工具。了解插件机制后就不至于在遇到一堆堆的 webpack 配置的时候感到懵逼。
@@ -160,7 +159,6 @@ module.exports = MyPlugin;
 
 通过源码阅读或者 webpack plugin 的文档都能够看出，compiler, compilation 对象都是 Tapable 实例，对于 webpack 插件的开发者来说，知道 webpack 源代码中有哪些 Tapable 实例是非常重要的。这些实例提供各种 **事件钩子**，以便开发者附加自定义插件。
 
-
 > Note:
 >
 > 通过阅读 webpack 源码，可以发现一个有意思的设计，webpack 的核心是 webpack 的 compiler 对象，而 compiler 对象本身就是一个 Tapable 实例。compiler 对象的职责是编译 webpack 的配置对象，并返回一个 Compilation 实例。当 Compilation 实例运行时，它会创建所需的 bundle（也就是编译结果了），这个设计太奇妙了👍。
@@ -175,9 +173,7 @@ module.exports = MyPlugin;
 >
 > 推荐淘宝 FED 这篇博客，里面对 webpack 的整体流程梳理的非常清晰，以及 webpack 的基础架构讲解的很细致，对 compiler 和 complation 对象也做了很细致的剖析。
 
-![webpack运行流程示意图](https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg)
-
-[点击查看大图，建议本地保存](https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg)
+<a href="https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg" target="_blank"><img src="https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg" alt="webpack运行流程示意图"></a>
 
 ### webpack 插件相关的事件钩子
 
@@ -342,9 +338,7 @@ compilation.plugin("optimize-assets", function (asstes, callback) {
 });
 ```
 
-
 compilation 对象还有一些其他的事件钩子，可以直接阅读 [webpack 官方文档](https://webpack.js.org/api/plugins/compilation/)，文档这块写的不是很详细，最好是都试一试这些事件钩子，放到代码中 `console.log()` 跑一跑，看看具体的实现和结果就能够加深理解了。
-
 
 ## 写在最后
 
