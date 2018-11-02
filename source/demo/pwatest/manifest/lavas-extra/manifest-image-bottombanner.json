@@ -1,0 +1,32 @@
+{
+    "name": "LAVAS-EXTRA",
+    "short_name": "LAVAS-EXTRA",
+    "icons": [
+        {
+            "src": "./images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/demo/pwatest/manifest/lavas-extra/image-bottombanner.html",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "theme_color": "#1976d2",
+    "lavas_app": {
+        "launcher": {
+            "mode": "bottombanner",
+            "duration": 5,
+            "resource": {
+                "src": "./images/banner.png",
+                "type": "image/png",
+                "ratio": 3,
+                "link": "https://m.baidu.com"
+            }
+        }
+    }
+}

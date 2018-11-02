@@ -3,7 +3,6 @@ title: 看清楚真正的 webpack 插件
 catalog: true
 header-img: ./webpack.jpg
 tags:
-  - Webpack
   - Web 前端
   - 工程化
 categories:
