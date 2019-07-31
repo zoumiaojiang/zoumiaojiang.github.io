@@ -1,9 +1,9 @@
 {
-  "name": "zoumiaojiang's blog",
+  "name": "zoumiaojiang",
   "version": "0.0.1",
   "private": true,
   "hexo": {
-    "version": "3.4.4"
+    "version": "3.9.0"
   },
   "dependencies": {
     "hexo": "^3.2.0",
