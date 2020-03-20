@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="近日，百度 Lavas 团队正式发布了一套 Lavas App 解决方案 1.0。
+为了跟上 Web App 用户体验至上的潮流，目前国外的站点都在 Google 的大力推动和倡导下如火如荼的进行着 Web 站点的 PWA 改造，收到了非常显著的效果。由于中国国内 Android 系统（由于目前 iOS 并未全面支持 PWA 特性，暂时先不讨论 iOS 的问题）和各大浏览器厂商的浏览器基于 ...">
+    <meta name="keyword"  content=" PWA, Lavas, Android">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          百度 Lavas App 解决方案 1.0 发布啦! - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/publish-lavas-app-1-0/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('lavas-app.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                            
+                              <a class="tag" href="/tags/#Lavas" title="Lavas">Lavas</a>
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                        </div>
+                        <h1>百度 Lavas App 解决方案 1.0 发布啦!</h1>
+                        <h2 class="subheading">为您的 Web App 增加更多可能性</h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2017-11-07
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p>近日，<strong>百度 Lavas 团队正式发布了一套 Lavas App 解决方案 1.0</strong>。</p>
+<p>为了跟上 Web App 用户体验至上的潮流，目前国外的站点都在 Google 的大力推动和倡导下如火如荼的进行着 Web 站点的 PWA 改造，收到了非常显著的效果。由于中国国内 Android 系统（由于目前 iOS 并未全面支持 PWA 特性，暂时先不讨论 iOS 的问题）和各大浏览器厂商的浏览器基于 Webkit 内核早期代码各自拉分支开发，随着时间的推移，导致现在支持的 PWA 特性情况不一致，并且各种浏览器所占的份额还不低，在国内目前还很难将 PWA 做到体验一致，所以目前中国国内的 PWA 改造进程推进的困难重重。</p>
+<h2>Lavas App 介绍</h2>
+<p>Lavas App 是一整套的将 PWA 站点打包成 App 的解决方案。可以由 Web 站点开发者将 PWA 站点打包成为一个 Android Apk 安装包，当用户安装 apk 包后，就会在桌面上出现一个 PWA 站点的图标入口。</p>
+<h3>背景</h3>
+<p>百度在推动 Open Web 技术发展的的背景下，为了构建更加开放良好的的 Web 生态，百度组建 Lavas 团队专门负责 PWA 相关技术调研和推广，针对国内浏览器对 PWA 的支持现状以及为了满足大多数中小站点的增加用户粘性的需求，推出了 Lavas App 解决方案。</p>
+<p><a href="https://lavas.baidu.com/doc/engage-retain-users/add-to-home-screen/introduction" target="_blank" rel="noopener">Manifest.json</a> 机制是能够在支持该特性的浏览器上使得 Web 站点可以被添加到桌面，并在手机桌面上构造一个 App 图标入口，这样就能将 Web 站点的入口转移到桌面，降低用户的查找成本，直接提升了用户粘度。</p>
+<p>以下是 Android Chrome 浏览器添加到桌面的效果演示（演示资源较大，加载中，请稍候…）：</p>
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./chrome-manifest.webm" type="video/webm">
+    <source src="./chrome-manifest.mp4" type="video/mp4">
+</video>
+<!-- ![Chrome 浏览器添加到桌面后的效果]() -->
+<p>虽然添加到桌面是一个非常吸引人的功能特性，可是在国内，有的 Android 手机的某些版本的系统或者某些浏览器却不支持或者不完全支持 Manifest.json 机制，导致用户添加到桌面的效果也是不忍直视。既然各浏览器不能形成统一的用户体验，那为什么不能有个替代的 Hack 方案呢？Lavas App 解决方案就是这种背景下产生的，是一套解决 PWA 添加到桌面体验不一致问题的解决方案。</p>
+<p>Lavas App 解决方案的发布，可以在生成的 App 中统一 PWA 体验，解决当前中国国内市场 Android 系统及浏览器对 PWA 相关特性支持程度参差不齐而导致的用户体验不一致的问题，Lavas App 解决方案面向的目标用户群是有意愿提升 Web App 的可用性和用户粘度的中小型站点的站长和开发者。</p>
+<h3>如何运作</h3>
+<p>Lavas App 整个解决方案的参与者有三个：开发者、Lavas App 打包平台、用户。</p>
+<ul>
+<li><strong>开发者</strong>开发自己的 PWA 站点，并且做好用户体验的优化和性能的调优，使站点性能良好，并支持基础的 PWA 特性。</li>
+<li><strong>Lavas App 打包平台</strong>接收开发者提供的 PWA 站点 URL，打包成 Lavas Apk 安装包。</li>
+<li><strong>用户</strong>可以通过开发者在 PWA 站点的引导下载并安装 Lavas Apk 安装包，就可以达到类似添加到桌面的的效果。</li>
+</ul>
+<p>使用 Lavas App 解决方案将 PWA 站点打包成 App 的操作的步骤如下（目前只是适用于 Android 用户）：</p>
+<ol>
+<li>开发者开发自己的 PWA 站点。</li>
+<li>通过线下 <a href="https://lavas.baidu.com/doc/tools/lighthouse" target="_blank" rel="noopener">Lighthouse</a> 检测工具检查站点的 PWA 支持情况。</li>
+<li>提交 <a href="https://lavas.baidu.com/app" target="_blank" rel="noopener">https://lavas.baidu.com/app</a> 平台进行打包，生成 Lavas Apk 文件。</li>
+<li>保存密钥码用户后续 Apk 升级（通常来说，之后 Lavas Apk 升级才需要开发者自行更新升级）。</li>
+<li>通过合适的应用场景发布 apk 给用户安装，将自己的站点添加到手机桌面上。</li>
+</ol>
+<p>通过打包后的 PWA 站点生成的 apk 已经集成了通用的 PWA 特性，比如 <code>离线缓存</code>、<code>启动画面</code>、<code>主题变更</code> 等，当 Apk 被用户安装之后，效果如下：</p>
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./lavas-app-manifest.webm" type="video/webm">
+    <source src="./lavas-app-manifest.mp4" type="video/mp4">
+</video>
+<!-- ![用户在 Android 手机下安装 Lavas Apk 的效果](./lavas-app-manifest.gif) -->
+<p>整个安装过程非常快，Lavas Apk 的大小约 <code>300KB</code> 左右，完全不用担心用户手机存储空间不够的问题，后面在介绍 Lavas Apk 相关的内容的时候，再深入的解析 Lavas Apk 是怎么工作的，看看她是如何能够做到极速下载安装的。</p>
+<h3>使用条件</h3>
+<p>当然，并不是所有的 Web 站点都可以使用 Lavas App 解决方案的，在完成打包之前是有一定的限制的。</p>
+<ul>
+<li>必须要求站点是 HTTPS 的</li>
+<li>站点必须集成 PWA 相关特性 - 离线缓存、manifest.json 等</li>
+<li>站点首屏渲染性能需要达标（Lavas App 解决方案在打包的过程中会有动态审核机制，性能不达标，打包可能会失败）</li>
+<li>需要开发者自行维护 Apk 版本（使用 <code>密钥码</code>）</li>
+</ul>
+<p>Lavas App 解决方案之所以设定的这些使用条件，是希望通过 Lavas App 解决方案所打出来的 Apk 安装包在被用户安装和体验后都是具有良好的用户体验的。</p>
+<h2>Lavas Apk 介绍</h2>
+<p>Lavas Apk 是 Lavas App 解决方案中的打包平台所产生的产物，可以被用户直接安装的 Apk 文件。Lavas Apk 的底层是使用了 Lavas PWA 定制 Webview 内核，可以统一的为各个 Lavas Apk 安装后的应用保证 PWA 体验。</p>
+<p>Lavas Apk 做为一个 Android 可安装的 Apk 包，是如何从一个 PWA 站点变成一个 App 的呢？又是如何保证只占用 <code>300 KB</code> 大小的存储空间呢？</p>
+<p>下面是将 PWA 站点打包成 App 的流程图：</p>
+<img src="./lavas-apk-process.png" alt="Lavas Apk 打包流程图" style="width:100%;border: none;"/>
+<p>在这里需要说明的是：为了使 Apk 体积足够小从而下载安装速度快，并且因为内核模块是所有的 Lavas App 所依赖的模块，只需要下载一次就行，所以将 Apk 所依赖的内核模块被单独拆出，以独立的 zes 文件形式存储在云端，当本地文件系统没有此内核文件时，需要先从云端下载。</p>
+<p>如果系统中从来没有下载过内核文件，用户第一次安装 Lavas Apk 的时候并不受影响，但是用户打开安装好的 App 的时候会初始化下载内核。</p>
+<p>如果系统不是第一次安装 Lavas Apk，当用户安装 Lavas Apk 也不会受影响，在用户打开 App 时候，系统只会安装内核模块，并不会触发下载内核模块，所以当用户之前安装过 Lavas Apk 之后，首次打开 App 的速度会比系统第一次安装并打开 App 的启动速度快很多。</p>
+<h2>案例体验</h2>
+<p>Lavas App 的效果到底怎么样呢？在这里可以展示一下 <strong>百度爱玩</strong> 和 <strong>AliExpress</strong> 的例子。</p>
+<h3>百度爱玩</h3>
+<p><a href="https://lavas.baidu.com/game" target="_blank" rel="noopener">百度爱玩</a> 是一个 Lavas 团队内部使用 <a href="https://lavas.baidu.com/guide" target="_blank" rel="noopener">Lavas 解决方案</a> 开发的经过不断打磨的完整的真实的线上的 PWA showcase 产品，是一个智能聚合类的产品，百度爱玩项目已经支持了目前 PWA 能够支持的所有特性。</p>
+<p>下面是 <code>百度爱玩</code> 打包成 Lavas Apk 之后的安装二维码，欢迎大家使用 Android 手机安装体验：</p>
+<img src="./aiwan-apk.png" alt="百度爱玩的安装二维码" style="border:none;"/>
+<p>安装之后就可以在点击桌面的 <code>百度爱玩</code> 的图标之后体验和 <a href="https://lavas.baidu.com/game" target="_blank" rel="noopener">百度爱玩</a> PWA 站点一样的功能效果。</p>
+<h3>AliExpress</h3>
+<p><a href="https://m.aliexpress.com" target="_blank" rel="noopener">AliExpress</a> 是一个电商站点，是目前做的非常不错的 PWA 站点，其中不仅支持了 PWA 的相关特性，并且在 Matiaril UI 实现，登录、交易组件等细节都处理的非常好，同样在性能和可用性方面也做的非常好，对于 PWA 的细节处理的非常到位，值得各位 Web 开发者学习探索。</p>
+<p>由于未经 AliExpress 方面允许，在这里就不挂 AliExpress 的 Lavas Apk 二维码引导安装了，但是我们可以看一下下面 AliExpress 的 Lavas Demo 效果，可以看一下 PWA 能够让你的站点变得有多 cool：</p>
+<video autoplay="" loop="" muted="" style="width: 100%;display:block;max-width:360px;margin: 0 auto;border:1px solid #ccc;">
+    <source src="./lavas-app-aliexpress.webm" type="video/webm">
+    <source src="./lavas-app-aliexpress.mp4" type="video/mp4">
+</video>
+<!-- ![AliExpress Lavas App DEMO 效果](./lavas-app-aliexpress.gif) -->
+<h2>应用场景</h2>
+<p>Lavas App 解决方案给出了如何将 PWA 站点打包成一个 App 的方案，从而能够从很大程度上来统一 PWA 的用户体验，但是具体的应用场景是什么的？在这里推荐两种应用场景：<code>在 PWA 站点引导用户下载</code> 和 <code>直接发布 Hybird App</code>。</p>
+<ul>
+<li>
+<p>由于有的浏览器会有添加到桌面入口，有的没有添加到桌面入口，开发者可以在自己的 PWA 站点通过交互引导的方式引导用户下载并安装 Lavas Apk 从而达到 PWA 添加到桌面的效果，就像正式的从浏览器添加到桌面一样。</p>
+</li>
+<li>
+<p>开发者也可以直接通过 PWA 站点的适配将 Lavas Apk 精细化开发为一个 Hybird App，后续 Lavas App 2.0 会尝试设计一套完善的 native API，比如调起系统接口、调起第三方 App、内置登录支付等解决方案等，用以支持这个应用场景。</p>
+</li>
+</ul>
+<h2>最后</h2>
+<p>欢迎大家都来使用 Lavas App 解决方案打包平台 <a href="https://lavas.baidu.com/app" target="_blank" rel="noopener">https://lavas.baidu.com/app</a>，有任何问题或者建议欢迎通过 <a href="https://lavas.baidu.com" target="_blank" rel="noopener">Lavas 官网</a> 提供的任何渠道反馈</p>
+<p>让我们一起为构建更 Open 更多姿多彩的 Web 生态努力！</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/publish-lavas-app-1-0/" rel="noopener" title="https://zoumiaojiang.com/article/publish-lavas-app-1-0/">https://zoumiaojiang.com/article/publish-lavas-app-1-0/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/service-worker-supported-by-safari-technology-review/" data-toggle="tooltip" data-placement="top" title="如何看 Safari Technology Review 版本支持 Service Worker">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/what-is-real-webpack-plugin/" data-toggle="tooltip" data-placement="top" title="看清楚真正的 Webpack 插件">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Lavas App 介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">背景</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">如何运作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">使用条件</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Lavas Apk 介绍</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">案例体验</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">百度爱玩</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">AliExpress</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">应用场景</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">最后</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                        
+                          <a class="tag" href="/tags/#Lavas" title="Lavas">Lavas</a>
+                        
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/publish-lavas-app-1-0/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

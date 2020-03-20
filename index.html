@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="这里是邹淼江，坐标上海，屌丝一枚，人怂脸皮厚，个矮土肥圆，铁杆 NBA 粉（本人不太会打篮球）。没什么文化水平，毕业于黑龙江大学，游走于互联网 Web 开发圈子（大神都不认识的那种圈子），专职写各种代码，目前在就职于百度">
+    <meta name="keyword"  content="PWA, 前端, Web, 邹淼江, 博客">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/shanghai_night.jpg') 
+            /*config*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="site-heading">
+                        <h1>Peace</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">The unexamined life is not worth living</span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/article/good-news-from-apple-for-pwa/">
+        <h2 class="post-title">
+            iOS 11.3 和 macOS 10.13.4 将要支持 Service Worker 啦!
+        </h2>
+        <h3 class="post-subtitle">
+            对于 PWA 来说，这是来自 Apple 的福音
+        </h3>
+        <div class="post-content-preview">
+            
+这次 Apple 真的出手了，也许 2018 年，PWA 真的会在国内爆发！
+
+好消息
+今天早上突然看到一条来自于 Apple Safari 团队开发者 Ricky Mondello 的 twitter 消息，其宣称 iOS 11.3 和 macOS 10.13.4 中的 Safari 将要支持 Service Worker 啦!
+
+之前我的另一篇文章《如何看 Safari Technol......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2018-01-25
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#PWA" title="PWA">PWA</a>
+            
+              <a href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+            
+              <a href="/tags/#Safari" title="Safari">Safari</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/amazing-workbox-3/">
+        <h2 class="post-title">
+            神奇的 Workbox 3.0
+        </h2>
+        <h3 class="post-subtitle">
+            让你的 Web 站点轻松做到离线可访问
+        </h3>
+        <div class="post-content-preview">
+            workbox 是 GoogleChrome 团队推出的一套 Web App 静态资源和请求结果的本地存储的解决方案，该解决方案包含一些 Js 库和构建工具，在 Chrome Submit 2017 上首次隆重面世。而在 workbox 背后则是 Service Worker 和 Cache API 等技术和标准在驱动。在 Workebox 之前，GoogleChrome 团队较早时间推出过......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2018-01-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#PWA" title="PWA">PWA</a>
+            
+              <a href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+            
+              <a href="/tags/#Workbox" title="Workbox">Workbox</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/common-web-security/">
+        <h2 class="post-title">
+            常见 Web 安全攻防总结
+        </h2>
+        <h3 class="post-subtitle">
+            安全永远是产品的最基础需求
+        </h3>
+        <div class="post-content-preview">
+            Web 安全的对于 Web 从业人员来说是一个非常重要的课题，所以在这里总结一下 Web 相关的安全攻防知识，希望以后不要再踩雷，也希望对看到这篇文章的同学有所帮助。今天这边文章主要的内容就是分析几种常见的攻击的类型以及防御的方法。
+
+也许你对所有的安全问题都有一定的认识，但最主要的还是在编码设计的过程中时刻绷紧安全那根弦，需要反复推敲每个实现细节，安全无小事。
+本文代码 Demo 都是基于......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2018-01-09
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Web 安全" title="Web 安全">Web 安全</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/a-bug-caused-by-windows-command-line/">
+        <h2 class="post-title">
+            记一个 Windows 命令行引发的 Bug
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            2018 年刚开始就踩了一个很懵逼的雷，居然还是关于 Windows 的命令行的。
+背景
+背景是这样的，在开发 Lavas cli 的过程中，需要通过开发者选定的模版类型拼接出对应的 repo 地址和分支名，然后通过 Node.js 从 github 上拉取合适的模版到本地给开发者使用。这个需求很明确，就是涉及到需要使用 Node.js 操作 git 命令行，然后就很自然的就使用 child......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2018-01-02
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Windows" title="Windows">Windows</a>
+            
+              <a href="/tags/#Bug" title="Bug">Bug</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/year-end-summary-of-2017/">
+        <h2 class="post-title">
+            个人 2017 年年终总结
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            2017 年，一切挺好的，是我在上海的第二年，没有了 2016 年的迷茫和空虚，并且这一年我拥有了自己的小家庭，幸福的 2017。
+我本身是那种工作和生活分不开的人，写代码本身就是我生活的一部分了，但是在 2017 年的最后一天的时候，突然有挺多感想，不谈谈工作，不想谈技术，不想谈代码，想来想去还是谈谈今年看的课外书吧。
+课外书
+今年看了几本课外书，感觉学到了很多。
+
+《人类简史》
+《必然》......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-12-31
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#杂谈" title="杂谈">杂谈</a>
+            
+              <a href="/tags/#生活" title="生活">生活</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/service-worker-supported-by-safari-technology-review/">
+        <h2 class="post-title">
+            如何看 Safari Technology Review 版本支持 Service Worker
+        </h2>
+        <h3 class="post-subtitle">
+            PWA 的爆发离我们还会远吗？
+        </h3>
+        <div class="post-content-preview">
+            2017 年 12 月 21 日，苹果在《Release Notes for Safari Technology Preview 46》的发布报告中提到了一个非常起眼的特性支持：支持 Service Worker。在报告的一开始就直接展示 Service Worker 相关的内容，和之前的「计划」或者「考虑中」不同的是，Apple 这次在 Safari Technology Preview ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-12-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#PWA" title="PWA">PWA</a>
+            
+              <a href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+            
+              <a href="/tags/#Safari" title="Safari">Safari</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/publish-lavas-app-1-0/">
+        <h2 class="post-title">
+            百度 Lavas App 解决方案 1.0 发布啦!
+        </h2>
+        <h3 class="post-subtitle">
+            为您的 Web App 增加更多可能性
+        </h3>
+        <div class="post-content-preview">
+            近日，百度 Lavas 团队正式发布了一套 Lavas App 解决方案 1.0。
+为了跟上 Web App 用户体验至上的潮流，目前国外的站点都在 Google 的大力推动和倡导下如火如荼的进行着 Web 站点的 PWA 改造，收到了非常显著的效果。由于中国国内 Android 系统（由于目前 iOS 并未全面支持 PWA 特性，暂时先不讨论 iOS 的问题）和各大浏览器厂商的浏览器基于 ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-11-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#PWA" title="PWA">PWA</a>
+            
+              <a href="/tags/#Lavas" title="Lavas">Lavas</a>
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/what-is-real-webpack-plugin/">
+        <h2 class="post-title">
+            看清楚真正的 Webpack 插件
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            什么是 webpack？ webpack 能干什么？ webpack 怎么用？ 太多的入门教程了，一搜一大把，不再说了，而且 webpack 的官方文档应该是文档届的标杆了，太详细了，由浅入深，从玩具类型的初级 Level，到深度优化的生产环境下产品级别的高级 Level 都讲的特别细致易懂，在这里就不细说了，丢一个 webpack 的文档链接吧，可以根据教程先把玩一番。
+在上手把玩了 we......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-10-12
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Web 前端" title="Web 前端">Web 前端</a>
+            
+              <a href="/tags/#工程化" title="工程化">工程化</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/pull-to-refresh-in-chrome-for-android/">
+        <h2 class="post-title">
+            聊一聊 Android Chrome 的下拉刷新
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            背景
+最近在做 Lavas App 相关的项目，Lavas App 是一个可以将 PWA 站点打包成 Android App 的 在线打包工具。当用户的安卓设备或者浏览器不支持 PWA 特性的时候，可以引导用户安装一个小的 Apk 文件，这个 Apk 文件安装后就是一个 PWA 在桌面上的入口，代替了 manifest.json 添加到桌面上的功能，Lavas App 导出的 App 内置了......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-09-20
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Chrome" title="Chrome">Chrome</a>
+            
+              <a href="/tags/#PWA" title="PWA">PWA</a>
+            
+              <a href="/tags/#Lavas" title="Lavas">Lavas</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/if-there-is-no-prejudice-in-the-world/">
+        <h2 class="post-title">
+            如果这个世界没有偏见
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            最近由于是 NBA 休赛期，并且工作也比较忙，没怎么关注 NBA 发生了什么事情，昨天打开体育新闻，看到了骑士和凯尔特人的交易，瞬间震惊了。骑士送出 凯里.欧文 从凯尔特人换来了 以赛亚.托马斯 + 杰.克劳德 + 日日奇 + 2018 年篮网的首轮选秀权。
+
+了解我的人都知道我是 林书豪 和小托马斯的铁粉，因为不自觉的人物代入的原因，我总能在他们身上找到我自己的影子，他们在篮球这个领域的出......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by zoumiaojiang on
+            2017-08-26
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#吐槽" title="吐槽">吐槽</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+        <li class="next">
+            <a href="/archives/2/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+            </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+            <a href="/tags/#Chrome" title="Chrome" rel="1">Chrome</a>
+            
+        
+            
+            <a href="/tags/#Windows" title="Windows" rel="1">Windows</a>
+            
+        
+            
+            <a href="/tags/#Bug" title="Bug" rel="1">Bug</a>
+            
+        
+            
+            <a href="/tags/#PWA" title="PWA" rel="7">PWA</a>
+            
+        
+            
+            <a href="/tags/#Service Worker" title="Service Worker" rel="4">Service Worker</a>
+            
+        
+            
+            <a href="/tags/#Safari" title="Safari" rel="2">Safari</a>
+            
+        
+            
+            <a href="/tags/#杂谈" title="杂谈" rel="1">杂谈</a>
+            
+        
+            
+            <a href="/tags/#生活" title="生活" rel="1">生活</a>
+            
+        
+            
+            <a href="/tags/#吐槽" title="吐槽" rel="1">吐槽</a>
+            
+        
+            
+            <a href="/tags/#Lavas" title="Lavas" rel="3">Lavas</a>
+            
+        
+            
+            <a href="/tags/#Android" title="Android" rel="1">Android</a>
+            
+        
+            
+            <a href="/tags/#Blog" title="Blog" rel="1">Blog</a>
+            
+        
+            
+            <a href="/tags/#架构" title="架构" rel="1">架构</a>
+            
+        
+            
+            <a href="/tags/#Nuxt.js" title="Nuxt.js" rel="1">Nuxt.js</a>
+            
+        
+            
+            <a href="/tags/#Web 前端" title="Web 前端" rel="1">Web 前端</a>
+            
+        
+            
+            <a href="/tags/#工程化" title="工程化" rel="1">工程化</a>
+            
+        
+            
+            <a href="/tags/#Workbox" title="Workbox" rel="1">Workbox</a>
+            
+        
+            
+            <a href="/tags/#Web 安全" title="Web 安全" rel="1">Web 安全</a>
+            
+        
+    </div>
+</section>
+
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
+
+        
+            <img id = "avatar_pic" src="/img/zoumiaojiang.png" />
+        
+
+        
+            <p>Hi, i&#39;m ZouMiaojiang</p>
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+                <li>
+                    <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+                <li>
+                    <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                        </span>
+                    </a>
+                </li>
+            
+
+            
+
+            
+
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/zoumiaojiang">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+            
+            
+                <li>
+                    <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+    
+        
+  <h5>RECENT POSTS</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/article/good-news-from-apple-for-pwa/">iOS 11.3 和 macOS 10.13.4 将要支持 Service Worker 啦!</a>
+        </li>
+      
+        <li>
+          <a href="/article/amazing-workbox-3/">神奇的 Workbox 3.0</a>
+        </li>
+      
+        <li>
+          <a href="/article/common-web-security/">常见 Web 安全攻防总结</a>
+        </li>
+      
+        <li>
+          <a href="/article/a-bug-caused-by-windows-command-line/">记一个 Windows 命令行引发的 Bug</a>
+        </li>
+      
+        <li>
+          <a href="/article/year-end-summary-of-2017/">个人 2017 年年终总结</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        <hr>
+    
+        <!-- Friends Blog -->
+
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+
+    
+        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+    
+        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+    
+</ul>
+
+        <hr>
+    
+        
+    <h5>ARCHIVES</h5>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+
+        <hr>
+    
+        <!-- Categories -->
+<h5>categories</h3>
+
+  <div class="widget">
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Chrome/">Chrome</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9E%B6%E6%9E%84/">架构</a><span class="category-list-count">1</span></li></ul>
+  </div>
+
+        <hr>
+    
+</div>
+
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

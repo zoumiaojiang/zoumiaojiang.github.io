@@ -1,0 +1,24 @@
+{
+    "launcher": {
+        "mode": "fullscreen",
+        "duration": 5,
+        "priority": 10,
+        "resource": {
+            "src": "http://baidu.com/xxx/xxx/xxx.jpg",
+            "type": "image/jpeg",
+            "ratio": 3,
+            "link": "https://m.baidu.com"
+        }
+    },
+    "a_test_conf": {
+        "some_arr": [
+            {
+                "name": "value",
+                "name1": "value1"
+            }
+        ]
+    },
+    "anothor_test_conf": {
+        "name": "value"
+    }
+}

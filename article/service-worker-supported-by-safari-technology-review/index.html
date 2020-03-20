@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="2017 年 12 月 21 日，苹果在《Release Notes for Safari Technology Preview 46》的发布报告中提到了一个非常起眼的特性支持：支持 Service Worker。在报告的一开始就直接展示 Service Worker 相关的内容，和之前的「计划」或者「考虑中」不同的是，Apple 这次在 Safari Technology Preview ...">
+    <meta name="keyword"  content=" PWA, Service Worker, Safari">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          如何看 Safari Technology Review 版本支持 Service Worker - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/service-worker-supported-by-safari-technology-review/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('safari.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                            
+                              <a class="tag" href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+                            
+                              <a class="tag" href="/tags/#Safari" title="Safari">Safari</a>
+                            
+                        </div>
+                        <h1>如何看 Safari Technology Review 版本支持 Service Worker</h1>
+                        <h2 class="subheading">PWA 的爆发离我们还会远吗？</h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2017-12-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p>2017 年 12 月 21 日，苹果在《<a href="https://webkit.org/blog/8042/release-notes-for-safari-technology-preview-46/" target="_blank" rel="noopener">Release Notes for Safari Technology Preview 46</a>》的发布报告中提到了一个非常起眼的特性支持：支持 Service Worker。在报告的一开始就直接展示 Service Worker 相关的内容，和之前的「计划」或者「考虑中」不同的是，Apple 这次在 Safari Technology Preview 版本中真真切切的实现了 Service Worker 相关 API，以及 Cache API，亲测在「离线可访问」特性上是完全支持的。</p>
+<blockquote>
+<p>在这里需要说明的是，Safari Technology Preview 版本不是 Safari 的常规版本，我们可以理解为是 Safari 的尝鲜版或者是技术相关的 Showcase 版，支持的内容距离真正被用户可用，尤其是 iOS Safari 真正支持，可能还是有一定的时间。Mac OS 的同学可以直接在 <a href="https://webkit.org/downloads/" target="_blank" rel="noopener">https://webkit.org/downloads/</a> 下载安装使用。</p>
+</blockquote>
+<p>看到这个消息的时候是非常激动的，如果 Apple 能够加入 PWA 的支持者阵营中，相信 Apple 能够依赖自己强大的生态掌控能力去将 PWA 做的更好更加规范化，至少相对于中国混乱的 Android 市场来说。借着这个事情，在这里可以推敲一下 「<strong>PWA 到底能带来什么</strong>」？「<strong>为什么 Apple 迟迟没有积极正面响应 PWA</strong>」，但是还是选择支持相关特性，也可以讨论下 「<strong>为什么在国外已经火的不成样子的 PWA 在国内还没有爆发</strong>」。</p>
+<h2>PWA 能带来什么</h2>
+<p>需要搞清楚的 PWA 能带来什么，可以从用户、内容和服务提供商、搜索引擎的角度来分析一下，我们会发现国外之所以在如火如荼的进行站点 PWA 化其实是一个多赢的结果。</p>
+<h3>互联网用户</h3>
+<p>首先说一下能为互联网用户带来什么，对于用户来说，需求其实很简单，只是在想要获得信息或服务的时候能够方便的获取到，现在的 Web App 也好，Native App 也好，都是为了给用户提供最方便的使用体验，让用户快速找到所求，用户在这个大的信息和服务需求背景下，还有以下几点诉求：</p>
+<ol>
+<li><strong>便捷</strong>：可以快速精准的找到入口</li>
+<li><strong>快速</strong>：能够快速展示所需要的信息和服务，尤其是在弱网环境下。</li>
+<li><strong>可用</strong>：离线或者弱网情况下也能使用。</li>
+<li><strong>节省空间</strong>：移动设备的存储空间有限，App 安装数量太多就需要更多的存储空间，无疑增加用户移动设备升级更新的成本。</li>
+</ol>
+<p>当前 Native App 在便捷性方面做的很好，能够通过 App icon 入口让用户快速精准的找到信息或服务，但是 Native App 无法解决离线或弱网请求问题，最主要的是非常占用移动设备存储空间，对用户来说是个不可避免的痛点。另一个主要获取信息和服务的途径是 Web 站点，尤其是一些短频需求，更是不愿意安装一个 Native App，但是传统 Web 站点除了能够节省用户安装 Native App 的存储空间以外，对用户来说其他几点都是痛点。</p>
+<p>PWA 本质上还是一个 Web 站点，但 PWA 的 Service Worker 的离线能力和弱网请求策略的能力能让 Web 站点可用性大大加强，App Shell 相关的设计让站点的速度快速展现，Manifest 的「添加到桌面」的功能能够使得用户更便捷的找到，并且无需安装，大大节省存储空间。</p>
+<h3>内容服务提供商</h3>
+<p>无论是 Web 站点，还是 Native App，内容或服务提供商都比较关心以下几点内容：</p>
+<ol>
+<li>用户体验</li>
+<li>开发成本</li>
+<li>可传播性(拉新)</li>
+<li>用户粘性(留存)</li>
+</ol>
+<p>Native App 的操作比较顺畅，用户体验比较好，由于用户安装 App 后能很快找到入口，并且还有消息通知机制可以做到精准推送达到好的用户留存效果，用户粘性较好，但是开发成本偏高，需要有专门的 iOS 和 Android 开发团队去开发，开发周期长，且审查严格。而传统 Web 站点相对于 Native App 体验较差，但是由于是 Web 页面，在开发成本和可传播性方面都有大大的优势。</p>
+<p>PWA 对于 内容和服务提供商来说，是结合了 Web 站点和 Native App 两者的优点，相互取长补短的结果，PWA 本身是个 Web 站点，在开发成本和可传播性方面保持着既有的优势，但是由于「离线可访问」特性的出现，配合一些缓存策略以及 HTML5 相关 Native API 的支持，在用户体验方面已经不输 Native App，在用户粘性方面 「添加到桌面」和 「消息 Push」的机制能够使得 PWA 完全可以解决传统 Web 站点用户粘度问题的痛点。所以对内容和服务的提供方（Web 站点/Native App）来说，PWA 带来太多东西了。</p>
+<p>当然，PWA 对于内容和服务提供商来说最重要的是开放，所有的开发环节都是遵循开放的标准，而不是封闭的自定标准，什么都是可以自己掌控的。</p>
+<h3>搜索引擎</h3>
+<p>搜索引擎有也几点非常迫切的需求：</p>
+<ol>
+<li>优质的搜索结果落地站点</li>
+<li>丰富的内容可被检索</li>
+<li>能被广泛认可的落地页站点质量评价机制</li>
+</ol>
+<p>与几年前不同，近几年各种平台级别的 Native App 的出现导致内容都被封锁在各自的闭环里，导致搜索引擎的内容无法满足用户的精准搜索需求，但是有很多短频的需求用户又无法去专门的 Native App 中去方便搜索，所以当前现状对用户尤其是短频需求用户来说是一个很大的伤害。</p>
+<p>PWA 本身是一个 Web 站点，所以对搜索引擎来说内容是得到了补充，PWA 站点的内容可以被检索，PWA 的良好体验做为搜索结果落地页对搜索引擎的生态质量来说是迫切需要的。最重要的是 PWA 在支持特性方面有一套良好的支持评分标准，可以方便搜索引擎自动评价一个 Web App 的质量。</p>
+<h2>Apple 的态度</h2>
+<p>Google 在旗下 Chrome 浏览器很早就已经全面支持了 PWA 相关特性，甚至在开发调试方面也不断的推出相关工具，Chrome DevTools 和 Lighthouse 几乎都是围绕着 PWA 相关特性在做各种升级，并且多次在各种大会上极力的做着布道和推广的工作，国外的很多内容和服务商都加入到了 PWA 支持者阵营，也有很多的 PWA 应用问世，比如 Twitter 等大型的 Web App 也在其中。</p>
+<p>但是 Apple 对 PWA 的态度一直不温不火，没有很积极的推动和参与，Apple 可能更多的考虑是 PWA 会对自身的 Native App 入口流量分发造成影响，和 Google 不同，虽然 Google 也是操作系统厂商，但 Google 更多的依靠其搜索引擎进行入口流量分发，而 PWA 做为用户体验良好的 Web 站点自然可以为 Google 的搜索引擎带来更多的正面收益，由于 Apple 没有搜索引擎支撑，所以不能像 Google 那么去考虑生态问题，这也是 Apple 之前不积极态度的原因。</p>
+<p>然而 Apple 此次在 Safari Technology Previwe 版本支持 Service Worker 至少可以看出 Apple 在对 PWA 相关特性的支持是在进行中的，也许 Apple 内部正在进行着激烈的讨论 PWA 该何去何从，但至少有一点可以肯定的是，从目前来看出于对用户体验友好和对开发者友好的角度出发， Apple 对 PWA 是持开放和支持态度的，毕竟没有提出任何反对的声音，在进度上也有实质性进展和产出。但是我想 Apple 应该会在 Native App 生态和 PWA Web 生态之间做个平衡，具体怎么做，我们可以拭目以待，也许真到了 Apple 在正式 Safari 和 iOS Safari 上全面支持 PWA 特性的时候，国内的 PWA 能真正迎来爆发，如果 Apple 都能拥抱 PWA，我实在找不出国内 Android 厂商不拥抱 PWA 的任何理由。</p>
+<blockquote>
+<p>Note：</p>
+<p>iOS Safari 目前是支持手动「添加到桌面」功能的，但是没有参照 Web Manifest 标准实现。</p>
+</blockquote>
+<h2>为什么国内 PWA 没有爆发</h2>
+<p>首先可以说一下为什么国外的 PWA 那么火，这里除了对用户对内容服务商的优点以外，其实有几个重要的因素，这些因素在国内是有很大阻力的：</p>
+<ul>
+<li>Google Chrome 浏览器市场份额巨大，Chrome 对 PWA 特性支持完整</li>
+<li>Google 推广的力度大</li>
+<li>Web Push Sevice 的开放</li>
+</ul>
+<p>国内的浏览器厂商太多了，支持力度不一致，而且利益考虑点也不一致，导致 PWA 体验很难一致，而国外 Chrome 浏览器市场份额巨大，有很好的用户基础。而且在国很少有专门对 PWA 布道的组织，导致很难引发风潮，「消息推送」相关的 Push Service 国外开发者用的爽歪歪，可是我们xxx ，并且国内也没有类似 Goolge 或者 Firebase 一样的企业去开发 GCM 和 FCM 这样的 service。</p>
+<p>在整个 PWA 生态中，看起来手机操作系统厂商是最大的受害者，如果 PWA 的爆发，会导致 Native App 的流量下降，厂商作为 Native App 流量分发的大闸在流量分发收益方面肯定会受到冲击。Apple 之所以迟迟没有响应 PWA 有很大一部分是因为在 Native App 生态和用户体验和开发者体验之间做权衡。国内各大 Android 手机厂商也是基于这种顾虑而选择无视 PWA 的存在。</p>
+<p>PWA 为什么在国内没有爆发的原因在这里无需赘言了，一方面可以重点关注 Apple 的动向，Apple 的解决方案我想应该就是厂商们的解决方案，毕竟面临的问题是一致的。另一方面，既然 PWA 是多方受益，搜索引擎和厂商的合作也是势在必行，毕竟一个完整健康的生态中不应该有受害者，Google 之所以在国外推广顺利，有很大一部分原因也是因为 Google 既是搜索引擎，也是操作系统厂商，期待国内搜索引擎和厂商的合作，也期待能碰撞出 PWA 在国内完美落地的火花。</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/service-worker-supported-by-safari-technology-review/" rel="noopener" title="https://zoumiaojiang.com/article/service-worker-supported-by-safari-technology-review/">https://zoumiaojiang.com/article/service-worker-supported-by-safari-technology-review/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/year-end-summary-of-2017/" data-toggle="tooltip" data-placement="top" title="个人 2017 年年终总结">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/publish-lavas-app-1-0/" data-toggle="tooltip" data-placement="top" title="百度 Lavas App 解决方案 1.0 发布啦!">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">PWA 能带来什么</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">互联网用户</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">内容服务提供商</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">搜索引擎</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Apple 的态度</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">为什么国内 PWA 没有爆发</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                        
+                          <a class="tag" href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+                        
+                          <a class="tag" href="/tags/#Safari" title="Safari">Safari</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/service-worker-supported-by-safari-technology-review/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="2018 年刚开始就踩了一个很懵逼的雷，居然还是关于 Windows 的命令行的。
+背景
+背景是这样的，在开发 Lavas cli 的过程中，需要通过开发者选定的模版类型拼接出对应的 repo 地址和分支名，然后通过 Node.js 从 github 上拉取合适的模版到本地给开发者使用。这个需求很明确，就是涉及到需要使用 Node.js 操作 git 命令行，然后就很自然的就使用 child...">
+    <meta name="keyword"  content=" Windows, Bug">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          记一个 Windows 命令行引发的 Bug - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/a-bug-caused-by-windows-command-line/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('windows7.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Windows" title="Windows">Windows</a>
+                            
+                              <a class="tag" href="/tags/#Bug" title="Bug">Bug</a>
+                            
+                        </div>
+                        <h1>记一个 Windows 命令行引发的 Bug</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2018-01-02
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p>2018 年刚开始就踩了一个很懵逼的雷，居然还是关于 Windows 的命令行的。</p>
+<h2>背景</h2>
+<p>背景是这样的，在开发 Lavas cli 的过程中，需要通过开发者选定的模版类型拼接出对应的 repo 地址和分支名，然后通过 Node.js 从 github 上拉取合适的模版到本地给开发者使用。这个需求很明确，就是涉及到需要使用 Node.js 操作 git 命令行，然后就很自然的就使用 <code>child_process.exec</code> 搞起来了。</p>
+<p>想要实现这个需求，大概先组织一下命令行，大概需要干下面几件事情：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果是没有 /some/target/path 的话</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/some/github/repo.git  /some/target/path</span><br><span class="line"><span class="built_in">cd</span> /some/target/path</span><br><span class="line">git checkout some_branch_name</span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果已经 clone 了模版到 /some/target/path 的话</span></span><br><span class="line"><span class="built_in">cd</span> /some/target/path</span><br><span class="line">git pull</span><br><span class="line">git checkout some_branch_name</span><br></pre></td></tr></table></figure>
+<p>然后问题就来了，<code>child_process.exec</code> 如何执行多个命令行呢？<code>child_precess.exec</code> 命令只能支持传入一条命令。所以需要将多条命令合成一条命令才行。</p>
+<h2>同时执行多行命令</h2>
+<p>无论是 Linux/Mac 还是 Windows 的 shell 命令都支持一条命令来执行多条命令的。一共有 <code>&amp;&amp;</code>，<code>&amp;</code>，<code>||</code>，<code>|</code> 这么几种方式，这几种方式分别代表着不同的含义：</p>
+<ul>
+<li><strong>&amp;&amp;</strong>：<code>command1 &amp;&amp; command2</code>，如果 command1 执行成功了，就执行命令 command2，如果 command1 失败了，就不会执行 command2 了。</li>
+<li><strong>&amp;</strong>：<code>command1 &amp; command2</code>，无论 command1 执行成功与否都会执行 command2。</li>
+<li><strong>||</strong>：<code>command1 || command2</code>，如果 command1 执行成功了，就不会执行 command2 了，如果 command1 失败了，就会继续执行 command2。</li>
+<li><strong>|</strong>：<code>command1 | command2</code>，command1 的结果做为 command2 的参数，如果 command1 失败了，整个命令也就都失败了。</li>
+</ul>
+<p>Linux/Mac 下还可以使用 <code>;</code> 来链接两条命令，顺序执行命令，不管成功与否都往后执行，和 <code>&amp;</code> 含义一样。</p>
+<p>了解了这些逻辑之后，我们的需求肯定就是选择 <strong>&amp;&amp;</strong> 来实现我们前面所说的需求：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假如已经 clone 了模版到 /some/target/path 目录的话</span></span><br><span class="line"><span class="built_in">cd</span> /some/target/path &amp;&amp; git pull &amp;&amp; git checkout some_branch_name</span><br></pre></td></tr></table></figure>
+<p>基于我们上面的种种分析，我们的代码基本上就是以下这个样子了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 借助一些开源包</span></span><br><span class="line"><span class="keyword">const</span> exec = <span class="built_in">require</span>(<span class="string">'wz/child_process'</span>).exec;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs-extra'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">downloadFromGit</span>(<span class="params">repo, targetPath, branchName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (fs.existsSync(targetPath)</span><br><span class="line">        &amp;&amp; fs.existsSync(path.resolve(targetPath, <span class="string">'.git'</span>))</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`cd <span class="subst">$&#123;targetPath&#125;</span> &amp;&amp; git checkout <span class="subst">$&#123;branchName&#125;</span> &amp;&amp; git pull`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        fs.existsSync(targetPath) &amp;&amp; fs.removeSync(targetPath);</span><br><span class="line">        fs.mkdirsSync(targetPath);</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`git clone <span class="subst">$&#123;repo&#125;</span> <span class="subst">$&#123;targetPath&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`cd <span class="subst">$&#123;targetPath&#125;</span> &amp;&amp; git checkout <span class="subst">$&#123;branchName&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在 Linux/Mac 和 windows 上测试了一遍，发现没什么问题，就觉得 OK 了，但是直到今天被 Windows 用户曝出从 github 上拉取代码一直报 <code>fatal: Not a git repository (or any of the parent directories): .git</code> 的错误。</p>
+<h2>排查错误</h2>
+<p>看这个报错，应该就是执行 git 命令的时候，没有找对相应的目录，所以排查的重点就是这几条命令了，如果是没有找到相应的 git 目录的话，这个 cd 命令就很容易被怀疑了。</p>
+<p>这里需要交代个背景，我们的 <code>targetPath</code> 是通过 <code>process.env['APPDATA']</code> 和 <code>process.env['HOME']</code> 的方式取得的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> targetPath = process.env[</span><br><span class="line">    os.platform() === <span class="string">'win32'</span></span><br><span class="line">        ? <span class="string">'APPDATA'</span></span><br><span class="line">        : <span class="string">'HOME'</span></span><br><span class="line">] + path.sep + <span class="string">'.lavas-project'</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，对于 targetPath 有两件事我们是能够明确的：</p>
+<ul>
+<li>在 Linux/Mac 下，targetPath 的路径为 <code>/User/zoumiaojiang/.lavas-project</code></li>
+<li>Windows 下就是 <code>c:\\Users\\Administrator\\AppData\\Roaming\\.lavas-project</code></li>
+</ul>
+<p>只有在 Windows 下才会报错，那么执行命令 <code>cd c:\\Users\\Administrator\\AppData\\Roaming\\.lavas-project</code> 到底能有什么问题呢？为什么我自己在 Windows 上测试就没有问题呢？然后我在自己电脑上也敲了如下图的命令，完全没问题啊：</p>
+<p><img src="./windows-cmd-1.png" alt="windows cd"></p>
+<p>瞬间陷入懵逼状态中，感觉陷入僵局。。</p>
+<h2>windows cd 命令</h2>
+<p>就在懵逼的过程中，瞎敲命令行，居然发现了这种情况：</p>
+<p><img src="./windows-cmd-2.png" alt="windows cd2"></p>
+<p>而这种情况是失败的，居然没有 cd 成功，然而这个和成功的 case 的差别，仅仅只是因为这次我是在 <code>d:\</code> 盘执行的。回想起 Lavas cli 的报错，果然不是在 <code>c:\</code> 盘执行的命令行，而我之前一直测试成功，因为我每次都是在 <code>c:\</code> 盘执行命令。这下彻底懂了：</p>
+<ul>
+<li>Windows 不支持直接跨盘执行 cd 命令</li>
+<li>在执行 cd 命令之前，必须先指定盘</li>
+</ul>
+<p><img src="./windows-cmd-3.png" alt="windows cd"></p>
+<p>这下果然成功了。问题终于找到了，突然回想，这个错误犯的也太低级了，之前操作 Windows 命令行的时候，这个操作简直是潜意识的，久疏 Windows 之后，居然把这么个事给忘记了。既然找到了病因，就好解决了，我们改一下 <code>downloadFromGit</code> 的代码就可以了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">downloadFromGit</span>(<span class="params">repo, targetPath, branchName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> disk = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">if</span> (os.platform() === <span class="string">'win32'</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> diskName = targetPath.split(<span class="string">':'</span>)[<span class="number">0</span>] || <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (diskName) &#123;</span><br><span class="line">            disk = diskName + <span class="string">': &amp;&amp;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (fs.existsSync(targetPath)</span><br><span class="line">        &amp;&amp; fs.existsSync(path.resolve(targetPath, <span class="string">'.git'</span>))</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`<span class="subst">$&#123;disk&#125;</span>cd <span class="subst">$&#123;targetPath&#125;</span> &amp;&amp; git checkout <span class="subst">$&#123;branchName&#125;</span> &amp;&amp; git pull`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        fs.existsSync(targetPath) &amp;&amp; fs.removeSync(targetPath);</span><br><span class="line">        fs.mkdirsSync(targetPath);</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`git clone <span class="subst">$&#123;repo&#125;</span> <span class="subst">$&#123;targetPath&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">await</span> exec(<span class="string">`<span class="subst">$&#123;disk&#125;</span>cd <span class="subst">$&#123;targetPath&#125;</span> &amp;&amp; git checkout <span class="subst">$&#123;branchName&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之前的 Bug 是因为 Windows 下不能跨盘直接 cd，导致没有直接 cd 到 <code>targetPath</code>，所以不能正确的进入 git 目录，导致会报 <code>fatal: Not a git repository (or any of the parent directories): .git</code> 错误。</p>
+<p>PS: <strong>往往解决 Bug 都是容易解决的，定位 Bug 却很难</strong>，记下这个有意思的 Bug，提醒下自己以后一定要仔细，测试一定要充分。</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/a-bug-caused-by-windows-command-line/" rel="noopener" title="https://zoumiaojiang.com/article/a-bug-caused-by-windows-command-line/">https://zoumiaojiang.com/article/a-bug-caused-by-windows-command-line/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/common-web-security/" data-toggle="tooltip" data-placement="top" title="常见 Web 安全攻防总结">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/year-end-summary-of-2017/" data-toggle="tooltip" data-placement="top" title="个人 2017 年年终总结">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">背景</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">同时执行多行命令</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">排查错误</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">windows cd 命令</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Windows" title="Windows">Windows</a>
+                        
+                          <a class="tag" href="/tags/#Bug" title="Bug">Bug</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/a-bug-caused-by-windows-command-line/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

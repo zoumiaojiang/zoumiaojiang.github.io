@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="workbox 是 GoogleChrome 团队推出的一套 Web App 静态资源和请求结果的本地存储的解决方案，该解决方案包含一些 Js 库和构建工具，在 Chrome Submit 2017 上首次隆重面世。而在 workbox 背后则是 Service Worker 和 Cache API 等技术和标准在驱动。在 Workebox 之前，GoogleChrome 团队较早时间推出过...">
+    <meta name="keyword"  content=" PWA, Service Worker, Workbox">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          神奇的 Workbox 3.0 - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/amazing-workbox-3/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('workbox.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                            
+                              <a class="tag" href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+                            
+                              <a class="tag" href="/tags/#Workbox" title="Workbox">Workbox</a>
+                            
+                        </div>
+                        <h1>神奇的 Workbox 3.0</h1>
+                        <h2 class="subheading">让你的 Web 站点轻松做到离线可访问</h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2018-01-16
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p><a href="https://github.com/GoogleChrome/workbox" target="_blank" rel="noopener">workbox</a> 是 GoogleChrome 团队推出的一套 Web App 静态资源和请求结果的本地存储的解决方案，该解决方案包含一些 Js 库和构建工具，在 Chrome Submit 2017 上首次隆重面世。而在 workbox 背后则是 <a href="https://lavas.baidu.com/pwa/offline-and-cache-loading/service-worker/service-worker-introduction" target="_blank" rel="noopener">Service Worker</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Cache" target="_blank" rel="noopener">Cache API</a> 等技术和标准在驱动。在 Workebox 之前，GoogleChrome 团队较早时间推出过 <a href="https://github.com/GoogleChromeLabs/sw-precache" target="_blank" rel="noopener">sw-precache</a> 和 <a href="https://github.com/GoogleChromeLabs/sw-toolbox" target="_blank" rel="noopener">sw-toolbox</a> 库，但是在 GoogleChrome 工程师们看来，workbox 才是真正能方便统一的处理离线能力的更完美的方案，所以停止了对 sw-precache 和 sw-toolbox 的维护。</p>
+<p>从 sw-precache 和 sw-toolbox 的相关 issue 来看，众多开发者对它们也是颇有怨言。但是 workbox 发布了 2.x 版本后其实反响一般，总的来说我认为还是 API 太混乱了，虽然功能很强大但是设计条理不清晰，其学习成本导致很难推广开，但是从目前 workbox3 alpha 版本的文档和 API 来看，我个人认为 workbox3 终于成为了能够很方便简单的解决 Service Worker 绝大多数问题的神器，所以写这篇文章来全面介绍一下。</p>
+<blockquote>
+<p>注意，当前 workbox 3 还是 alpha 发布阶段，API 和接口还有可能调整，文中所提到的一些工具可能 Google 方面还没有完全 ready, 本文为正式发布前的尝鲜版，后续正式发布后本会随版更新。</p>
+</blockquote>
+<h2>概述</h2>
+<p>workbox 现在已经发布到了 3.0 alpha 版本，我们可以先了解一下 workbox：</p>
+<ul>
+<li>不管你的站点是何种方式构建的，都可以为你的站点提供离线访问能力。</li>
+<li>就算你不考虑离线能力，也能让你的站点访问速度更加快。</li>
+<li>几乎不用考虑太多的具体实现，只用做一些配置。</li>
+<li>简单却不失灵活，可以完全自定义相关需求（支持 Service Worker 相关的特性如 Web Push, Background sync 等）。</li>
+<li>针对各种应用场景的多种缓存策略。</li>
+</ul>
+<p>bingo！ 如果你被这些特性吸引住了，可以往下看看，我们在这里讲的是 workbox 3.0 的内容，当然 workbox 在解决的核心问题方面和之前的版本没有太大的出入，只是 API 进行了一些调整，并且在构建相关方面考虑的更加完善，workbox 进入 3.0 以后，API 看起来清晰多了，接下来一起看看 workbox 3 具体内容吧。</p>
+<h2>用法</h2>
+<p>想要使用 workbox，首先需要在你的项目中创建一个 Service Worker 文件 <code>sw.js</code> 并且在你的站点上注册：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript"><span class="comment">// 可以这么注册 Service Worker</span></span></span><br><span class="line"><span class="actionscript"><span class="keyword">if</span> (<span class="string">'serviceWorker'</span> <span class="keyword">in</span> navigator) &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 为了保证首屏渲染性能，可以在页面 load 完之后注册 Service Worker</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">        navigator.serviceWorker.register(<span class="string">'/sw.js'</span>);</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有了 <code>sw.js</code> 之后就可以使用 workbox 了，你只需要在 <code>sw.js</code> 中导入 workbox 就可以使用了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// workbox 2.x 是将 workbox 核心内容放在 workbox-sw node_modules 包里维护的</span></span><br><span class="line"><span class="comment">// workbox 3.x 开始是将 workbox 核心 lib 放在 CDN 维护</span></span><br><span class="line"><span class="comment">// 当然也可以挪到自己的 CDN 维护</span></span><br><span class="line">importScripts(<span class="string">'https://storage.googleapis.com/workbox-cdn/releases/3.0.0-alpha.3/workbox-sw.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (workbox) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Yay! workbox is loaded 🎉`</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Boo! workbox didn't load 😬`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当在 <code>sw.js</code> 能够拿到 <code>workbox</code> 全局变量，表明 workbox 可以使用了，workbox 能干什么呢？</p>
+<ul>
+<li>通过 <code>workbox.precaching</code> 模块来处理 Service Worker 静态资源的预缓存。</li>
+<li>通过 <code>workbox.routing</code> 模块提供的路由控制和 <code>workbox.strategies</code> 模快提供的缓存策略控制帮助你做动态缓存。</li>
+<li>使用 workbox 插件做一些 Service Worker 相对独立的工作，比如 更新提醒, Background Sync 等</li>
+</ul>
+<h2>precache (预缓存) 静态文件</h2>
+<p>如果你有一些静态资源是需要永远的离线缓存，除非重新上线才更新缓存的话，那 precache 预缓存应该是你所期待的，如果了解 Service Worker 的生命周期的话，precache 的工作是在 Service Worker <code>install</code> 时候通过 Cache API 完成的，具体可以了解 <a href="https://lavas.baidu.com/pwa/offline-and-cache-loading/service-worker/service-worker-lifecycle" target="_blank" rel="noopener">Service Work 生命周期</a>。</p>
+<p>workbox 提供了一种非常方便的 API 帮助我们解决 precache 的问题，和之前 Google 的 precache 方案 sw-precache 的工作类似。workbox 通过使用 <code>precaching.precacheAndRoute</code> 接口完成 precache 操作：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">workbox.precaching.preacheAndRoute([</span><br><span class="line">    <span class="string">'/styles/index.0c9a31.css'</span>,</span><br><span class="line">    <span class="string">'/scripts/main.0d5770.js'</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        url: <span class="string">'/index.html'</span>,</span><br><span class="line">        revision: <span class="string">'383676'</span></span><br><span class="line">    &#125;,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+<p>以上这段代码会在 Service Worker 安装成功的时候下载 <code>/styles/index.0c9a31.css</code>， <code>/scripts/main.0d5770.js</code>, <code>/index.html</code> 文件，并且会以构造路由的方式将这些文件都存储到 Cache Storage 中。这个传入的数组其实就是预缓存内容列表，有两种形式，一种是直接写文件名的字符串（带 Hash 的），一种是如下所示带有 url 和 revesion 值的对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    url: <span class="string">'将要预缓存的文件 URL,</span></span><br><span class="line"><span class="string">    revision: '</span>文件内容的 Hash 值<span class="string">'</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里需要注意的是这个 revision 的值，当预缓存的文件就任何变动的时候就会被更新，如果 revision 没有更新，那当你更新 Service Worker 的时候，被缓存的文件也不会被更新。</p>
+</blockquote>
+<p>我们接下来介绍一些帮助我们生成预缓存内容列表的 <code>precaching.precacheAndRoute</code> API 的配置选项。</p>
+<h3>处理 <code>/</code> 和 <code>/index.html</code></h3>
+<p>通常当用户访问 <code>/</code> 时，对应的访问的页面 HTML 文件是 <code>/index.html</code>，默认情况下，precache 路由机制会在任何 URL 的结尾的 <code>/</code> 后加上 <code>index.html</code>，这就以为着你预缓存的任何 <code>index.html</code> 都可以通过 <code>/index.html</code> 或者 <code>/</code> 访问到。</p>
+<p>当然，你也可以通过 <code>directoryIndex</code> 参数禁用掉这个默认行为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">workbox.precaching.preacheAndRoute(</span><br><span class="line">    [</span><br><span class="line">        <span class="string">'/styles/index.0c9a31.css'</span>,</span><br><span class="line">        <span class="string">'/scripts/main.0d5770.js'</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            url: <span class="string">'/index.html'</span>,</span><br><span class="line">            revision: <span class="string">'383676'</span></span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">    &#123;</span><br><span class="line">        directoryIndex: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3>忽略请求参数</h3>
+<p>例如，如果我么想要让 <code>key1</code> 参数不是 <code>/example.html?key1=1&amp;key2=2</code> 的一部分，你只需要设置 <code>ignoreURLParametersMatching</code> 参数把它排除掉：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">workbox.precaching.precacheAndRoute(</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">            url: <span class="string">'/example.html?key2=2'</span>,</span><br><span class="line">            revision: <span class="string">'6821e0'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &#123;</span><br><span class="line">        ignoreUrlParametersMatching:[<span class="regexp">/key1/</span>],</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这样 <code>/example.html?key1=1&amp;key2=2</code> 这个路由对应的内容就可以被预缓存了。</p>
+<h3>生成预缓存列表</h3>
+<p>靠手动维护 <code>precache.precacheAndRoute</code> API 中的预缓存内容列表是不可能的，revision 我们无法手动维护，所以我们肯定是要借助一些工具来干这个事情，好在 workbox 提供了多种方式让我们选择：</p>
+<ul>
+<li>workbox 命令行</li>
+<li>workbox-build npm 包</li>
+<li>workbox-webpack-plugin</li>
+</ul>
+<p>在使用以上三种方式生成预缓存内容列表之前，我们先预设一下应用场景：假设你的项目在目录 <code>/app</code> 下，必须保证在你的项目根目录下有一个 <code>app/sw.js</code> 包含以下内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通常项目中的 sw.js 源文件都是通过这样预留一个空数组的方式来预缓存内容列表的</span></span><br><span class="line">workbox.precaching.precacheAndRoute([]);</span><br></pre></td></tr></table></figure>
+<p>这样才能保证能将生成的预缓存内容列表内容注入到 Service Worker 文件中。</p>
+<h4>workbox 命令行</h4>
+<p>workbox 提供了一套命令行，专门来帮助我们注入预缓存内容列表，可以帮助我们生成注入预缓存内容列表所需要的 <code>workbox-cli-config.js</code> 配置文件，然后通过命令行使用配置文件就可以生成一个预缓存列表的代码并注入到之前自定义的 <code>app/sw.js</code> 文件中，最终编译成线上所需要的  Service Worker 文件：<code>dist/sw.js</code>。</p>
+<p>安装命令行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g workbox-cli</span><br></pre></td></tr></table></figure>
+<p>所以我们先要有一个 <code>workbox-cli-config.js</code> 文件，然后根据这个文件结合 <code>/app/sw.js</code> 源文件来生成一个含有预缓存列表的 <code>dist/sw.js</code> 文件。接下来我们可以看下具体这一系列流程需要怎么操作。</p>
+<p>首先执行 <code>workbox generate:sw</code> 命令生成一个配置文件 <code>workbox-cli-config.js</code>，这个命令执行之后将会弹出一些问题让你选择，如下所示:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;$ workbox generate:sw</span><br><span class="line">? What is the root of your web app? app</span><br><span class="line">? Which file types would you like to cache? (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to inverse selection)html,ico,svg,png,js,css</span><br><span class="line">? What should the path of your new service worker file be (i.e. <span class="string">'./build/sw.js'</span>)? dist/sw.js</span><br><span class="line">? Last Question - Would you like to save these settings to a config file? Yes</span><br></pre></td></tr></table></figure>
+<p>回答完这些问题之后你就可以在你的项目里导出一个新的 <code>workbox-cli-config.js</code> 配置文件了大概长以下这个样子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// workbox-config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="string">"globDirectory"</span>: <span class="string">"app/"</span>,</span><br><span class="line">    <span class="string">"globPatterns"</span>: [</span><br><span class="line">        <span class="string">"**/*.&#123;html,ico,svg,png,js,css&#125;"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"swDest"</span>: <span class="string">"dist/sw.js"</span>,</span><br><span class="line">    <span class="string">"swSrc"</span>: <span class="string">"app/sw.js"</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>拿到了 <code>workbox-cli-config.js</code> 配置文件之后可以执行 <code>workbox inject:manifest workbox-cli-config.js</code> 命令生成编译后的 <code>dist/sw.js</code> 文件了，这一步干的事情就是把预缓存内容列表注入到 <code>app/sw.js</code> 中，一般只有在上线前才用命令行注入预缓存内容列表，通常我们都不会手动去执行这些命令的，比较合理的做法是实现生成好 <code>workbox-cli-config.js</code> 文件，然后在构建脚本中配置上自动执行 <code>workbox inject:manifest</code> 命令。</p>
+<blockquote>
+<p><code>workbox inject:manifest</code> 命令的做法就是去匹配 <code>/app/sw.js</code> 中的 <code>workbox.precaching.precacheAndRoute([])</code> 方法的正则，然后通过 replace 内容注入的，可以参考下面的 workbox-build 的介绍。</p>
+</blockquote>
+<h4>workbox-build</h4>
+<p>使用命令行总感觉太傻了，操作步骤也比较繁琐，为了使得预缓存工作更加简便灵活，workbox 也提供了一个 NPM 包 – <a href="https://www.npmjs.com/package/workbox-build" target="_blank" rel="noopener">workbox-build</a>，你可以在任何构建工具中都使用。</p>
+<p>可以在你的工程根目录中执行以下命令安装 workbox-build 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev workbox-build</span><br></pre></td></tr></table></figure>
+<p>然后直接可以在你想要处理 Service Worker 预缓存的地方引入 workbox-build 库，并且调用其 <code>injectManifest</code> 方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> workboxBuild = <span class="built_in">require</span>(<span class="string">'workbox-build'</span>);</span><br><span class="line"></span><br><span class="line">workboxBuild.injectManifest(&#123;</span><br><span class="line">    swSrc: path.join(__dirname, <span class="string">'app'</span>, <span class="string">'sw.js'</span>),</span><br><span class="line">    swDest: path.join(__dirname, <span class="string">'dist'</span>, <span class="string">'sw.js'</span>),</span><br><span class="line">    globDirectory: <span class="string">'./dist/'</span>,</span><br><span class="line">    globPatterns: [<span class="string">'**\/*.&#123;html,js,css&#125;'</span>],</span><br><span class="line">    globIgnores: [<span class="string">'admin.html'</span>],</span><br><span class="line">    templatedUrls: &#123;</span><br><span class="line">        <span class="string">'/shell'</span>: [<span class="string">'dev/templates/app-shell.html'</span>, <span class="string">'dev/**\/*.css'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 要替换的预留代码区正则</span></span><br><span class="line">    injectionPointRegexp: <span class="regexp">/(\.precacheAndRoute\()\s*\[\s*\]\s*(\))/</span>,</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">`Unable to inject the precache manifest into sw.js`</span>);</span><br><span class="line">    <span class="keyword">throw</span> err;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在构建文件中执行这段代码就会读取 <code>app/sw.js</code> 文件然后生成一个 <code>dist/sw.js</code> 文件含有注入的预缓存内容列表。</p>
+<blockquote>
+<p>关于如何使用 <code>injectManifest</code> 方法可以查看 workbox-build 的 <code>injectManifest</code> 方法 <a href="https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.injectManifest" target="_blank" rel="noopener">全部参数</a></p>
+</blockquote>
+<h4>workbox-webpack-plugin</h4>
+<p>有了 workbox-build 可想而知就能搞出很多实用的预缓存插件方案，比如 Webpack、Gulp 等插件，workbox 官方也提供了一个插件 <code>workbox-webpack-plugin</code>，只需要通过以下方式，就可以将插件安装到你的 webpack 项目中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev workbox-webpack-plugin</span><br></pre></td></tr></table></figure>
+<p>然后就只需要将插件添加到 Webpack 配置中就可以正常使用了，插件参数和 workbox-build 的 <code>injectManifest</code> 方法保持一致：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> workboxPlugin = <span class="built_in">require</span>(<span class="string">'workbox-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">webpack(&#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">new</span> workboxPlugin(&#123;</span><br><span class="line">            swSrc: <span class="string">'./src/sw.js'</span>,</span><br><span class="line">            swDest: <span class="string">'./dist/sw.js'</span>,</span><br><span class="line">            globDirectory: <span class="string">'./dist/'</span>,</span><br><span class="line">            globPatterns: [<span class="string">'**/*.&#123;html,js,css&#125;'</span>],</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里有个地方和之前提到的替换预留的 <code>app/sw.js</code> 不一样：使用 workbox 提供的 Webpack 插件必须在 <code>app/sw.js</code> 中包含以下代码才能完成预缓存内容列表注入工作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workbox.precaching.precacheAndRoute(self.__precacheManifest || []);</span><br></pre></td></tr></table></figure>
+<p>当插件跑起来之后，会在 <code>/dist/sw.js</code> 中增加一段 <code>importScripts()</code> 代码用来引入一个模块，这个模块的内容就是 <code>self.__precacheManifest</code>，也就是预缓存内容列表的内容，具体的效果可以在项目中使用 <code>workbox-webpack-plugin</code> 尝试一下，看看 build 后的 <code>dist/sw.js</code> 结果就会比较清楚了。</p>
+<h2>路由请求缓存</h2>
+<p>路由请求缓存是通过文件路由匹配的模式分别对制定的路由文件做不同策略缓存的方式，这部分工作可以在 <code>app/sw.js</code> 中直接使用 workbox 提供的 <code>workbox.routing.registerRoute</code> API 完成，这个 API 可以理解为干了两件事情，<strong>一、通过请求路由配置匹配到指定待缓存文件或请求内容</strong>，<strong>二、通过第二个参数的处理回调函数决定用何种策略来缓存匹配上的文件</strong>。有 <strong>三种</strong> 方法可以通过 workbox-route 来匹配一个请求 URL</p>
+<ul>
+<li>字符串方式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以直接是当前项目下的绝对路径</span></span><br><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    <span class="string">'/logo.png'</span>,</span><br><span class="line">    handler <span class="comment">// handler 是做缓存策略的回调函数，通常指后面所会降到的 '缓存策略函数'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以是完整的带完整 host 的 URL 路径，这里的 URL 必须是 https 的</span></span><br><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    <span class="string">'https://some-host/some-path/logo.png'</span>,</span><br><span class="line">    handler</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>正则表达式方式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'.*\.js'</span>), <span class="comment">// 这里是任何正则都行，只要能匹配得上的请求路由地址</span></span><br><span class="line">    handler</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>回调函数方式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过回调函数来匹配请求路由将会让策略更加灵活</span></span><br><span class="line"><span class="keyword">const</span> matchFunction = <span class="function">(<span class="params">&#123;url, event&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 如果请求路由匹配了就返回 true，也可以返回一个参数对象以供 handler 接收处理</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    matchFunction,</span><br><span class="line">    handler</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>上面讲到了匹配请求路由的三种方式，接下来可以讲讲如何处理匹配上的请求所返回的内容，也就是上面三种路由匹配方式的 handler，通常有两种做法：</p>
+<ul>
+<li>使用一种 workbox 通过 <code>workbox.strategies</code> API 提供的 <strong>缓存策略</strong>。</li>
+<li>提供一个自定义返回带有返回结果的 Promise 的回调方法。</li>
+</ul>
+<h3>路由请求缓存策略</h3>
+<p>下面介绍一下 workbox 默认提供的几种缓存策略 API，这些 API 可以被当成 handler 使用。</p>
+<p><strong>Stale While Revalidate</strong></p>
+<p>这种策略的意思是当请求的路由有对应的 Cache 缓存结果就直接返回，在返回 Cache 缓存结果的同时会在后台发起网络请求拿到请求结果并更新 Cache 缓存，如果本来就没有 Cache 缓存的话，直接就发起网络请求并返回结果，这对用户来说是一种非常安全的策略，能保证用户最快速的拿到请求的结果，但是也有一定的缺点，就是还是会有网络请求占用了用户的网络带宽。可以像如下的方式使用 <code>State While Revalidate</code> 策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    match, <span class="comment">// 匹配的路由</span></span><br><span class="line">    workbox.strategies.staleWhileRevalidate()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Network First</strong></p>
+<p>这种策略就是当请求路由是被匹配的，就采用网络优先的策略，也就是优先尝试拿到网络请求的返回结果，如果拿到网络请求的结果，就将结果返回给客户端并且写入 Cache 缓存，如果网络请求失败，那最后被缓存的 Cache 缓存结果就会被返回到客户端，这种策略一般适用于返回结果不太固定或对实时性有要求的请求，为网络请求失败进行兜底。可以像如下方式使用 <code>Network First</code> 策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    match, <span class="comment">// 匹配的路由</span></span><br><span class="line">    workbox.strategies.networkFirst()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Cache First</strong></p>
+<p>这个策略的意思就是当匹配到请求之后直接从 Cache 缓存中取得结果，如果 Cache 缓存中没有结果，那就会发起网络请求，拿到网络请求结果并将结果更新至 Cache 缓存，并将结果返回给客户端。这种策略比较适合结果不怎么变动且对实时性要求不高的请求。可以像如下方式使用 <code>Cache First</code> 策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    match, <span class="comment">// 匹配的路由</span></span><br><span class="line">    workbox.strategies.cacheFirst()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Network Only</strong></p>
+<p>比较直接的策略，直接强制使用正常的网络请求，并将结果返回给客户端，这种策略比较适合对实时性要求非常高的请求。可以像如下方式使用 <code>Network Only</code> 策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    match, <span class="comment">// 匹配的路由</span></span><br><span class="line">    workbox.strategies.networkOnly()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>Cache Only</strong></p>
+<p>这个策略也比较直接，直接使用 Cache 缓存的结果，并将结果返回给客户端，这种策略比较适合一上线就不会变的静态资源请求。可以像如下方式使用 <code>Cache Only</code> 策略：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    match, <span class="comment">// 匹配的路由</span></span><br><span class="line">    workbox.strategies.networkOnly()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>无论使用何种策略，你都可以通过自定义一个缓存来使用或添加插件（后面我们会介绍 workbox 插件）来定制路由的行为（以何种方式返回结果）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">workbox.strategies.staleWhileRevalidate(&#123;</span><br><span class="line">    <span class="comment">// 使用用户自定义的缓存名称</span></span><br><span class="line">    cacheName: <span class="string">'my-cache-name'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 workbox 插件</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当然，这些配置通常需要在缓存请求时更安全，也就是说，需要限制缓存的时间或者确保设备上用的数据是被限制的。</p>
+<h3>自定义策略</h3>
+<p>如果以上的那些策略都不太能满足你的请求的缓存需求，那就得想想办法自己定制一个合适的策略，甚至是不同情况下返回不同的请求结果，workbox 也考虑到了这种场景（这也是为什么我会极力推荐 workbox 的原因），当然，最简单的方法是直接在 Service Worker 文件里通过最原始的 <code>fetch</code> 事件控制缓存策略。也可以使用 workbox 提供的另一种方式：传入一个带有对象参数的回调函数，对象中包含匹配的 <code>url</code> 以及请求的 <code>fetchEvent</code> 参数，回调函数返回的就是一个 response 对象，具体用法如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    (&#123;url, event&#125;) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            name: <span class="string">'workbox'</span>,</span><br><span class="line">            type: <span class="string">'guide'</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    (&#123;url, event, params&#125;) =&gt; &#123;</span><br><span class="line">        <span class="comment">// 返回的结果是：A guide on workbox</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(</span><br><span class="line">            <span class="string">`A <span class="subst">$&#123;params.type&#125;</span> on <span class="subst">$&#123;params.name&#125;</span>`</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2>第三方请求的缓存</h2>
+<p>如果有些请求的域和当前 Web 站点不一致，那可以被认为是第三方资源或请求，针对第三方请求的缓存，因为 Workbox 无法获取第三方路由请求的状态，当请求失败的情况下 workbox 也只能选择缓存错误的结果，所以 workbox 3 原则上默认不会缓存第三方请求的返回结果。也就是说，默认情况下如下的缓存策略是不会生效的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    <span class="string">'https://notzoumiaojiang.com/example-script.min.js'</span>,</span><br><span class="line">    workbox.strategies.cacheFirst(),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>当然，并不是所有的策略在第三方请求上都不能使用，workbox 3 可以允许 <code>networkFirst</code> 和 <code>stalteWhileRevalidate</code> 缓存策略生效，因为这些策略会有规律的更新缓存的返回内容，毕竟每次请求后都会更新缓存内容，要比直接缓存安全的多。</p>
+<blockquote>
+<p>如果你强制使用 workbox 3 不推荐的缓存策略去缓存第三方请求，那 workbox 在 DevTools 里的 console 中会报警报哦。</p>
+</blockquote>
+<p>如果你还是执意要缓存第三方请求的结果的话，workbox 3 也考虑到了确实会有这种难以扼杀的需求，提供了一个非常人性化的方式满足需求：利用 <code>workbox.cacheableResponse.Plugin</code> 来指定只缓存请求成功的结果，这样就打消掉我们之前对于不安全结果被缓存的顾虑了。鹅妹子英！(后面我们会介绍插件机制)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    <span class="string">'https://notzoumiaojiang.com/example-script.min.js'</span>,</span><br><span class="line">    workbox.strategies.cacheFirst(&#123;</span><br><span class="line">        plugins: [</span><br><span class="line">            <span class="comment">// 这个插件是让匹配的请求的符合开发者指定的条件的返回结果可以被缓存</span></span><br><span class="line">            <span class="keyword">new</span> workbox.cacheableResponse.Plugin(&#123;</span><br><span class="line">                statuses: [<span class="number">0</span>, <span class="number">200</span>]</span><br><span class="line">            &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2>workbox 配置</h2>
+<p>workbox 3 提供了一些配置项，都封装在 <code>workbox.core</code> API 中，可以稍微了解一下。</p>
+<p><strong>配置缓存名称</strong></p>
+<p>通过 <code>DevTools -&gt; Applications -&gt; Caches</code> 可以发现，workbox 对于缓存命名有一些规则的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;prefix&gt;-&lt;ID&gt;-&lt;suffix&gt;</span><br></pre></td></tr></table></figure>
+<p>每个命名都有个前缀和后缀，中间才是真正的命名 ID，主要是为了更大限度的防止重名的情况发生，可以通过以下这种方式分别对 precache 和 runtime 形式的缓存进行自定义命名：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">workbox.core.setCacheNameDetails(&#123;</span><br><span class="line">    prefix: <span class="string">'my-app'</span>,</span><br><span class="line">    suffix: <span class="string">'v1'</span>,</span><br><span class="line">    precache: <span class="string">'custom-precache-name'</span>,<span class="comment">// 不设置的话默认值为 'precache'</span></span><br><span class="line">    runtime: <span class="string">'custom-runtime-name'</span> <span class="comment">// 不设置的话默认值为 'runtime'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过以上设置后，precache 类型的缓存名称为 <code>my-app-custom-precache-name-&lt;ID&gt;-v1</code>，runtime 类型的缓存名称为 <code>my-app-custom-runtime-name-&lt;ID&gt;-v1</code>。workbox 推荐尽量为你的每个项目设置不同的 prefix，这样你在本地 locahost 调试 Service Worker 的时候可以避免冲突。而 suffix 可以用来控制缓存版本，让站点的 Service Worker 更新机制变得清晰维护。</p>
+<p>workbox 为了让 Web App 的缓存管理的更加细粒度的清晰可维护，也提供了策略级别的缓存命名设置，可以通过策略 API 的 <code>cacheName</code> 参数进行设置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    /.*\.(?:png|jpg|jpeg|svg|gif)/g,</span><br><span class="line">    <span class="keyword">new</span> workbox.strategies.CacheFirst(&#123;</span><br><span class="line">        cacheName: <span class="string">'my-image-cache'</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这样，对应的图片相关的 <code>cacheFirst</code> 策略的缓存都会以 <code>my-image-cache-&lt;ID&gt;</code> 的形式命名，这里要注意的是：<strong>prefix 和 suffix 是不需要设置的</strong></p>
+<p><strong>指定 development 环境</strong></p>
+<p>workbox 开发过程中是需要 debug 的，所以 workbox 3 也提供了 logger 机制帮助我们排查问题，但是在生产环境下，我们不希望也产生 logger 信息，所以 workbox 提供了「指定当前环境」 的设置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置为开发模式</span></span><br><span class="line">workbox.setConfig(&#123;<span class="attr">debug</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置为线上生产模式</span></span><br><span class="line">workbox.setConfig(&#123;<span class="attr">debug</span>: <span class="literal">false</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>配置日志 Level</strong></p>
+<p>workbox 3 提供 logger 机制帮助我们更好的调试 workbox，一共有四种 log level：<code>debug</code>，<code>log</code>，<code>warn</code>，<code>error</code>。</p>
+<img src="./workbox-core-logs.png" style="border:none;" alt="workbox logs" />
+<p>可以通过以下方式设置 log 的 level，这样就可以只看到某个 level 的 log 信息，让调试的过程中更加专注。具体的设置方式是通过 <code>worbox.core</code> API 中的 <code>setLogLevel</code> 方法来完成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 展示所有的 log</span></span><br><span class="line">workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只展示 log, warning 和 error 类型的 log</span></span><br><span class="line">workbox.core.setLogLevel(workbox.core.LOG_LEVELS.log);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只展示 warning 和 error 类型的 log</span></span><br><span class="line">workbox.core.setLogLevel(workbox.core.LOG_LEVELS.warn);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只展示 error 类型的 log</span></span><br><span class="line">workbox.core.setLogLevel(workbox.core.LOG_LEVELS.error);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 啥 log 都没有，这个适用于线上生产环境</span></span><br><span class="line">workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);</span><br></pre></td></tr></table></figure>
+<h2>workbox 插件</h2>
+<p>插件机制应该是 workbox 3 最大的改进了，在 2.x 中，现有的插件大部分功能都是直接以 API 的形式抛给开发者，让开发者一头雾水，现在 3.0 中每个内置插件自己封装了之前的 API，对开发者来说专门解决了一个个独立的问题。除此之外，workbox 3 还提供插件扩展机制以及事件钩子可以让开发者自己扩展插件。workbox 插件可以让你通过操作一个请求的生命周期中的返回内容和请求内容添加其他的一些行为。</p>
+<p>workbox 插件通常都是在缓存策略中使用的，可以让开发者的缓存策略更加灵活，workbox 内置了一些插件：</p>
+<ul>
+<li>
+<p><strong>workbox.backgroundSync.Plugin</strong>: 如果网络请求失败，就将请求添加到 background sync 队列中，并且在下一个 sync 事件触发之前重新发起请求。</p>
+</li>
+<li>
+<p><strong>workbox.broadcastUpdate.Plugin</strong>: 当 Cache 缓存更新的时候将会广播一个消息给所有客户端，类似于 <a href="https://github.com/lavas-project/sw-register-webpack-plugin" target="_blank" rel="noopener">sw-register-webpack-plugin</a> 做的事情。</p>
+</li>
+<li>
+<p><strong>workbox.cacheableResponse.Plugin</strong>: 让匹配的请求的符合开发者指定的条件的返回结果可以被缓存，可以通过 <code>status</code>, <code>headers</code> 参数指定一些规则条件。</p>
+</li>
+<li>
+<p><strong>workbox.expiration.Plugin</strong>: 管理 Cache 的数量以及 Cache 的时间长短。</p>
+</li>
+</ul>
+<p>可以像如下方式来使用 workbox 插件，以 <code>workbox.expiration.Plugin</code> 为例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">workbox.routing.registerRoute(</span><br><span class="line">    /\.(?:png|gif|jpg|jpeg|svg)$/,</span><br><span class="line">    workbox.strategies.cacheFirst(&#123;</span><br><span class="line">        cacheName: <span class="string">'images'</span>,</span><br><span class="line">        plugins: [</span><br><span class="line">            <span class="keyword">new</span> workbox.expiration.Plugin(&#123;</span><br><span class="line">                maxEntries: <span class="number">60</span>, <span class="comment">// 最大的缓存数，超过之后则走 LRU 策略清除最老最少使用缓存</span></span><br><span class="line">                maxAgeSeconds: <span class="number">30</span> * <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span>, <span class="comment">// 这只最长缓存时间为 30 天</span></span><br><span class="line">            &#125;),</span><br><span class="line">        ],</span><br><span class="line">    &#125;),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3>自定义插件</h3>
+<p>当然，workbox 也知道这些插件肯定不能满足大家的自定义策略的要求，所以索性将整个请求生命周期中的关键事件以事件钩子回调函数的方式暴露出来，也就是说，我们可以使用这些事件钩子打造自己更加灵活的 workbox 插件。一个插件就是一个构造函数，而钩子就是以构造函数的方法的形式供开发者们自定义开发，下面介绍一下有哪些事件钩子：</p>
+<p><strong>cacheWillUpdate</strong></p>
+<p><code>cacheWillUpdate({request, response})</code>，在请求返回结果替换 Cache 结果之前被调用，你可以在这个事件钩子中在更新缓存之前修改返回的结果，如果将结果直接设为 <code>null</code> 来避免当前请求的返回的结果被更新到缓存。</p>
+<p><strong>cacheDidUpdate</strong></p>
+<p><code>cacheDidUpdate({cacheName, request, oldResponse, newResponse})</code>，当有新的缓存写入记录或者 Cache 缓存被更新时被调用，你可以调用这个方法在 Cache 缓存更新之后干点什么。</p>
+<p><strong>cachedResponseWillBeUsed</strong></p>
+<p><code>cachedResponseWillBeUsed({cacheName, request, matchOptions, cachedResponse})</code>，在 Cache 缓存的结果在 fetch 事件中被触发响应返回之前调用，可以使用这个回调来允许或阻止正在使用的 Cache 响应返回。</p>
+<p><strong>requestWillFetch</strong></p>
+<p><code>requestWillFetch({request})</code>，当任何 fetch 事件被触发的时候都会被调用，可以在这个毁掉中修改请求的 request 内容。</p>
+<p><strong>fetchDidFail</strong></p>
+<p><code>fetchDidFail({originalRequest, request})</code>，当 fetch 事件触发失败的时候被调用，fetch 事件触发失败是网络根本无法请求，而不是请求返回为 <code>非 200</code> 的状态的时候，可以用这个钩子在检测到断网的时候干点什么。</p>
+<p>如果你想写一个自己的 workbox 插件，只需要参照如下方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// my-workbox-plugin.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">const</span> MyWorkboxPlugin = &#123;</span><br><span class="line">    cacheWillUpdate(&#123;request, response&#125;) &#123;</span><br><span class="line">        <span class="comment">// ... 搞事情</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... 继续搞事情</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>本文参考了 <a href="https://developers.google.com/web/tools/workbox/guides/get-started" target="_blank" rel="noopener">Google 官方文档</a>，在文档的基础上做了一些自己的解读和总结，有兴趣的开发者可以阅读原始文档，文档中还列出了一些「<strong>最佳实践</strong>」以及 「<strong>debug</strong>」 的方式，可以帮助我们更好的使用 workbox。</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/amazing-workbox-3/" rel="noopener" title="https://zoumiaojiang.com/article/amazing-workbox-3/">https://zoumiaojiang.com/article/amazing-workbox-3/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/good-news-from-apple-for-pwa/" data-toggle="tooltip" data-placement="top" title="iOS 11.3 和 macOS 10.13.4 将要支持 Service Worker 啦!">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/common-web-security/" data-toggle="tooltip" data-placement="top" title="常见 Web 安全攻防总结">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">用法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">precache (预缓存) 静态文件</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">处理 &#x2F; 和 &#x2F;index.html</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">忽略请求参数</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">生成预缓存列表</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">workbox 命令行</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">workbox-build</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">workbox-webpack-plugin</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">路由请求缓存</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">路由请求缓存策略</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">自定义策略</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">第三方请求的缓存</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">workbox 配置</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">workbox 插件</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">自定义插件</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                        
+                          <a class="tag" href="/tags/#Service Worker" title="Service Worker">Service Worker</a>
+                        
+                          <a class="tag" href="/tags/#Workbox" title="Workbox">Workbox</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/amazing-workbox-3/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

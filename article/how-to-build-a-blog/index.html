@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="本人不是很喜欢写博客，也不是很喜欢鼓捣博客，原因有三：
+
+懒：本人超爱睡觉
+抠：不想买主机，买域名
+Low：没水平没干货
+
+但是新博客还是开张了，说来也是极其惭愧，这么多年居然一点存货都没有。不能免俗，今天就低调开坛讲一讲怎么样快速低成本的搭建一个马马虎虎的（像 https://zoumiaojiang.com 这样）博客。这是篇基础的教程类的文章，可以先看看大纲，反正文章在这里，觉得有兴趣...">
+    <meta name="keyword"  content=" PWA, Blog">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          快速低成本的搭建一个马马虎虎的博客 - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/how-to-build-a-blog/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('writing.jpeg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                            
+                              <a class="tag" href="/tags/#Blog" title="Blog">Blog</a>
+                            
+                        </div>
+                        <h1>快速低成本的搭建一个马马虎虎的博客</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2017-08-09
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p>本人不是很喜欢写博客，也不是很喜欢鼓捣博客，原因有三：</p>
+<ul>
+<li>懒：本人超爱睡觉</li>
+<li>抠：不想买主机，买域名</li>
+<li>Low：没水平没干货</li>
+</ul>
+<p>但是新博客还是开张了，说来也是极其惭愧，这么多年居然一点存货都没有。不能免俗，今天就低调开坛讲一讲怎么样快速低成本的搭建一个马马虎虎的（像 <a href="https://zoumiaojiang.com">https://zoumiaojiang.com</a> 这样）博客。这是篇基础的教程类的文章，可以先看看大纲，反正文章在这里，觉得有兴趣就可以看看。</p>
+<p>我们最近的主要工作就是在倡导国内开发者认识、熟悉 PWA，并且将自己的站点改造成 PWA，或者引导产品设计师将产品逐步升级为 PWA。就目前国内 PWA 的严峻形势来看，自由度较高，复杂度较低，并且内容更新较少利于缓存的博客是一个非常好的 PWA 应用场景。没错，今天的内容肯定会讲到 PWA 的。我也不是心血来潮想起搞一个博客的，一来确实是想记录分享些东西，二来是想看看，PWA 到底能把一个博客站点的体验做成什么样的程度。</p>
+<h2>静态化站点</h2>
+<p><code>静态化站点</code> 大家肯定都有所了解，就是站点的内容都是由服务端直接输出 HTML 的那种站点，没有任何的异步请求数据，可以理解为 Web 1.0 时代的那种充满了文字和超链接的页面组合而成的站点。</p>
+<p>博客毕竟定位是写文章的，主要的是产出内容，最早期网页的产生也是因为某些科学家们早期有管理文档的需求。所以回想一下，我们真没必要将博客搞一套很复杂的架构，比如 PHP + MySQL + …？想到这些瞬间又不想搞博客了。比较直观的感受是，今天的自媒体如此疯狂，主要就是因为写作的人只用关心写作而已。那么写博客也是一样，我们仅仅只是想写点东西而已！</p>
+<p>所以，博客采用 <code>静态化站点</code> 的方式搭建就顺理成章了。一篇文章一个 html，为这个 html 搞点样式，用 js 写点屌炸天的动画就可以丢给别人看了，一个博客就是一堆 html。然后用各种超链接联系管理起来。看起来还是蛮简单的。</p>
+<p>你也许会说：「可是劳资写 html 写样式什么的好费劲啊！」， 没事，有利器帮助咱们搞这个事情。</p>
+<h2>Hexo</h2>
+<blockquote>
+<p><strong>自豪</strong>的说明一下：<a href="https://zoumiaojiang.com">本博客</a> 是采用 Hexo 搭建的博客。</p>
+</blockquote>
+<p><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 是一个基于 Node.js 的搭建静态页面博客的工具。我斗胆通俗的给 Hexo 下个定义：「快速自由的开发一个套博客系统，然后让博主专心写博客就好了的一个工具」。下面我简单的介绍一下 Hexo, 具体的内容可以到 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo 的官网</a> 查找。</p>
+<h3>安装 Hexo</h3>
+<p>首先你得安装了 <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a>, <a href="https://npmjs.org" target="_blank" rel="noopener">NPM</a>, 等工具，这里就不细讲了。</p>
+<p>在命令行中安装：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo</span></span><br></pre></td></tr></table></figure>
+<p>这个时候你就拥有了 Hexo 的技能了。可以在命令行中输入 <code>hexo -h</code> 验证一下是否安装成功。</p>
+<h3>Hexo 用法</h3>
+<p>简单的讲讲怎么使用 Hexo，具体内容和教程，可以查看 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo 官网</a> 。</p>
+<h4>初始化一个博客</h4>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">init</span> <span class="string">blog_name</span></span><br></pre></td></tr></table></figure>
+<p>执行以上命令，就可以在当前目录下看到一个 <code>blog_name</code> 命名的文件夹了。<br>
+文件夹目录就是下面这样的：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">├──</span> <span class="string">scaffolds</span></span><br><span class="line"><span class="string">├──</span> <span class="string">source</span></span><br><span class="line"><span class="string">│</span>   <span class="string">└──</span> <span class="string">_posts</span></span><br><span class="line"><span class="string">└──</span> <span class="string">themes</span></span><br><span class="line">    <span class="string">└──</span> <span class="string">landscape</span></span><br><span class="line">        <span class="string">├──</span> <span class="string">layout</span></span><br><span class="line">        <span class="string">│</span>   <span class="string">├──</span> <span class="string">_partial</span></span><br><span class="line">        <span class="string">│</span>   <span class="string">│</span>   <span class="string">└──</span> <span class="string">post</span></span><br><span class="line">        <span class="string">│</span>   <span class="string">└──</span> <span class="string">_widget</span></span><br><span class="line">        <span class="string">├──</span> <span class="string">scripts</span></span><br><span class="line">        <span class="string">└──</span> <span class="string">source</span></span><br><span class="line">            <span class="string">├──</span> <span class="string">css</span></span><br><span class="line">            <span class="string">│</span>   <span class="string">├──</span> <span class="string">_partial</span></span><br><span class="line">            <span class="string">│</span>   <span class="string">├──</span> <span class="string">_util</span></span><br><span class="line">            <span class="string">│</span>   <span class="string">├──</span> <span class="string">fonts</span></span><br><span class="line">            <span class="string">│</span>   <span class="string">└──</span> <span class="string">images</span></span><br><span class="line">            <span class="string">├──</span> <span class="string">fancybox</span></span><br><span class="line">            <span class="string">│</span>   <span class="string">└──</span> <span class="string">helpers</span></span><br><span class="line">            <span class="string">└──</span> <span class="string">js</span></span><br></pre></td></tr></table></figure>
+<p>其实就刚才那条简单的 <code>init</code> 命令，你的博客系统已经建成了，也就是说，你已经拥有了一个纯静态化的博客了。</p>
+<h4>预览博客</h4>
+<p>博客系统已经建好了，可以快速的预览一下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">cd</span> <span class="string">blog_name</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="comment"># 首次初始化，需要 npm install 安装 hexo 的依赖</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">server</span></span><br></pre></td></tr></table></figure>
+<p>服务启动成功之后，访问 <code>http://localhost:4000</code> 就能预览到博客的首页，里面有个 <code>Hello World</code> 的文章，这个文章就放在 <code>/source/_posts</code> 下面的，可以发现是一个 markdown 的文件，也就是说 Hexo 是通过 markdown 写文章的，这样就不用写复杂的 html。</p>
+<h4>开开心心的写篇文章吧</h4>
+<p>博客搭建好了，现在可以写篇文章了</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">'you-post-title'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>启动 Hexo Server 的时候，会有一个 <code>hot-reload</code> 机制的，也就是说，当写文章，新增文章的时候，都不用重新启动 Hexo 的预览服务了。</p>
+</blockquote>
+<p>这时候在 <code>/source/_posts</code> 文件夹下就会有一个 <code>your-post-title.md</code> 的文件，这样，就能直接编辑这个 markdown 文件进行写博客，神马？不会 markdown 的写法？我友善的丢一个 <a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">markdown 教程</a> 给你吧。</p>
+<p>维护一个 Hexo 博客系统只需要关注四部分: source，themes，plugins 还有 <code>_config.yml</code>。source 主要就是文章，当然还可以放一些其他的直接要部署的东西。接下来讲讲 themes 和 plugins。</p>
+<h3>Hexo 主题</h3>
+<p>注意到 <code>/themes/landspace</code> 文件夹没有？<code>landspace</code> 就是默认的 Hexo 的主题，主题不是简单的样式，是一系列的模版加样式的组合，从而实现将主题从博客书写中抽离出来。如果你嫌弃 <code>landspace</code> 丑爆了，可以 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">选一个主题</a>, 放到 <code>/themes</code> 文件夹，有精力的可以二次开发改改 layout、样式，交互逻辑等。等到挑选好了主题后，将主题文件夹放到 <code>/themes</code> 下，配置 <code>_config.yml</code> 内的 <code>theme: landscape</code> 改成你选择主题文件夹名就可以了。这样，你就拥有新主题了，<code>/themes</code> 文件夹和其他文件夹是完全独立的，不会因为改变而影响博客的内容的。</p>
+<blockquote>
+<p>你也许注意到了，Hexo 采用的是 ejs 前端模版来组织渲染的，如果你想二次开发某个 theme， 就需要对 ejs 有一定的了解，这路就不展开介绍了，不然内容太多了。</p>
+</blockquote>
+<p>由于本人非常没有设计天赋，本博客的主题是基于 <a href="https://huangxuan.me" target="_blank" rel="noopener">Hux 的博客</a> 稍微修改了一些。感谢 Hux。</p>
+<h3>Hexo 插件</h3>
+<p>Hexo 可以理解为一个框架，会做一些基本的编译工作，就是把 markdown 文件编译成 html 文件，然后会生成一个用来部署的 public 文件夹，执行 <code>hexo generate</code> 命令就是完成这编译一步的。在这个编译的过程中，我们可能需要有一些特定的需求，比如生成 tags 页面啦，生成 categories 页面等等，这些并不是 Hexo 主框架本身干的事情，这个时候，需要介绍一下 Hexo 的 plugin 机制了。</p>
+<p>看一下 Hexo init 后的博客项目中的 <code>package.json</code> 文件，<code>dependencies</code> 里面的 <code>hexo-</code> 前缀的 package 都是 Hexo 的插件，每一个插件都有自己特殊的功能，详见 <a href="https://hexo.io/plugins" target="_blank" rel="noopener">Hexo Plugin</a> 了解每个插件的用法。当然 Hexo 作为一个开源的项目，也允许开发者自己开发一些自己的 plugin 提供给其他人使用。对于怎么开发 Hexo 插件，这这里就不详细讲了，内容还是比较多的，后面争取再单独写篇文章详细介绍。</p>
+<h2>部署</h2>
+<p>Hexo 写文章、换主题应该都交代清楚了，这时候写完文章之后，是要准备部署给别人看了。我们首先来罗列一下，部署一个站点需要哪些东西呢？</p>
+<ul>
+<li>一个主机【要钱】</li>
+<li>一个域名【要钱】</li>
+<li>要部署的纯静态化页面内容【免费】</li>
+</ul>
+<p>「可是劳资穷，一分钱都不想花怎么办」</p>
+<p>对于穷这件事情，我本人是深有体会的，我也穷，所以在这个时候就想方设法的薅羊毛了。好在 <a href="https://github.com" target="_blank" rel="noopener">github</a> 提供了一个服务叫做 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitPage</a> 可以帮我们解决主机和域名的事情。</p>
+<h3>GitPage</h3>
+<p>目前很多很多的文档类的站点都是基于 GitPage 做的，节约成本，并且可以用 github 做代码部署，非常方便。<br>
+玩转 GitPage 需要有这么几个前提：</p>
+<ul>
+<li>学会使用 git, 学会 github</li>
+<li>注册一个 github 账号，注册一个用户名（例如：zoumiaojiang）</li>
+<li>新建一个仓库叫 <code>zoumiaojiang.github.io</code></li>
+</ul>
+<p>然后跟着 GitPage 的 <a href="https://pages.github.com/" target="_blank" rel="noopener">教程</a> push 一些 html 页面和静态资源到 <code>zoumiaojiang.github.io</code> 仓库中，就可以访问 <code>https://zoumiaojiang.github.io/some.html</code> 访问页面了。</p>
+<p>这时候，回想一下，Hexo 编译之后的内容就是一堆 html 和一堆静态资源，这些东西正好可以放在 GitPage 中让别人访问。所以 GitPage 和 Hexo 真的挺合拍。</p>
+<p>本博客就是部署在 <a href="https://github.com/zoumiaojiang/zoumiaojiang.github.io" target="_blank" rel="noopener">https://github.com/zoumiaojiang/zoumiaojiang.github.io</a> 上。</p>
+<h3>Hexo 部署</h3>
+<p>讲了这么多，开始干正事吧，可以将 Hexo 构建的内容发布到 GitPage 上了，然后一个简简单单的博客就搭建完成了。Hexo 有个强大的之处，可以通过 <code>hexo deploy</code> 命令直接发布到 GitPage 上，通常部署需要做下面几件事情。</p>
+<h4>修改 _config.yml</h4>
+<p>首先把 <code>_config.yml</code> 的一些基本信息都配置一下，这些在 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo 的官网</a> 都有介绍的。就不详细的介绍了，我们在这里重点介绍一下和部署相关的 <code>deploy</code> 配置。</p>
+<p>本博客关于 deploy 的配置如下（供大家参考）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/zoumiaojiang/zoumiaojiang.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<h4>Hexo 命令操作部署</h4>
+<p>配置好了 <code>_config.yml</code> 的所有配置之后（插件的配置也是需要在 <code>_config.yml</code> 上配置的），就可以执行 hexo 命令进行博客的最后部署了。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 部署之前敲下面几行命令</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">server</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">deploy</span></span><br><span class="line"><span class="comment"># 打完收工</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：Hexo 在 deploy 之前必须进行编译，也就是执行 <code>hexo generate</code> 命令。</p>
+</blockquote>
+<p>操作完了以上所有操作后，如果不出意外的话，就可以通过访问 <code>https://zoumiaojiang.github.io</code> 访问到博客的首页的，应该和 <code>hexo server</code> 命令预览的时候一样的。这时候，一个简简单单的博客就上线了，别人可以通过 URL 访问到你的博客。此时只是个穷人版的博客而已，算不上马马虎虎。</p>
+<h3>指定域名</h3>
+<p>觉得 <a href="https://zoumiaojiang.github.io" target="_blank" rel="noopener">https://zoumiaojiang.github.io</a> 域名太 low？一看就是薅羊毛的，感觉不是很好？凭良心讲，我也是这么觉得的，所以这时候我还是想找一个域名掩盖一下我薅 GitPage 羊毛的事实，所以我决定买一个域名（土豪可以不用做这种心理斗争，甚至可以直接把 Hexo 生成的 public 文件夹直接部署到土豪专用主机）。</p>
+<p>我买了一个 <code>zoumiaojiang.com</code> 域名，那好，我们现在的需求是，通过访问 <a href="https://zoumiaojiang.com">https://zoumiaojiang.com</a> 也能访问到博客首页。GitPage 提供了一种可以绑定自定义域名的机制（GitPage 这种好人已经不多了）。在 <code>zoumiaojiang.github.io</code> 仓库的根目录下新建一个 <code>CNAME</code> 的文件，里面的内容为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">zoumiaojiang.com</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于 GitPage 的仓库的内容都是由 Hexo 部署的，所以筒仓将 CNAME 放置在 Hexo 工程的 <code>/source</code> 目录下。</p>
+</blockquote>
+<p>如果在 <code>/source</code> 目录下添加了 CNAME 文件，当重新部署之后，稍等一会之后，访问 <a href="https://zoumiaojiang.github.io" target="_blank" rel="noopener">https://zoumiaojiang.github.io</a> 的时候直接就会跳转到 <a href="http://zoumiaojiang.com">http://zoumiaojiang.com</a>。可是，这时候由于 <code>zoumiaojiang.com</code> 域名 DNS 解析没有配 A 记录， 所以是不会有响应的。</p>
+<p>这时候，<code>ping zoumiaojiang.github.io</code> ping 一下，拿到 IP, 在域名运营商配置后台把域名 DNS 解析新增一个 A 记录指向这个 IP 就行。等一会，就能访问 <a href="http://zoumiaojiang.com">http://zoumiaojiang.com</a> 了。</p>
+<h3>HTTPS &amp; HTTP/2</h3>
+<p>现在是 2017 年了，网站不是 HTTPS 和 HTTP/2 的感觉脱离时代了。HTTPS 已经不是因为安全方面的问题来考虑的了，而是后面所讲到的 PWA 里面很多最新的 HTML5 API 都是要求在 HTTPS 环境下才能正常工作的，所以要想让我们的博客更加的完美，必须要提供 HTTPS 环境。</p>
+<p>可是，我并没有主机啊，没有服务器，怎么配证书？有主机的土豪的 HTTPS 证书可以通过 <a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a> 获取免费的，这个地方不深入讲了，可以参考 <a href="https://lavas.baidu.com/guide/vue/doc/vue/advanced/https-deploy" target="_blank" rel="noopener">HTTPS 环境部署</a>。</p>
+<p>我们今天介绍另一个免费的东西，不用服务器配置证书，通过 DNS 代理的形式，直接可以做到 HTTPS &amp; HTTP/2 接入，这个东西叫 <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudflare</a></p>
+<p>简单的介绍一下步骤：</p>
+<ul>
+<li>上 cloudflare 注册一个账号</li>
+<li>添加你的域名</li>
+<li>选择 Free Plan</li>
+<li>根据提示进行一系列的配置（就是些选项）</li>
+<li>最后会生成两个 DNS 的服务器地址</li>
+<li>进入你的域名运营商的配置后台，将默认的 DNS 服务配置成 cloudflare 生成的两个 DNS 服务地址</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/3365978/30623226-d6c1b8ee-9de8-11e7-8747-b58e4580d102.png" alt="cloudflare 的配置界面"></p>
+<p>由于 DNS 服务全球更新速度较慢，可能得等个一天两天的服务才能稳定访问。总之，这时候，你的站点已经是 HTTPS &amp; HTTP/2 的站点了。</p>
+<blockquote>
+<p>cloudflare 的配置有很多，可以在后台进行配置，SSL 需要选择 <code>FULL</code>, 并且设置 <code>HTTP REWRITE</code> 让站点能自动从 HTTP 重定向到 HTTPS。还有很多有用的配置，大家可以自己把玩。</p>
+</blockquote>
+<h2>构建 AMP</h2>
+<p><a href="https://www.ampproject.org/zh_cn/learn/overview/" target="_blank" rel="noopener">AMP</a> 是 Google 推出的一种网页加速的标准，通过这种标准，可以使你的站点在 Google 搜索结果页（这里是一个忧伤的故事，但是这并不影响我们折腾博客的激情）之后的跳转变得速度超快，具体可以详情见 AMP 的官网，Google 还会对 AMP 的站点有一定的调权，也就是说，如果你的博客提供了 AMP 的页面，将会被 Google 更容易抓取和优先展现，并且能够在 Google 的搜索结果页秒开。</p>
+<p>并且由于 AMP 页面的无 block 的处理，让用户在单独访问你的 AMP 页面的时候也有秒开的体验。还是很懵逼？什么是 AMP？其实就是一个 HTML 页面，知识遵守 AMP 规范的页面，就想你现在在看的这篇博文，就有 <a href="./amp">AMP 版本</a>。</p>
+<p>那么如何让我们的博客能支持 AMP 呢？Hexo 社区有一个叫做 <code>hexo-generator-amp</code> 的插件可以干这个事情。</p>
+<h3>引入 hexo-generator-amp 插件</h3>
+<p>可以使用 Hexo 的  <code>hexo-generator-amp</code> 插件来帮助我们构建出 AMP 的页面</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 hexo 博客项目的根目录执行下面的命令</span></span><br><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">--save</span> <span class="string">hexo-generator-amp</span></span><br></pre></td></tr></table></figure>
+<p>此时，博客已经具备生成 AMP 页面的基础了，由于 AMP 是一套独立的页面，<code>hexo-generator-amp</code> 插件只会对文章页面生成 AMP 页面，要想验证，只需要在原本文章的 URL 的基础上在后面加上 <code>/amp</code> 即可。</p>
+<h3>配置 _config.yml</h3>
+<p><code>hexo-generator-amp</code> 插件是需要从 <code>_config.yml</code> 中读取配置才行，配置如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># amp config</span></span><br><span class="line"><span class="attr">generator_amp:</span></span><br><span class="line">  <span class="attr">templateDir:</span>  <span class="string">amp-template</span></span><br><span class="line">  <span class="attr">assetDistDir:</span> <span class="string">amp-dist</span></span><br><span class="line">  <span class="attr">logo:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">sample/sample-logo.png</span></span><br><span class="line">    <span class="attr">width:</span> <span class="number">600</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">60</span></span><br><span class="line">  <span class="attr">substituteTitleImage:</span> </span><br><span class="line">    <span class="attr">path:</span> <span class="string">sample/sample-substituteTitleImage.png</span></span><br><span class="line">    <span class="attr">width:</span> <span class="number">1024</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">800</span></span><br><span class="line">  <span class="attr">warningLog:</span> <span class="literal">false</span>   <span class="comment"># To display warning, please set true.</span></span><br></pre></td></tr></table></figure>
+<p>其中，amp-template 是指明渲染 AMP 页面时候所使用的渲染模版，这种配置表明 AMP 是有一套自己的 theme, 如果想改变默认的 AMP 主题或者其他配置，可以对 amp-template 里面的内容进行二次开发。</p>
+<h3>将 AMP 页面提交 Google 收录</h3>
+<p>目前 AMP 只能被 Google 搜索引擎所解析执行，所以在我们每写完一篇博客的时候，可以将生成的 AMP URL 提交给 Google 收录（虽然这是一个忧伤的故事，但是能被外国友人轻快速搜索到并且阅读体验好，也是蛮不错的一个自我安慰）。</p>
+<p>颇为无奈的抛出一个你可能需要梯子才能够得着的 <a href="https://www.google.com/webmasters/tools/submit-url?hl=zh-CN&amp;pli=1" target="_blank" rel="noopener">Google 的收录入口</a> 。</p>
+<h2>添加 PWA 特性</h2>
+<p>PWA 是一种渐进式的 Web App, 我们的博客其实就是一个 Web App, 渐进式的，就是慢慢来，一步一步的用一些 HTML5 的最新 API 的实现将我们的站点的用户体验做到极致。</p>
+<h3>为什么要 PWA</h3>
+<p>博客站点是最适合改造成 PWA 的站点了，博客具有这么几个特点：</p>
+<ul>
+<li>内容更新不频繁，静态资源可能很久很久很久都不会更新（特别适合做离线缓存）</li>
+<li>博客是静态化页面（特别适合做整站的离线处理）</li>
+<li>博客一更新，最好能通知粉丝啦（这个理由真是一点都不违和）</li>
+<li>博客是个人的，想怎么搞怎么搞（可以尝试更多的 PWA 特性)</li>
+<li>。。。</li>
+</ul>
+<p>@TODO: 这里需要放一个视频，说明一下 PWA 到底有多强大。</p>
+<h3>怎么为博客加 PWA 特性</h3>
+<p>目前我们可以轻松做到为博客加入两点 PWA 特性</p>
+<ul>
+<li>添加到主屏：Manifest</li>
+<li>离线缓存：Service Worker</li>
+</ul>
+<h4>manifest.json</h4>
+<p>为了让博客能够添加到桌面，可以在 Hexo 的博客项目下的 <code>/source</code> 目录下增加 <code>manifest.json</code> 文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"ZouMiaojiang"</span>,</span><br><span class="line">    <span class="attr">"short_name"</span>: <span class="string">"Peace"</span>,</span><br><span class="line">    <span class="attr">"icons"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"src"</span>: <span class="string">"/img/icons/icon-192x192.png"</span>,</span><br><span class="line">            <span class="attr">"sizes"</span>: <span class="string">"192x192"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"image/png"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"src"</span>: <span class="string">"/img/icons/icon-512x512.png"</span>,</span><br><span class="line">            <span class="attr">"sizes"</span>: <span class="string">"512x512"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"image/png"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"start_url"</span>: <span class="string">"/"</span>,</span><br><span class="line">    <span class="attr">"background_color"</span>: <span class="string">"#ffffff"</span>,</span><br><span class="line">    <span class="attr">"display"</span>: <span class="string">"standalone"</span>,</span><br><span class="line">    <span class="attr">"theme_color"</span>: <span class="string">"#2874f0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，你的博客就可以在很多<strong>安卓</strong>机上被添加到桌面了（这个功能目前是需要在用户在系统设置里打开开关的）。iOS safari 目前对 Manifest 的标准支持的比较糟糕。</p>
+<h4>想 iOS Safari 也能体验更好的添加到桌面</h4>
+<p>由于 iOS 上没有对 manifest 标准支持的很好，并且只有 safari 浏览器有添加到主屏（快捷图标）的入口，那我们想 iOS 的添加到桌面的体验更好的话，需要改动 <code>/themes/yourTheme</code> 文件夹下的内容了，为了让每个博客页面在 iOS 的 Safari 浏览器下都能被添加到桌面，需要找到 <code>themes/yourTheme/layout/_partial/head.ejs</code>，然后在 <code>&lt;head&gt;</code> 的里面找个地方塞入如下 html 片段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Add to home screen for Safari on iOS --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-title"</span> <span class="attr">content</span>=<span class="string">"Peace"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">href</span>=<span class="string">"/img/icons/icon-152x152.png"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"shortcut icon"</span> <span class="attr">href</span>=<span class="string">"&lt;%= config.root %&gt;img/zoumiaojiang.ico"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当然，图片路径名称换成自己的就好了。</p>
+<h4>Service Worker</h4>
+<p>上一篇文章 <a href="https://zoumiaojiang.com/2017/07/30/how-regist-service-worker-for-pwa/">如何优雅的为 PWA 注册 Service Woker</a> 提到了 Service Worker 的坑，在 Webpack 构建环境下，有 <code>sw-register-webpack-plugin</code> 来帮助解决 Service Worker 的注册问题。那么在 Hexo 的开发环境中，我们也可以借助一个叫做 <code>hexo-service-worker</code> 插件来解决博客的 Service Worker 的注册问题。</p>
+<h4>hexo-servcie-worker</h4>
+<p>在弄博客的时候，找到了一个 <code>hexo-offline</code> 的 hexo 插件，特别好用，Service Worker 能够正常注册，但是这个插件只是考虑到了基本的 Service Worker 的文件生成和注册，没有考虑到更新的实时性、多个页面注册 Service Worker 等问题，所以我就自己写了个 <a href="https://github.com/zoumiaojiang/hexo-service-worker" target="_blank" rel="noopener">hexo-service-worker</a> 的插件。</p>
+<blockquote>
+<p>其中有部分 sw-precache 相关的内容是参考 <code>hexo-offline</code> 插件的，表示感谢🙏。</p>
+</blockquote>
+<p>使用这个插件很简单，首先是安装插件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">--save</span> <span class="string">hexo-service-worker</span></span><br></pre></td></tr></table></figure>
+<p>然后修改 <code>_config.yml</code> 让插件生效，通常我们的配置如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># service worker</span></span><br><span class="line"><span class="attr">service_worker:</span></span><br><span class="line">  <span class="attr">maximumFileSizeToCacheInBytes:</span> <span class="number">5242880</span></span><br><span class="line">  <span class="attr">staticFileGlobs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">public/**/*.&#123;js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2&#125;</span></span><br><span class="line">  <span class="attr">stripPrefix:</span> <span class="string">public</span></span><br><span class="line">  <span class="attr">verbose:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">runtimeCaching:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">urlPattern:</span> <span class="string">/*</span></span><br><span class="line">      <span class="attr">handler:</span> <span class="string">cacheFirst</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">        <span class="attr">origin:</span> <span class="string">cdn.a.org</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">urlPattern:</span> <span class="string">/*</span></span><br><span class="line">      <span class="attr">handler:</span> <span class="string">cacheFirst</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">        <span class="attr">origin:</span> <span class="string">cdn.b.com</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+<p>其中 <code>runtimeCaching</code> 的配置是专门针对 <strong>第三方 CDN 资源(非 hexo 本地维护的静态资源)</strong> 的缓存的配置。</p>
+</blockquote>
+<p>Service Worker 的生效必须依赖 HTTPS 的，想要对 Service Worker 有具体的了解可以 <a href="https://lavas.baidu.com/doc/offline-and-cache-loading/service-worker/service-worker-introduction" target="_blank" rel="noopener">戳这</a> 。</p>
+<p>这里丢一张本博客的 Lighthouse 跑分结果：PWA 是 100 分！</p>
+<p><img src="https://user-images.githubusercontent.com/3365978/30623225-d68ad3f6-9de8-11e7-9458-d0ea0a97c48f.png" alt="lighthouse 跑分结果"></p>
+<h2>提供高质量的内容</h2>
+<p>这一节，没什么好说的了，就一句话：“博客没货，再好看，速度再快也没用。”</p>
+<p>最后感谢 github, 提供了 GitPage 这么好的东西，无以为报，只能怒提代码，多提代码了。</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/how-to-build-a-blog/" rel="noopener" title="https://zoumiaojiang.com/article/how-to-build-a-blog/">https://zoumiaojiang.com/article/how-to-build-a-blog/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/learn-from-nuxt-js/" data-toggle="tooltip" data-placement="top" title="从 Nuxt.js 学习到了什么？">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/how-regist-service-worker-for-pwa/" data-toggle="tooltip" data-placement="top" title="如何优雅的为 PWA 注册 Service Worker">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">静态化站点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">安装 Hexo</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo 用法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">初始化一个博客</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">预览博客</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">开开心心的写篇文章吧</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo 主题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo 插件</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">部署</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">GitPage</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo 部署</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">修改 _config.yml</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Hexo 命令操作部署</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">指定域名</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">HTTPS &amp; HTTP&#x2F;2</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">构建 AMP</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">引入 hexo-generator-amp 插件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">配置 _config.yml</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">将 AMP 页面提交 Google 收录</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">添加 PWA 特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">为什么要 PWA</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">怎么为博客加 PWA 特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">manifest.json</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">想 iOS Safari 也能体验更好的添加到桌面</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">Service Worker</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#"><span class="toc-nav-text">hexo-servcie-worker</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">提供高质量的内容</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#PWA" title="PWA">PWA</a>
+                        
+                          <a class="tag" href="/tags/#Blog" title="Blog">Blog</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/how-to-build-a-blog/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

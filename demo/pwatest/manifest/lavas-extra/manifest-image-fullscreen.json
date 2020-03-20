@@ -1,0 +1,31 @@
+{
+    "name": "LAVAS-EXTRA",
+    "short_name": "LAVAS-EXTRA",
+    "icons": [
+        {
+            "src": "./images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/demo/pwatest/manifest/lavas-extra/image-fullscreen.html",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "theme_color": "#1976d2",
+    "lavas_app": {
+        "launcher": {
+            "mode": "fullscreen",
+            "duration": 5,
+            "resource": {
+                "src": "http://bos.nj.bpc.baidu.com/v1/agroup/4d3657fe589b1dbe90f8fb723b4f0af39765ef40",
+                "type": "image/png",
+                "link": "https://m.jd.com"
+            }
+        }
+    }
+}

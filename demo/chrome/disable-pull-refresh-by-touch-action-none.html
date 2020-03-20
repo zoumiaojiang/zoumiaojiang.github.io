@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            touch-action: none;
+        }
+        #wrap {
+            /* overflow: auto; */
+        }
+        #content {
+            height: 2000px;
+        }
+        #content div {
+            /* height: 500px; */
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="content">
+            <div><a href="http://www.baidu.com">www.baidu.com</a></div>
+             - 使用 touch-action: none 的时候，必须要设置在 html 标签上，也就是 root 元素
+             <br>
+             - 如果页面中含有 overflow 属性，touch-action: none 失效
+             <br>
+             - 如果页面中不含有可滚动的属性，touch-action: none 生效，整个页面的 touch 事件无响应，也就是用户不能操作页面中任何元素
+             <br>
+             - chrome 有 bug 。。。
+        </div>
+    </div>
+</body>
+<script>
+var windowHeight = document.documentElement.clientHeight;
+document.getElementById('wrap').style.height = windowHeight + 'px';
+</script>
+</html>
+

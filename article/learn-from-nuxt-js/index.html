@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="baidu-site-verification" content="aUkeDDBeAZ" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="这段时间由于工作需要，对 Nuxt.js 这个框架进行了一些深入的研究，从中学习到了一些东西，所以写下来分享一下。我本人对 Nuxt.js 高度认可，我甚至觉得这种前端工程化的解决方案的架构模式正是我们所需要去学习和借鉴的一种非常优秀的实践。写这篇文章的目的不是教如何使用 Nuxt.js 或学习其相关的一些知识。只是从 Nuxt.js 是如何解决各种开发中的问题来分享一些前端架构方面的想法。...">
+    <meta name="keyword"  content=" 架构, Nuxt.js">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Peace">
+    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="shortcut icon" href="/img/zoumiaojiang.ico">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script>
+        var targetProtocol = 'https:';
+        if (location.protocol !== targetProtocol && location.host === 'zoumiaojiang.com') {
+            location.href = targetProtocol + location.href.substring(location.protocol.length);
+        }
+    </script>
+    
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          从 Nuxt.js 学习到了什么？ - zoumiaojiang
+        
+    </title>
+
+    <link rel="canonical" href="https://zoumiaojiang.com/article/learn-from-nuxt-js/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS --> 
+    
+<link rel="stylesheet" href="/css/zoumiaojiang.min.css">
+
+    
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    
+<link rel="stylesheet" href="/css/widget.css">
+
+
+    
+<link rel="stylesheet" href="/css/rocket.css">
+
+
+    
+<link rel="stylesheet" href="/css/signature.css">
+
+
+    
+<link rel="stylesheet" href="/css/toc.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('lego-header.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#架构" title="架构">架构</a>
+                            
+                              <a class="tag" href="/tags/#Nuxt.js" title="Nuxt.js">Nuxt.js</a>
+                            
+                        </div>
+                        <h1>从 Nuxt.js 学习到了什么？</h1>
+                        <h2 class="subheading">窥探前端工程化解决方案的架构思路</h2>
+                        <span class="meta">
+                            Posted by zoumiaojiang on
+                            2017-08-23
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Peace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+                <p>这段时间由于工作需要，对 Nuxt.js 这个框架进行了一些深入的研究，从中学习到了一些东西，所以写下来分享一下。我本人对 Nuxt.js 高度认可，我甚至觉得这种前端工程化的解决方案的架构模式正是我们所需要去学习和借鉴的一种非常优秀的实践。写这篇文章的目的不是教如何使用 Nuxt.js 或学习其相关的一些知识。只是从 Nuxt.js 是如何解决各种开发中的问题来分享一些前端架构方面的想法。当然，如果对以下知识点有所了解更能加深对本文的认识。</p>
+<ul>
+<li><a href="https://zh.nuxtjs.org/" target="_blank" rel="noopener">Nuxt.js</a></li>
+<li><a href="https://cn.vuejs.org" target="_blank" rel="noopener">Vue</a> + <a href="https://vuex.vuejs.org/zh-cn/" target="_blank" rel="noopener">Vuex</a> + <a href="https://router.vuejs.org/zh-cn/" target="_blank" rel="noopener">Vue-router</a> + <a href="https://ssr.vuejs.org/zh/" target="_blank" rel="noopener">Vue-ssr</a></li>
+<li><a href="https://webpack.github.io/" target="_blank" rel="noopener">Webpack</a> + <a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a></li>
+</ul>
+<h2>解决方案 &amp; 框架</h2>
+<p>解决某一类通常遇到的问题的一系列方法，可以称为 <code>解决方案</code>，很多人也会称之为 <code>框架</code>。而问题解决的方式以及最后预期的产出将决定这个解决方案的最终形态，引入一段 Nuxt.js 官方的一段定义：</p>
+<blockquote>
+<p>Nuxt.js 是一个基于 Vue.js 的通用应用框架。<br>
+通过对客户端 / 服务端基础架构的抽象组织，Nuxt.js 主要关注的是应用的 UI 渲染。<br>
+我们的目标是创建一个灵活的应用框架，你可以基于它初始化新项目的基础结构代码，或者在已有 Node.js 项目中使用 Nuxt.js。</p>
+</blockquote>
+<p>我们可以理解为，Nuxt.js 主要是解决 Web 应用 UI 渲染的一种 <code>解决方案</code>。</p>
+<p>解决方案存在的意义是帮助使用解决方案的开发者避免复杂重复的工作，绝大多数时候已经帮助开发者完成了大量与业务不相关的工作，或者避免一些容易出错的坑的解决方案的集成。对使用解决方案的开发者来说，通常解决方案基本具备以下几个要素：</p>
+<ul>
+<li>对使用的开发者透明（无需知道框架内部的具体实践就可以使用）。</li>
+<li>基于某种或多种底层技术选型做的上层抽象封装。</li>
+<li>提供配置、插件机制或 API 使得框架和具体业务实现分离解耦。</li>
+<li>有一定学习成本（在框架的基础上二次开发具体业务）</li>
+</ul>
+<p>而 Nuxt.js 在这几方面做的都比较优秀，使用者不了解 Nuxt.js 的内部源码同样可以使用。Nuxt.js 的内部使用 Vue, Babel, Webpack 等做为底层技术选型支撑上层框架，并且实现了具体业务的解耦，使用 Nuxt.js 可以独立的开发业务，只需要修改配置以及使用 Nuxt.js 提供的自定义组件或 API 就能完成特定业务的开发。</p>
+<p>所有的通用解决方案或框架都有一个共同的目标：<strong>提升开发者的开发效率</strong>。</p>
+<h2>解决方案类型</h2>
+<p>工程化的解决方案做为解决问题的方法，是个抽象的概念，从解决问题的场景大致可以分为以下两种：</p>
+<ul>
+<li>Runtime 时候的问题</li>
+<li>工程化开发、构建、调试时候的问题</li>
+</ul>
+<p>有的时候一个完整的解决方案可能会考虑多种场景，也可能会专注于解决某一个单一问题场景的问题，例如 jQuery 就是专注解决 Runtime 时候的问题。而 Nuxt.js 所依赖的 Vue 则是解决了多个问题场景，Vue 的核心是解决了 Runtime 的 ui 渲染问题，并且解决方案衍生到了工程化脚手架，开发，构建调试等，甚至浏览器 Chrome DevTool 调试方案等。</p>
+<p>然而要是从解决方案解决的具体问题的角度来划分类型的话，种类就繁杂多了，NPM 上发布的 package 都是解决某类特定问题的小型解决方案。虽然解决方案繁多，但是优秀的解决方案是需要集成一些优秀的设计思想，后面我们会深入的探讨下设计方面的东西。</p>
+<h2>架构设计</h2>
+<p>需要如何做才能设计出一个好的解决方案呢？需要怎么设计才能让使用解决方案的开发者更好的解决开发中遇到的问题呢？</p>
+<p>很多前端领域或者其他领域的初学者，非常有激情并且乐于发现问题总结问题，然后写一些库、工具等小的解决方案。这固然是一个好的事情，可是往往写出的东西很难被广泛使用起来，甚至都没法用，而像 Nuxt.js 这样的解决方案为什么那么容易就被大家接受和使用上了呢？其中并不是说初学者们没有找到问题或者没有解决问题，而是没有很好的设计这些解决方案，导致别的开发者很难方便的去解决问题，这样就很有必要讲讲架构设计了。</p>
+<h3>模块化</h3>
+<p>无论是代码架构，还是产品设计，最基础的准则是将设计模块化，早期的 js 代码直接堆在某个文件中，充满着全局变量的代码是没有办法谈论任何架构设计的。一般模块化的粒度为 <strong>专门实现具体某一个功能</strong>，模块可能有自己的输入，也可能有自己的输出，但是模块内部肯定是完成了某一项特定的功能。面向对象的软件工程中模块通常是一个对象或 Class。可以大致的理解为，一个模块如下图所示：</p>
+<img src="https://user-images.githubusercontent.com/3365978/29608494-e0e042d2-8826-11e7-9c20-e542da89869a.png" alt="module" style="border:none;">
+<p>Web 前端 JS 方面的模块化也不例外，随着 ES6 的普及，JS 几乎就是个完整的面向对象的语言了。所以我们在前端架构方面，模块化首先是我们要做的最基础的设计。对于 AMD, CMD, UMD 这些模块化的概念，就不在这里赘言了，可以自行了解。</p>
+<p>模块化的好处是能够将复杂的系统进行不断的分解，最终的结果是一个复杂的系统是由若干个模块组合而成，模块与模块之间通过输入输出以及 API 进行关联协作。模块化的设计也是符合自然规律的，就像人体是由多个系统模块组成，而每个系统模块又由对应的组织模块组成，而组织模块又是由细胞模块组成，这些模块之间既独立，又协作，最终才能维持人体正常的生理机能。架构设计同样也是如此。</p>
+<h3>高内聚</h3>
+<p>内聚（Cohesion）是一个模块内部各成分之间相关联程度的度量。内聚是相对于单个模块而言的。在架构设计中，我们期望的是一个完整的功能是以一个完整的模块呈现，不希望一个功能需要多个模块分批次发挥作用。就比如人体结构而言，如果你的身体机能还需要第三方依赖来支撑，这就要出问题了。我们期望的是人体能够作为一个完整的个体独立完成自身的生命维持的过程。所以人体结构就是一个高内聚的设计典型。</p>
+<p>如下图所示，三个大的模块的内部高度内聚：</p>
+<img src="https://user-images.githubusercontent.com/3365978/29604901-8c56ca66-881b-11e7-9250-496b8b6108b4.png" slt="high cohesion" style="border:none;">
+<p>在架构设计中，解决某一个问题的最佳方案就是只提供一个模块，这个模块的内部可以针对解决这个问题进行协作关联，但是对外来讲，不要出现两个或者多个模块才能解决一个问题的情况。Nuxt.js 的前端工程化方案中，比如 Babel 只专注解决 ES6 编译的问题，Webpack 专注解决构建的问题，vue 专注解决 UI 渲染的问题。而 Nuxt.js 做为一个模块本身也是专注解决 UI 渲染的问题。</p>
+<h3>低耦合</h3>
+<p>耦合（Coupling）是模块之间依赖程度的度量。耦合是对于模块和模块之间的依赖关系而言的。由于模块都是有维护成本的，当 A 模块依赖 B 模块的时候，B 模块的修改势必会影响到 A 模块，如果模块之间依赖关系复杂点的话，产品的后期维护的成本不可想象，如下图所示：</p>
+<img src="https://user-images.githubusercontent.com/3365978/29605735-95e29850-881e-11e7-9028-72591942ffef.png" alt="low coupling" style="border:none;">
+<p>在如上图的架构中，如果随意有某个模块需要修改升级，那对于整个系统而言就是灾难性的。当然，在正常的架构中还是不至于出现这么糟糕的设计，通常一些解决方案的设计者都能考虑到降低耦合度的问题，所以都会进行一些分层设计，将业务模块和非业务的底层模块拆分开，现在由于众多优秀的第三方库或者框架也在促使着我们进行架构分层。但是即使是这样，也还是会存在一些问题。</p>
+<p>如下图就是一个非常糟糕的分层设计，右侧的业务模块严重依赖左侧的底层模块，业务模块的改动很有可能涉及到整体的底层模块的改动。</p>
+<img src="https://user-images.githubusercontent.com/3365978/29525185-6f50e3fa-86c4-11e7-9108-8cdd9358f356.png" alt="一个耦合的模型" style="border: none;">
+<p>开发者需要同时维护业务模块，有时还要维护一堆「底层模块」或者「底层模块的二次开发」，虽然这种架构不至于牵一发而动全身，至少底层模块没有依赖业务模块，但是试想一下这样的场景：</p>
+<blockquote>
+<p>当你使用 Vue-router 的时候，需要新增一个路由规则，我们都知道需要维护一个 <code>router.js</code> 文件，然后分别对应上路由的 path 和业务组件。后续如果要改路由参数的时候需要同时修改 <code>router.js</code> 和组件还是挺烦的吧？甚至你要用 Webpack Loader 机制对某些路由进行一些代理的时候，更加无助了。</p>
+</blockquote>
+<p>而 Nuxt.js 通过自身的内部封装机制，映射 page 文件夹下的组件到路由文件，自动配置路由文件，这样就相当于将路由方案完全解耦，开发者再也不用操心 <code>router.js</code> 文件，只要专注自己的 page 文件夹以及里面的组件文件就好了，这就是一个比较典型的降低耦合的一个例子。</p>
+<h3>解耦</h3>
+<p>解耦是一个比较有意思的话题，解耦的好处是可以让开发者能够 <strong>既享受解决方案带来的便利，又使业务逻辑脱离解决方案本身的束缚</strong>。当然，完全解耦是无法做到的，既然业务模块需要用到解决方案提供的底层模块，那必然就会产生耦合，我们在这里只说明一下如何将耦合降到最低。</p>
+<p>解耦基本可以遵循三个原则：</p>
+<ul>
+<li>分层设计</li>
+<li>单向依赖</li>
+<li>服务抽象</li>
+</ul>
+<p>分层设计比较好理解，就是将不同的模块划分到某几个层，每一层的所有模块都是类似的，并且专注做某一件事情，例如 MVC 架构，就是非常典型的分层设计，每一层都独立完成自己特定的任务，M 专注数据，V 专注视图展现，C 专注业务逻辑，每一层之间通过固定的数据流和事件流进行关联，从而几乎可以实现业务逻辑与底层架构的解耦。</p>
+<p>单向依赖，顾名思义就是减少双向的依赖，某一层调用另外一层的 API, 或者接收事件。这样设计的好处在于调用层的改动，不会影响到被调用层，而被调用层在设计中肯定是比调用层修改的概率要小，这样也是非常有助于整个架构的解耦。如下图所示，就是一个比较典型的分层设计和单向依赖的模型：</p>
+<img src="https://user-images.githubusercontent.com/3365978/29607591-45c32e7e-8824-11e7-90b8-45085333ae1e.png" alt="解耦设计" style="border:none;">
+<p>Basic 层相对 Service 层的改动较少，Service 层相对于 Bussiness 层改动较少，这样的单项依赖可以减少模块之间相互的影响，通常作为第三方的底层模块，API 改动的概率非常低，但是我们的 Service 层由于是直接面向 UI 或 开发者的，可能会偶尔有改变，但是我们不期望没改一个 Service 就需要大部分业务模块跟着修改，这个时候，我们需要考虑顶层抽象的方式来进行解耦。</p>
+<p>服务抽象主要专注于 Service 层，也就是和使用者最接近，但是有脱离于业务模块的层级。我们希望的是，修改 Service 的模块，不影响业务的模块，这时候我们应该在 Service 层再进一步抽象，构造抽象的 Service 分别对应每一个业务模块，这样业务模块的修改不会影响 Service 模块，由于有抽象 Service 的接口对接，具体的 Service 模块修改也不会影响业务模块。</p>
+<p>基于以上的讨论就会产生如下图所示的架构模型：</p>
+<img src="https://user-images.githubusercontent.com/3365978/29611859-c422835c-8831-11e7-8820-b3ea802f62f4.png" alt="good part of project" style="border:none;">
+<p>抽象的 Service 内部引用具体的 Service 模块，通过配置的方式作为和业务模块的关联入口，这样开发者只需要关注业务模块和配置模块，这样具体的 Framework 内部的具体实现就对开发者透明了。而 Nuxt.js 就是使用这种方式对其提供的解决方案进行解耦，开发者只需要关注自己的业务和 <code>nuxt.config.js</code> 配置就可以实现一个完整的 Vue 工程。</p>
+<h3>可插拔设计</h3>
+<p>对于一个好用的解决方案，在解决问题的基础上留给开发者越多的自由度越好，因为你不可能要求开发者开发出来的东西都是一模一样的，例如 Nuxt.js 工程中，开发者有使用自己喜欢的 UI 库的权利，有使用第三方 Webpack 插件的权利，也有使用 JSX 的权利等等。如果这个不够形象，那可以看看电脑，USB 接口就是一个可插拔的设计，可以接，鼠标，键盘，U 盘等。</p>
+<p>那么如何定义可插拔的设计呢？</p>
+<blockquote>
+<p>想用的时候可以用，不想用的时候可以不用</p>
+</blockquote>
+<p>可插拔的好处在于可以提升使用者的使用体验，在基础的底层技术选型的基础上，能够提供一套可插拔的接口帮助开发者加入跟多自定义的东西。只要按照约定的接口接入第三方自定义的内容。就可以被接入进主框架。典型的设计有 Webpack 的插件机制，Babel 的插件机制等等等等，都是基于 hooks 所实现出来的。所以当我们进行架构设计的时候可以针对我们自己的解决方案梳理一套 pipe 流程出来，可以尝试通过 hooks 事件触发机制建立一套基于流程身影周期的可插拔插件机制。</p>
+<h3>配置驱动</h3>
+<p>Nuxt.js 有一个很大的特点就是 <code>nuxt.config.js</code> 文件，这个文件几乎代理了 Nuxt.js 所提供的所有功能，也就是说，开发者对于 Nuxt.js 的认知更多的可以集中在这个文件，而主要的学习成本也只是来自于这个文件。</p>
+<p>通过配置的方式，驱动 Nuxt.js 内部提供的功能模块，从而解决业务模块的问题。尤其是前端工程化的解决方案，特别适合适合配置驱动的方式来实现。</p>
+<p>其实配置驱动的实践有很多，无一例外的这些配置驱动的实践对开发者来说都是极其友好的。例如 Webpack 的配置，一个配置可以解决所有的问题，谁还会关心 Webpack 内部提供了啥功能模块呢？谁还会关心 Webpack 升级之后内部功能模块改没改动呢？也许大家更关心的是这个配置有没有改动。还有 express, koa 等优秀的设计，谁会关心他们的内部是怎么让服务器 run 起来的呢？大家更关心的是按照你的教程配置的接口能否正常工作。</p>
+<p>所以插件化、中间件化、配置驱动，应该是前端工程化解决方案架构设计的一个需要重点关注的方面吧。</p>
+<h2>学习成本和约束</h2>
+<p>没有什么事情是直接上手就会的，Nuxt.js 的架构足够简单明了，就算内部的技术选型都是你所熟悉的，你也没办法上来就拿 Nuxt.js 构建项目。任何解决方案都是有学习成本的，然而不同的解决方案的学习成本肯定是不一样的。我们说，jQuery 的学习成本在于它的 API，Vue，React 的学习成本在于它的设计理念和 API，Webpack 的学习成本在于它的 loader 和 plugin 等等等等。</p>
+<h3>DSL</h3>
+<p>DSL（Domain Specific Language）领域专用语言，听起来屌屌的，但是这个词却应用在了很多的解决方案中，DSL 是什么呢？</p>
+<p><a href="https://en.wikipedia.org/wiki/Domain-specific_language" target="_blank" rel="noopener">Wikipedia</a> 对于 DSL 的定义还是比较简单的：</p>
+<blockquote>
+<p>A specialized computer language designed for a specific task.</p>
+<p>为了解决某一类任务而专门设计的计算机语言。</p>
+</blockquote>
+<p>与 DSL 相对的是 GPL (General Purpose Language 通用编程语言)，也就是我们非常熟悉的 Objective-C、Java、Python 以及 C 语言等等。与 GPL 相对，DSL 与传统意义上的通用编程语言 C、Python 以及 Haskell 完全不同。通用的计算机编程语言是可以用来编写任意计算机程序的，并且能表达任何的可被计算的逻辑，同时也是 <a href="https://en.wikipedia.org/wiki/Turing_completeness" target="_blank" rel="noopener">图灵完备</a> 的。</p>
+<p>但是我们今天所说的 DSL 并不是图灵完备的，它们的表达能力有限，只是在特定领域解决特定任务的。</p>
+<blockquote>
+<p>A computer programming language of limited expressiveness focused on a particular domain.</p>
+</blockquote>
+<p><strong>DSL 通过在表达能力上做的妥协换取在某一领域内的高效</strong>，而有限的表达能力就成为了 GPL 和 DSL 之间的一条界限。</p>
+<p>介绍了这么多 DSL 那么和今天要讲的解决方案以及学习成本的话题有什么关联呢？通常在提供解决方案的时候，为了更加明确的表达解决方案所提供的能力，通常会采用 DSL 的描述方式提供给使用者使用，还是不够通俗？往小了说，一般解决方案的设计者会设计一套语法糖提供给使用者使用，语法糖可以理解为一套小的 DSL。例如 Nuxt.js 的自定义 <code>&lt;nuxt&gt;</code> 等标签，也可以理解为一个小的 DSL。往大了说，一套解决方案可能就是一个全新的语言，做为使用者你得学会这套语言才行，这套语言也可以看成是 DSL。例如：Vue 提出的单文件工程化开发，就是 <code>.vue</code> 文件，虽然通俗易懂，但已经具备 DSL 的特性了。</p>
+<p>DSL 有一个特点就是：需要解决方案或者框架本身提供 compiler 进行内部编译，不然无法对接上正常的工程运行 context，最终的产物肯定还是要回归 GPL 的。然而这个编译的过程当然也是随着 DSL 的复杂程度而定的。</p>
+<p>对于解决方案的架构者来说，如何设计一套优雅的 DSL，也是一个重要的课题。虽然解决方案或者框架是需要学习成本的，但是优秀的 DSL 设计可以大大减少使用者的学习成本，Vue 之所以快速火起来，和揉合了 html 和 js 语法的标签申明式的语法特性减少了学习成本也是有相当大的关系的。</p>
+<h3>无规矩不成方圆</h3>
+<p>从 Nuxt.js 中学习到必须要按照 Nuxt.js 给定的目录结构和代码模块划分开发才行，有的文件夹还明确告知不允许修改，乍一看是非常不符合前面所说的 “解放开发者，给开发者自由” 的宣言，觉得很不可理解</p>
+<p>但是作为一套解决方案，尤其是控制一个前端项目从 init 到 deploy 的整体流程的解决方案，当 config 开发无法涵盖的解耦的地方，还是应该加以限制，可以理解为一种最佳实践。老话说的好 「无规矩不成方圆」，极度的自由就是犯罪 :)</p>
+<p>在进行解决方案的架构设计中，可以将一些最佳实践类型的限制暴露出来，让使用者自行约束，而不要在解决方案本身的架构中进行限制，如果限制的越多，反而对插件化，配置化的设计产生影响。当然，只要有限制的地方就会增加学习成本，使用者需要了解这些最佳实践本身的含义，所以在解决方案的架构设计的时候需要 <strong>慎重设计最佳实践所定下的规矩</strong>。</p>
+<h2>写在最后</h2>
+<p>以上都是基于学习 Nuxt.js 的一些个人的思考，当然也可能对 Nuxt.js 或者架构上的一些问题上并没有理解的很透彻，欢迎批评指正。</p>
+
+                <p style="font-weight:bold;">欢迎大家扫码关注我的微信公众号「江哥乱谈」，关注我更多的文章动态。</p>
+                <img src="/img/qrcode.jpg" style="border:none;">
+                <blockquote>
+                本文为原创文章，会经常更新知识点以及修正一些错误，因此转载请保留原出处，方便溯源，避免陈旧错误知识的误导，同时有更好的阅读体验。 <br/>
+                转载请注明来源：<a href="https://zoumiaojiang.com/article/learn-from-nuxt-js/" rel="noopener" title="https://zoumiaojiang.com/article/learn-from-nuxt-js/">https://zoumiaojiang.com/article/learn-from-nuxt-js/</a>
+                </blockquote>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/if-there-is-no-prejudice-in-the-world/" data-toggle="tooltip" data-placement="top" title="如果这个世界没有偏见">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/how-to-build-a-blog/" data-toggle="tooltip" data-placement="top" title="快速低成本的搭建一个马马虎虎的博客">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">解决方案 &amp; 框架</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">解决方案类型</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">架构设计</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">模块化</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">高内聚</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">低耦合</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">解耦</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">可插拔设计</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">配置驱动</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">学习成本和约束</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">DSL</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#"><span class="toc-nav-text">无规矩不成方圆</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#"><span class="toc-nav-text">写在最后</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#架构" title="架构">架构</a>
+                        
+                          <a class="tag" href="/tags/#Nuxt.js" title="Nuxt.js">Nuxt.js</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://ielgnaw.com" target="_blank">ielgnaw</a></li>
+                    
+                        <li><a href="http://efe.baidu.com" target="_blank">EFE</a></li>
+                    
+                </ul>
+                
+
+                <!-- github isuue comment container-->
+                
+                    <hr>
+                    <div id="comments-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- github issue comment embedded js start -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'https://zoumiaojiang.com/article/learn-from-nuxt-js/', // 可选。默认为 location.href
+        owner: 'zoumiaojiang',
+        repo: 'zoumiaojiang.github.io',
+        oauth: {
+            client_id: 'da14bf98138076476f70',
+            client_secret: 'a7ce31d619df43bd15798cc9f05996a6aa8f36d2',
+        }
+    })
+    gitment.render('comments-container');
+</script>
+<!-- github issue embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+        // hack for hexo toc helper's bug
+        var anchorlinks = document.querySelectorAll('.anchorjs-link');
+        var links = document.querySelectorAll('.toc-nav-link');
+
+        for (var i = 0; i < anchorlinks.length; i++) {
+            links[i].href = anchorlinks[i].href;
+        }
+    });
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/zoumiaojiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/淼江-邹-0909b9b3">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; zoumiaojiang 2020 
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/zoumiaojiang-blog.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://zoumiaojiang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ae67586e8cdb510a82a880c6681b8d22';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js" async=""></script>
+    <script type="text/javascript" src="/js/toc.js" async=""></script>
+<!-- Image to hack wechat -->
+<!-- <img src="https://zoumiaojiang.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
